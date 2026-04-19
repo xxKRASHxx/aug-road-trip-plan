@@ -1,0 +1,24 @@
+@if (loading()) {
+  <div class="state">
+    <div class="spinner"></div>
+    <p>Loading route…</p>
+  </div>
+} @else if (error(); as err) {
+  <div class="state error">
+    <h2>Failed to load route</h2>
+    <p>{{ err }}</p>
+  </div>
+} @else if (route(); as r) {
+  <div class="layout">
+    <aside class="sidebar">
+      <app-day-panel
+        [route]="r"
+        [selected]="selectedDay()"
+        (selectedChange)="onSelectionChange($event)"
+      />
+    </aside>
+    <main class="map-host">
+      <app-map [route]="r" [selectedDay]="selectedDay()" />
+    </main>
+  </div>
+}

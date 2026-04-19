@@ -1,0 +1,60 @@
+@import 'leaflet/dist/leaflet.css';
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: #09090b;
+  color: #fafafa;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+button { font-family: inherit; }
+
+.leaflet-popup-content-wrapper {
+  background: #18181b;
+  color: #fafafa;
+  border-radius: 8px;
+  padding: 2px;
+}
+.leaflet-popup-tip { background: #18181b; }
+.leaflet-popup-content {
+  margin: 10px 14px;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+}
+.wp-popup {
+  .wp-day {
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .wp-label {
+    color: #fafafa;
+    font-weight: 500;
+  }
+}
+
+.leaflet-tooltip {
+  background: #18181b;
+  color: #fafafa;
+  border: 1px solid #3f3f46;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  font-size: 0.75rem;
+}
+.leaflet-tooltip-top::before,
+.leaflet-tooltip-bottom::before,
+.leaflet-tooltip-left::before,
+.leaflet-tooltip-right::before { border-top-color: #18181b; }
+
+.leaflet-control-attribution {
+  background: rgba(24, 24, 27, 0.85) !important;
+  color: #a1a1aa !important;
+  a { color: #d4d4d8 !important; }
+}
