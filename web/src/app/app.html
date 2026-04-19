@@ -9,16 +9,33 @@
     <p>{{ err }}</p>
   </div>
 } @else if (route(); as r) {
-  <div class="layout">
+  <div class="layout" [style.grid-template-columns]="sidebarGridTemplate()">
     <aside class="sidebar">
       <app-day-panel
         [route]="r"
-        [selected]="selectedDay()"
-        (selectedChange)="onSelectionChange($event)"
+        [view]="view()"
+        [focusedWaypointId]="focusedWaypointId()"
+        (viewChange)="onViewChange($event)"
+        (focusWaypoint)="onFocusWaypoint($event)"
       />
     </aside>
+    <div
+      class="splitter"
+      [class.dragging]="dragging()"
+      role="separator"
+      aria-orientation="vertical"
+      aria-label="Resize planning panel (drag or double-click to cycle sizes)"
+      title="Drag to resize · double-click to cycle sizes"
+      (pointerdown)="onSplitterPointerDown($event)"
+      (dblclick)="onSplitterDblClick()"
+    ></div>
     <main class="map-host">
-      <app-map [route]="r" [selectedDay]="selectedDay()" />
+      <app-map
+        [route]="r"
+        [selectedDay]="mapSelectedDay()"
+        [focusedWaypointId]="focusedWaypointId()"
+        (waypointClicked)="onFocusWaypoint($event)"
+      />
     </main>
   </div>
 }

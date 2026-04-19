@@ -1,4 +1,4 @@
-# Alps Loop — Trip Overview
+# Alps family trip — Trip Overview
 
 **Route:** Klagenfurt → Hohe Tauern (Großglockner) → Kaprun → Innsbruck → Ötztal (Stuibenfall) → Cortina d'Ampezzo → Klagenfurt  
 **Duration:** 5 days, 4 nights  
@@ -23,11 +23,13 @@ Zirl  [Night 2]
 Umhausen  →  Stuibenfall Klettersteig
     ↓
 Ötztal valley  [Night 3]
-    ↓  Brenner A13 / A22
-Cortina d'Ampezzo  →  Lago Ghedina
+    ↓  Sölden → Timmelsjoch (2,509 m, toll) → Walten → Jaufenpass (2,094 m) → Sterzing → A22 → SS49/SR51
+Cortina d'Ampezzo
     ↓
 Cortina  [Night 4]
-    ↓  Cinque Torri chairlift  →  SS51 → A23 → A2
+    ↓  SR48 east
+Lago di Misurina  →  Tre Cime toll road  →  Rifugio Auronzo viewpoint
+    ↓  SR48 south → SS51 → A23 → A2
 Klagenfurt  (home)
 ```
 
@@ -40,8 +42,8 @@ Klagenfurt  (home)
 | 1 | Klagenfurt → Kaprun | ~4h 04min + 45 min lake stop | Großglockner road + **Fuscher Lacke** (2,262 m) | **Kaprun** |
 | 2 | Kaprun → Zirl | ~2h 32min | **Nordkette** cable car + Innsbruck old town | **Zirl** |
 | 3 | Zirl → Ötztal | ~1h 03min | **Stuibenfall Klettersteig** (B/C via ferrata, full day) | **Umhausen / Längenfeld** |
-| 4 | Ötztal → Cortina | ~3h 20min | **Lago Ghedina** easy lake walk | **Cortina d'Ampezzo** |
-| 5 | Cortina → Klagenfurt | ~3h 18min | **Cinque Torri** chairlift + plateau loop | — home — |
+| 4 | Ötztal → Cortina (via Timmelsjoch + Jaufenpass) | ~3h 25min + pass stops | **Timmelsjoch (2,509 m)** + **Jaufenpass (2,094 m)** scenic-drive day | **Cortina d'Ampezzo** |
+| 5 | Cortina → Klagenfurt | ~3h 18min home leg | **Lago di Misurina** + **Tre Cime** viewpoint (Rifugio Auronzo) | — home — |
 
 > **OSRM times are idealized** (no traffic). Add 20–40 min for summer traffic on Brenner A22 and around Innsbruck. Leave all buffers on the generous side.
 
@@ -67,9 +69,13 @@ Klagenfurt  (home)
 | Bruck an der Großglocknerstraße → Kaprun | ~17 min | 12 km |
 | Kaprun → Innsbruck (Hungerburg area) | ~2h 32min | 150 km |
 | Innsbruck → Zirl | ~18 min | 15.5 km |
-| Zirl → Umhausen | ~1h 03min | 56 km |
-| Umhausen → Cortina d'Ampezzo / Cinque Torri | ~3h 20min | 210 km |
-| Cinque Torri → Klagenfurt | ~3h 18min | 233 km |
+| Zirl → Umhausen | ~42 min | 53 km |
+| Längenfeld → Sölden → Timmelsjoch | ~36 min | 37 km |
+| Timmelsjoch → Walten → Jaufenpass → Sterzing | ~65 min | 69 km |
+| Sterzing → Cortina (A22 + SS49 + SR51) | ~1h 44min | 111 km |
+| Cortina → Lago di Misurina | ~25 min | 17 km |
+| Misurina → Rifugio Auronzo (Tre Cime toll road) | ~15 min | 7 km |
+| Rifugio Auronzo → Klagenfurt (via Auronzo → Tarvisio → A2) | ~3h 18min | 233 km |
 
 ---
 
@@ -81,8 +87,10 @@ Klagenfurt  (home)
 | Nordkette funicular + gondola return (Day 2) | ~€40–45 / person |
 | Stuibenfall gear rental (Day 3) | ~€20–30 / person |
 | Stuibenfall guide (Day 3, recommended) | ~€60–120 / person (group rate varies) |
-| Brenner A13 + A22 motorway tolls (Day 4) | ~€15–20 total |
-| Cinque Torri chairlift return (Day 5) | ~€15 / person |
+| Timmelsjoch toll (Day 4) | ~€22 / car |
+| A22 Sterzing → Brixen (Day 4) | ~€3–5 / car |
+| Tre Cime di Lavaredo toll road (Day 5) | ~€30 / car round trip |
+| Lago di Misurina parking (Day 5) | ~€3 / hr |
 | A23 + A2 return tolls (Day 5) | ~€10–15 total |
 
 ---

@@ -39,6 +39,26 @@ button { font-family: inherit; }
     color: #fafafa;
     font-weight: 500;
   }
+  .wp-coords {
+    margin-top: 4px;
+    font-size: 0.6875rem;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    color: #a1a1aa;
+  }
+  .wp-links {
+    margin-top: 8px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+
+    a {
+      font-size: 0.75rem;
+      color: #93c5fd;
+      text-decoration: none;
+
+      &:hover { color: #dbeafe; }
+    }
+  }
 }
 
 .leaflet-tooltip {

@@ -7,25 +7,75 @@
 
 .layout {
   display: grid;
-  grid-template-columns: 380px 1fr;
+  /* Column template is set inline from the component so the user can drag-resize. */
+  grid-template-columns: 380px 6px 1fr;
+  grid-template-rows: 100%;
   width: 100%;
   height: 100%;
 
   @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr;
+    /* On narrow screens, collapse to a stacked layout with no splitter. */
+    grid-template-columns: 1fr !important;
+    grid-template-rows: minmax(0, 45%) minmax(0, 55%);
   }
 }
 
 .sidebar {
   min-width: 0;
+  min-height: 0;
   height: 100%;
-  border-right: 1px solid #27272a;
+  overflow: hidden;
 
   @media (max-width: 768px) {
-    max-height: 40vh;
-    border-right: none;
     border-bottom: 1px solid #27272a;
+  }
+}
+
+.splitter {
+  position: relative;
+  height: 100%;
+  background: #27272a;
+  cursor: col-resize;
+  user-select: none;
+  transition: background 0.15s ease;
+
+  /* Extend the hit area ±4px beyond the visible bar so the grab zone is comfortable. */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -4px;
+    right: -4px;
+  }
+
+  /* Small grip indicator in the middle */
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 2px;
+    height: 32px;
+    border-radius: 1px;
+    background: #52525b;
+    box-shadow: 4px 0 0 #52525b, -4px 0 0 #52525b;
+    pointer-events: none;
+    transition: background 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  &:hover,
+  &.dragging {
+    background: #3f3f46;
+    &::after {
+      background: #a1a1aa;
+      box-shadow: 4px 0 0 #a1a1aa, -4px 0 0 #a1a1aa;
+    }
+  }
+
+  @media (max-width: 768px) {
+    display: none;
   }
 }
 

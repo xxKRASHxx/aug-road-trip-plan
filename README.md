@@ -1,6 +1,6 @@
 # aug-road-trip-plan
 
-5-day Alps loop: **Klagenfurt → Hohe Tauern → Kaprun → Innsbruck/Nordkette → Stuibenfall Klettersteig → Dolomites (Cortina) → Klagenfurt**.
+5-day Alps family trip: **Klagenfurt → Hohe Tauern → Kaprun → Innsbruck/Nordkette → Stuibenfall Klettersteig → Dolomites (Cortina) → Klagenfurt**.
 
 Two deliverables live in this repo:
 

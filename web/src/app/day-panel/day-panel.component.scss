@@ -10,6 +10,7 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+  min-height: 0;
   background: #18181b;
   overflow: hidden;
 }
@@ -17,6 +18,7 @@
 .header {
   padding: 20px 24px 16px;
   border-bottom: 1px solid #27272a;
+  flex-shrink: 0;
 
   h1 {
     margin: 0;
@@ -58,9 +60,7 @@
     white-space: nowrap;
     transition: all 0.15s ease;
 
-    &:hover {
-      background: #3f3f46;
-    }
+    &:hover { background: #3f3f46; }
 
     &.active {
       background: #09090b;
@@ -78,8 +78,10 @@
 }
 
 .content {
-  flex: 1;
+  flex: 1 1 auto;
+  min-height: 0;
   overflow-y: auto;
+  overflow-x: hidden;
   padding: 20px 24px;
 
   h2 {
@@ -89,9 +91,16 @@
   }
 
   .day-heading {
-    margin: 0 0 12px;
+    margin: 0 0 2px;
     font-size: 1rem;
     color: #d4d4d8;
+  }
+
+  .day-theme {
+    margin: 0 0 12px;
+    font-size: 0.8125rem;
+    color: #a1a1aa;
+    font-style: italic;
   }
 
   .stats {
@@ -99,22 +108,117 @@
     font-size: 0.875rem;
     color: #a1a1aa;
 
-    strong {
-      color: #fafafa;
-      font-weight: 600;
+    strong { color: #fafafa; font-weight: 600; }
+    code {
+      background: #27272a;
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      color: #fbbf24;
     }
   }
 
-  .note {
-    margin-top: 20px;
-    padding: 12px 14px;
-    background: #27272a;
-    border-radius: 8px;
-    font-size: 0.75rem;
+  .empty {
+    margin: 0;
+    padding: 10px 12px;
+    font-size: 0.8125rem;
     color: #a1a1aa;
-    line-height: 1.5;
+    background: #27272a;
+    border-radius: 6px;
   }
 }
+
+/* ======================= Stat grid (overview + day header) ======================= */
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 4px 0 20px;
+
+  .stat {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    grid-template-areas:
+      "icon label"
+      "icon value"
+      "icon aux";
+    column-gap: 8px;
+    padding: 10px 12px;
+    background: #27272a;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    min-width: 0;
+
+    &.total {
+      border-color: var(--accent, #3f3f46);
+    }
+
+    .stat-icon {
+      grid-area: icon;
+      align-self: center;
+      font-size: 1.125rem;
+    }
+    .stat-label {
+      grid-area: label;
+      font-size: 0.6875rem;
+      color: #a1a1aa;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      line-height: 1;
+    }
+    .stat-value {
+      grid-area: value;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: #fafafa;
+      line-height: 1.2;
+      margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .stat-aux {
+      grid-area: aux;
+      font-size: 0.6875rem;
+      color: #71717a;
+      line-height: 1;
+      margin-top: 3px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
+/* ======================= Duration badge ======================= */
+
+.duration-badge {
+  margin-left: auto;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  background: #18181b;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: #fbbf24;
+  white-space: nowrap;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  flex-shrink: 0;
+}
+
+.section-heading {
+  margin: 24px 0 10px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #a1a1aa;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+
+  &:first-of-type { margin-top: 8px; }
+}
+
+/* ======================= Overview day list ======================= */
 
 .day-list {
   list-style: none;
@@ -134,9 +238,7 @@
     cursor: pointer;
     transition: background 0.15s ease;
 
-    &:hover {
-      background: #3f3f46;
-    }
+    &:hover { background: #3f3f46; }
 
     .day-chip {
       display: inline-flex;
@@ -150,11 +252,7 @@
       flex-shrink: 0;
     }
 
-    .day-meta {
-      flex: 1;
-      min-width: 0;
-    }
-
+    .day-meta { flex: 1; min-width: 0; }
     .day-title {
       font-size: 0.875rem;
       font-weight: 500;
@@ -163,72 +261,418 @@
       text-overflow: ellipsis;
       white-space: nowrap;
     }
-
     .day-sub {
       font-size: 0.75rem;
       color: #a1a1aa;
       margin-top: 2px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 }
 
-.waypoints {
+/* ======================= Overnights page ======================= */
+
+.overnight-list {
   list-style: none;
   margin: 0;
   padding: 0;
-  counter-reset: wp;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 8px;
+    background: #27272a;
+    cursor: pointer;
+    transition: background 0.15s ease;
+
+    &:hover { background: #3f3f46; }
+
+    &.final {
+      cursor: default;
+      background: #1f1f22;
+      &:hover { background: #1f1f22; }
+    }
+  }
+
+  .night-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #18181b;
+    flex-shrink: 0;
+
+    &.home { background: #3f3f46; color: #fafafa; }
+  }
+
+  .night-meta { flex: 1; min-width: 0; }
+
+  .night-town {
+    font-size: 0.9375rem;
+    color: #fafafa;
+    font-weight: 600;
+  }
+
+  .night-prop {
+    font-size: 0.8125rem;
+    color: #fbbf24;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    margin-top: 4px;
+  }
+
+  .night-note {
+    margin-top: 6px;
+    font-size: 0.75rem;
+    color: #a1a1aa;
+    line-height: 1.5;
+  }
+
+  .night-link {
+    display: inline-block;
+    margin-top: 8px;
+    font-size: 0.75rem;
+    color: #93c5fd;
+    text-decoration: none;
+
+    &:hover { color: #dbeafe; }
+  }
+}
+
+/* ======================= Route section ======================= */
+
+.route {
+  list-style: none;
+  margin: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
   gap: 2px;
+
+  .route-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 10px;
+    border-radius: 6px;
+
+    &.has-ref {
+      cursor: pointer;
+      transition: background 0.15s ease;
+      &:hover { background: #27272a; }
+    }
+    &.focused {
+      background: #3f3f46;
+      outline: 1px solid #60a5fa;
+    }
+  }
+
+  .route-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    color: #18181b;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .route-body { flex: 1; min-width: 0; }
+
+  .route-head {
+    display: flex;
+    gap: 8px;
+    align-items: baseline;
+  }
+
+  .route-icon { flex-shrink: 0; }
+  .route-label {
+    font-size: 0.875rem;
+    color: #fafafa;
+    font-weight: 500;
+  }
+
+  .route-leg {
+    margin-top: 4px;
+    padding-left: 4px;
+    font-size: 0.75rem;
+    color: #a1a1aa;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+
+    em {
+      font-style: italic;
+      color: #71717a;
+      font-family: inherit;
+    }
+  }
+}
+
+/* ======================= Cards / Activities / Overnight ======================= */
+
+.activities {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.card {
+  background: #27272a;
+  border-radius: 8px;
+  padding: 14px 16px;
+
+  &.has-ref {
+    cursor: pointer;
+    transition: background 0.15s ease;
+    &:hover { background: #3f3f46; }
+  }
+  &.focused {
+    background: #3f3f46;
+    outline: 1px solid #60a5fa;
+  }
+
+  .card-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: #fafafa;
+    flex-wrap: wrap;
+
+    .card-name {
+      min-width: 0;
+      flex: 1 1 auto;
+    }
+  }
+
+  .card-icon { font-size: 1rem; flex-shrink: 0; }
+
+  .card-summary {
+    margin: 8px 0 0;
+    font-size: 0.8125rem;
+    color: #d4d4d8;
+    line-height: 1.5;
+  }
+
+  .card-details {
+    margin: 10px 0 0;
+    padding-left: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    li {
+      font-size: 0.8125rem;
+      color: #d4d4d8;
+      line-height: 1.5;
+    }
+  }
+}
+
+.activity {
+  .activity-kind {
+    margin-left: auto;
+    padding: 2px 8px;
+    border-radius: 9999px;
+    background: #18181b;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    color: #a1a1aa;
+    text-transform: lowercase;
+    letter-spacing: 0.02em;
+  }
+}
+
+.overnight {
+  .overnight-prop {
+    margin-top: 8px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.8125rem;
+    color: #fbbf24;
+  }
+
+  .overnight-link {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 0.8125rem;
+    color: #93c5fd;
+    text-decoration: none;
+
+    &:hover { color: #dbeafe; }
+  }
+}
+
+/* ======================= Significant stops ======================= */
+
+.stops {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  .stop-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 6px;
+    background: #27272a;
+
+    &.has-ref {
+      cursor: pointer;
+      transition: background 0.15s ease;
+      &:hover { background: #3f3f46; }
+    }
+    &.focused {
+      background: #3f3f46;
+      outline: 1px solid #60a5fa;
+    }
+
+    .stop-icon { flex-shrink: 0; margin-top: 1px; }
+    .stop-body { flex: 1; min-width: 0; }
+    .stop-head {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+    .stop-name {
+      font-size: 0.875rem;
+      color: #fafafa;
+      font-weight: 500;
+    }
+    .stop-note {
+      margin-top: 2px;
+      font-size: 0.75rem;
+      color: #a1a1aa;
+      line-height: 1.5;
+    }
+  }
+}
+
+/* ======================= Timeline (collapsed) ======================= */
+
+.timeline-wrap {
+  margin-top: 20px;
+  background: transparent;
+
+  summary {
+    cursor: pointer;
+    list-style: none;
+    padding: 10px 14px;
+    background: #27272a;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #a1a1aa;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    user-select: none;
+
+    &::-webkit-details-marker { display: none; }
+    &::before {
+      content: '▸';
+      display: inline-block;
+      margin-right: 8px;
+      transition: transform 0.15s ease;
+      color: #71717a;
+    }
+  }
+
+  &[open] summary::before { transform: rotate(90deg); }
+}
+
+.timeline {
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
   position: relative;
 
   &::before {
     content: '';
     position: absolute;
-    left: 15px;
-    top: 18px;
-    bottom: 18px;
+    left: 13px;
+    top: 14px;
+    bottom: 14px;
     width: 2px;
     background: #3f3f46;
   }
 
-  .wp {
+  .tl-item {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 12px;
-    padding: 10px 12px;
+    padding: 8px 10px 8px 2px;
     border-radius: 6px;
-    position: relative;
 
-    .wp-icon {
-      width: 28px;
-      height: 28px;
+    &.has-ref {
+      cursor: pointer;
+      transition: background 0.15s ease;
+      &:hover { background: #27272a; }
+    }
+    &.focused {
+      background: #3f3f46;
+      outline: 1px solid #60a5fa;
+    }
+
+    .tl-dot {
+      width: 12px;
+      height: 12px;
       border-radius: 50%;
-      background: #27272a;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.875rem;
       flex-shrink: 0;
-      position: relative;
+      margin-top: 6px;
+      margin-left: 8px;
       z-index: 1;
       border: 2px solid #18181b;
+      box-sizing: content-box;
     }
 
-    .wp-label {
-      flex: 1;
+    .tl-body { flex: 1; min-width: 0; }
+
+    .tl-head {
+      display: flex;
+      gap: 10px;
+      align-items: baseline;
+      flex-wrap: wrap;
+    }
+
+    .tl-time {
+      font-size: 0.75rem;
+      color: #a1a1aa;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      flex-shrink: 0;
+      min-width: 54px;
+    }
+    .tl-event {
       font-size: 0.875rem;
       color: #fafafa;
+      font-weight: 500;
     }
-
-    .wp-type {
-      font-size: 0.6875rem;
-      color: #71717a;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
+    .tl-notes {
+      margin-top: 4px;
+      font-size: 0.75rem;
+      color: #a1a1aa;
+      line-height: 1.5;
     }
   }
 }
+
+/* ======================= Footer ======================= */
 
 .footer {
   padding: 12px 24px;
@@ -236,6 +680,7 @@
   text-align: center;
   color: #71717a;
   font-size: 0.6875rem;
+  flex-shrink: 0;
 
   a {
     color: #a1a1aa;

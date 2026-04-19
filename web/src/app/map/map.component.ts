@@ -2,19 +2,17 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
-  computed,
   effect,
   ElementRef,
-  inject,
   input,
   OnDestroy,
+  output,
   ViewChild,
 } from '@angular/core';
 import * as L from 'leaflet';
-import { Day, RouteData, WaypointType } from '../route.types';
+import { Day, RouteData, Waypoint, WaypointType } from '../route.types';
 
 // Fix Leaflet default icon pathing when bundled
-// (default marker icons reference relative paths that break in bundlers)
 type DefaultIconProto = L.Icon.Default & { _getIconUrl?: unknown };
 delete (L.Icon.Default.prototype as DefaultIconProto)._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -30,6 +28,12 @@ const TYPE_EMOJI: Record<WaypointType, string> = {
   activity: '⭐',
   overnight: '🛏',
 };
+
+interface MarkerEntry {
+  day: Day;
+  waypoint: Waypoint;
+  marker: L.CircleMarker;
+}
 
 @Component({
   selector: 'app-map',
@@ -48,15 +52,25 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   readonly route = input.required<RouteData>();
   /** 0 = overview (all days), 1..5 = focus that day */
   readonly selectedDay = input<number>(0);
+  /** Waypoint id that should be centered and popped open. */
+  readonly focusedWaypointId = input<string | null>(null);
+
+  readonly waypointClicked = output<string>();
 
   private map?: L.Map;
-  private layers = new Map<number, L.LayerGroup>();
+  private dayLayers = new Map<number, L.LayerGroup>();
+  private markerIndex = new Map<string, MarkerEntry>();
   private allBounds?: L.LatLngBounds;
+  private resizeObserver?: ResizeObserver;
 
   constructor() {
     effect(() => {
       const sel = this.selectedDay();
       if (this.map) this.applySelection(sel);
+    });
+    effect(() => {
+      const id = this.focusedWaypointId();
+      if (this.map && id) this.focusMarker(id);
     });
   }
 
@@ -73,10 +87,27 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
     this.map = map;
     this.buildLayers();
-    this.applySelection(this.selectedDay());
+
+    // Leaflet measures its container size on init; if the container hasn't been
+    // laid out yet (common when the map mounts inside a grid/flex shell after an
+    // async data load), the initial measurement is wrong and fitBounds zooms to
+    // the wrong level. Defer + invalidate before fitting.
+    requestAnimationFrame(() => {
+      map.invalidateSize();
+      this.applySelection(this.selectedDay());
+      const initialFocus = this.focusedWaypointId();
+      if (initialFocus) this.focusMarker(initialFocus);
+    });
+
+    // Keep the map sized correctly when the sidebar layout changes.
+    if (typeof ResizeObserver !== 'undefined') {
+      this.resizeObserver = new ResizeObserver(() => map.invalidateSize());
+      this.resizeObserver.observe(this.mapEl.nativeElement);
+    }
   }
 
   ngOnDestroy(): void {
+    this.resizeObserver?.disconnect();
     this.map?.remove();
   }
 
@@ -91,13 +122,12 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       for (const leg of day.legs) {
         const latlngs = leg.geometry.coordinates.map(([lon, lat]) => L.latLng(lat, lon));
         allLatLngs.push(...latlngs);
-        const poly = L.polyline(latlngs, {
+        L.polyline(latlngs, {
           color: day.color,
           weight: 4,
           opacity: 0.85,
           dashArray: leg.manual ? '8 8' : undefined,
-        });
-        poly.addTo(group);
+        }).addTo(group);
       }
 
       for (const wp of day.waypoints) {
@@ -110,50 +140,100 @@ export class MapComponent implements AfterViewInit, OnDestroy {
           fillColor: day.color,
           fillOpacity: 0.95,
         });
-        marker.bindPopup(this.popupHtml(day, wp.label, wp.type));
+        marker.bindPopup(this.popupHtml(day, wp));
         marker.bindTooltip(`${TYPE_EMOJI[wp.type]} ${wp.label}`, { direction: 'top' });
+        marker.on('click', () => this.waypointClicked.emit(wp.id));
         marker.addTo(group);
+        this.markerIndex.set(wp.id, { day, waypoint: wp, marker });
       }
 
-      this.layers.set(day.day, group);
+      this.dayLayers.set(day.day, group);
     }
 
     this.allBounds = L.latLngBounds(allLatLngs);
   }
 
-  private popupHtml(day: Day, label: string, type: WaypointType): string {
+  /**
+   * Turn a waypoint label into a clean place name suitable for a maps search query.
+   * Strips trip-context annotations like "(start)", "(overnight)" and collapses whitespace.
+   */
+  private searchName(label: string): string {
+    return label
+      .replace(/\s*\((?:start|overnight|home)\)\s*/gi, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  private popupHtml(day: Day, wp: Waypoint): string {
+    const [lat, lon] = wp.coords;
+    const name = this.searchName(wp.label);
+    const encName = encodeURIComponent(name);
+    // Google resolves named places well; append coords so obscure names still land on the right spot.
+    const gmaps = `https://www.google.com/maps/search/?api=1&query=${encName}%20${lat},${lon}`;
+    // Apple Maps: `q` labels the pin with the place name, `ll` pins it at the exact coords.
+    const amaps = `https://maps.apple.com/?q=${encName}&ll=${lat},${lon}`;
     return `
       <div class="wp-popup">
-        <div class="wp-day" style="color:${day.color}">Day ${day.day} · ${day.title}</div>
-        <div class="wp-label">${TYPE_EMOJI[type]} ${label}</div>
+        <div class="wp-day" style="color:${day.color}">Day ${day.day} · ${this.escapeHtml(day.title)}</div>
+        <div class="wp-label">${TYPE_EMOJI[wp.type]} ${this.escapeHtml(wp.label)}</div>
+        <div class="wp-coords">${lat.toFixed(4)}, ${lon.toFixed(4)}</div>
+        <div class="wp-links">
+          <a href="${gmaps}" target="_blank" rel="noopener">Google Maps ↗</a>
+          <a href="${amaps}" target="_blank" rel="noopener">Apple Maps ↗</a>
+        </div>
       </div>
     `;
   }
 
+  private escapeHtml(s: string): string {
+    return s
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
   private applySelection(selected: number): void {
     if (!this.map) return;
+    const map = this.map;
 
-    // Remove all, re-add relevant
-    for (const [, group] of this.layers) this.map.removeLayer(group);
+    for (const [, group] of this.dayLayers) map.removeLayer(group);
+
+    // Re-measure before fitting — guards against stale layout after tab switch.
+    map.invalidateSize();
 
     if (selected === 0) {
-      for (const [, group] of this.layers) group.addTo(this.map);
-      if (this.allBounds) this.map.fitBounds(this.allBounds, { padding: [32, 32] });
-    } else {
-      const group = this.layers.get(selected);
-      if (group) {
-        group.addTo(this.map);
-        const data = this.route();
-        const day = data.days.find(d => d.day === selected);
-        if (day) {
-          const pts: L.LatLng[] = [];
-          for (const leg of day.legs) {
-            for (const [lon, lat] of leg.geometry.coordinates) pts.push(L.latLng(lat, lon));
-          }
-          for (const wp of day.waypoints) pts.push(L.latLng(wp.coords[0], wp.coords[1]));
-          if (pts.length) this.map.fitBounds(L.latLngBounds(pts), { padding: [40, 40] });
-        }
-      }
+      for (const [, group] of this.dayLayers) group.addTo(map);
+      if (this.allBounds) map.fitBounds(this.allBounds, { padding: [32, 32] });
+      return;
     }
+
+    const group = this.dayLayers.get(selected);
+    if (!group) return;
+    group.addTo(map);
+
+    const day = this.route().days.find(d => d.day === selected);
+    if (!day) return;
+
+    const pts: L.LatLng[] = [];
+    for (const leg of day.legs) {
+      for (const [lon, lat] of leg.geometry.coordinates) pts.push(L.latLng(lat, lon));
+    }
+    for (const wp of day.waypoints) pts.push(L.latLng(wp.coords[0], wp.coords[1]));
+    if (pts.length) map.fitBounds(L.latLngBounds(pts), { padding: [40, 40] });
+  }
+
+  private focusMarker(id: string): void {
+    const entry = this.markerIndex.get(id);
+    if (!this.map || !entry) return;
+
+    // Make sure the day layer is visible
+    const group = this.dayLayers.get(entry.day.day);
+    if (group && !this.map.hasLayer(group)) group.addTo(this.map);
+
+    const [lat, lon] = entry.waypoint.coords;
+    this.map.setView([lat, lon], Math.max(this.map.getZoom(), 11), { animate: true });
+    entry.marker.openPopup();
   }
 }

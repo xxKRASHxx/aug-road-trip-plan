@@ -1,15 +1,15 @@
 <div class="panel">
   <header class="header">
-    <h1>Alps Loop</h1>
+    <h1>Alps Ttrip</h1>
     <p class="subtitle">5 days · Klagenfurt → Dolomites → Klagenfurt</p>
   </header>
 
-  <nav class="tabs" aria-label="Day selector">
+  <nav class="tabs" aria-label="Section selector">
     <button
       type="button"
       class="tab"
-      [class.active]="selected() === 0"
-      (click)="select(0)"
+      [class.active]="view() === 'overview'"
+      (click)="setView('overview')"
     >
       Overview
     </button>
@@ -17,66 +17,298 @@
       <button
         type="button"
         class="tab"
-        [class.active]="selected() === d.day"
+        [class.active]="isDayTab(view(), d.day)"
         [style.--accent]="d.color"
-        (click)="select(d.day)"
+        (click)="setView(d.day)"
       >
         <span class="tab-dot" [style.background]="d.color"></span>
         Day {{ d.day }}
       </button>
     }
+    <button
+      type="button"
+      class="tab"
+      [class.active]="view() === 'overnights'"
+      (click)="setView('overnights')"
+    >
+      🛏 Overnights
+    </button>
   </nav>
 
-  @if (selected() === 0) {
-    <section class="content">
-      <h2>All days</h2>
-      <p class="stats">
-        Total driving: <strong>{{ fmtMins(overviewStats().totalMin) }}</strong> ·
-        <strong>{{ overviewStats().totalKm }} km</strong>
-      </p>
-      <ul class="day-list">
-        @for (d of route().days; track d.day) {
-          <li class="day-item" (click)="select(d.day)">
-            <span class="day-chip" [style.background]="d.color">Day {{ d.day }}</span>
-            <div class="day-meta">
-              <div class="day-title">{{ d.title }}</div>
-              @if (d.overnight) {
-                <div class="day-sub">🛏 {{ d.overnight }}</div>
-              } @else {
-                <div class="day-sub">🏠 Home</div>
-              }
+  @switch (view()) {
+
+    <!-- ============================ OVERVIEW ============================ -->
+    @case ('overview') {
+      <section class="content">
+        <h2>All days</h2>
+        <div class="stat-grid">
+          <div class="stat">
+            <span class="stat-icon">🚗</span>
+            <span class="stat-label">Driving</span>
+            <span class="stat-value">{{ fmtMins(overviewStats().driveMin) }}</span>
+            <span class="stat-aux">{{ overviewStats().totalKm }} km</span>
+          </div>
+          <div class="stat">
+            <span class="stat-icon">⭐</span>
+            <span class="stat-label">Activities</span>
+            <span class="stat-value">{{ fmtMins(overviewStats().activityMin) }}</span>
+            <span class="stat-aux">on foot / lifts / stops</span>
+          </div>
+          <div class="stat total">
+            <span class="stat-icon">⏱</span>
+            <span class="stat-label">Total time</span>
+            <span class="stat-value">{{ fmtMins(overviewStats().driveMin + overviewStats().activityMin) }}</span>
+            <span class="stat-aux">across 5 days</span>
+          </div>
+        </div>
+
+        <ul class="day-list">
+          @for (d of route().days; track d.day) {
+            <li class="day-item" (click)="setView(d.day)">
+              <span class="day-chip" [style.background]="d.color">Day {{ d.day }}</span>
+              <div class="day-meta">
+                <div class="day-title">{{ d.title }}</div>
+                <div class="day-sub day-times">
+                  🚗 {{ fmtMins(driveMinutesFor(d)) }}
+                  · ⭐ {{ fmtMins(activityMinutesFor(d)) }}
+                </div>
+                @if (d.activities.length > 0) {
+                  <div class="day-sub">{{ d.activities[0].name }}@if (d.activities.length > 1) { + {{ d.activities.length - 1 }} more }</div>
+                }
+                @if (d.overnight; as o) {
+                  <div class="day-sub">🛏 {{ o.town }}</div>
+                } @else {
+                  <div class="day-sub">🏠 Home</div>
+                }
+              </div>
+            </li>
+          }
+        </ul>
+      </section>
+    }
+
+    <!-- ============================ OVERNIGHTS ============================ -->
+    @case ('overnights') {
+      <section class="content">
+        <h2>Overnight placeholders</h2>
+        <p class="stats">Fill in <code>[ BOOK: TBD ]</code> once accommodation is confirmed.</p>
+
+        <ul class="overnight-list">
+          @for (d of route().days; track d.day) {
+            @if (d.overnight; as o) {
+              <li (click)="setView(d.day)">
+                <span class="night-num" [style.background]="d.color">N{{ d.day }}</span>
+                <div class="night-meta">
+                  <div class="night-town">🛏 {{ o.town }}</div>
+                  <div class="night-prop">{{ o.property ?? '[ BOOK: TBD ]' }}</div>
+                  <div class="night-note">{{ o.note }}</div>
+                  @if (o.bookingUrl) {
+                    <a
+                      class="night-link"
+                      [href]="o.bookingUrl"
+                      target="_blank"
+                      rel="noopener"
+                      (click)="$event.stopPropagation()"
+                    >Search on Booking.com ↗</a>
+                  }
+                </div>
+              </li>
+            }
+          }
+          <li class="final">
+            <span class="night-num home">🏠</span>
+            <div class="night-meta">
+              <div class="night-town">Day 5 — Home</div>
+              <div class="night-note">No overnight; return to Klagenfurt.</div>
             </div>
           </li>
-        }
-      </ul>
-      <p class="note">
-        Solid lines are routed roads (OSRM, OpenStreetMap). Dashed lines are manual
-        segments that OSRM cannot route &mdash; Großglockner High Alpine Road (toll,
-        private) and Nordkette / Cinque Torri cable-car sections.
-      </p>
-    </section>
-  } @else if (activeDay(); as day) {
-    <section class="content">
-      <h2 [style.color]="day.color">Day {{ day.day }}</h2>
-      <p class="day-heading">{{ day.title }}</p>
-      @if (activeDayStats(); as s) {
-        <p class="stats">
-          Driving: <strong>{{ fmtMins(s.mins) }}</strong> · <strong>{{ s.km }} km</strong>
-          @if (day.overnight) {
-            · 🛏 <strong>{{ day.overnight }}</strong>
+        </ul>
+      </section>
+    }
+
+    <!-- ============================ DAY VIEW ============================ -->
+    @default {
+      @if (activeDay(); as day) {
+        <section class="content">
+          <h2 [style.color]="day.color">Day {{ day.day }}</h2>
+          <p class="day-heading">{{ day.title }}</p>
+          @if (day.theme) {
+            <p class="day-theme">{{ day.theme }}</p>
           }
-        </p>
+          @if (activeDayStats(); as s) {
+            <p class="stats">{{ day.from }} → {{ day.to }}</p>
+            <div class="stat-grid">
+              <div class="stat">
+                <span class="stat-icon">🚗</span>
+                <span class="stat-label">Driving</span>
+                <span class="stat-value">{{ fmtMins(s.driveMin) }}</span>
+                <span class="stat-aux">{{ s.km }} km</span>
+              </div>
+              <div class="stat">
+                <span class="stat-icon">⭐</span>
+                <span class="stat-label">Activities</span>
+                <span class="stat-value">{{ fmtMins(s.activityMin) }}</span>
+                <span class="stat-aux">on foot / lifts / stops</span>
+              </div>
+              <div class="stat total" [style.--accent]="day.color">
+                <span class="stat-icon">⏱</span>
+                <span class="stat-label">Total</span>
+                <span class="stat-value">{{ fmtMins(s.driveMin + s.activityMin) }}</span>
+                <span class="stat-aux">day length</span>
+              </div>
+            </div>
+          }
+
+          <!-- ==== ROUTE ==== -->
+          <h3 class="section-heading">Route</h3>
+          <ol class="route">
+            @for (row of activeDayRouteRows(); track row.index) {
+              <li
+                class="route-item"
+                [class.has-ref]="!!row.waypoint.id"
+                [class.focused]="isFocused(row.waypoint.id)"
+                (click)="focus(row.waypoint.id)"
+              >
+                <span class="route-num" [style.background]="day.color">{{ row.index }}</span>
+                <div class="route-body">
+                  <div class="route-head">
+                    <span class="route-icon">{{ typeIcon(row.waypoint.type) }}</span>
+                    <span class="route-label">{{ row.waypoint.label }}</span>
+                  </div>
+                  @if (row.legAfter; as leg) {
+                    <div class="route-leg">
+                      ↓
+                      @if (fmtLeg(leg); as s) {
+                        {{ s }}
+                      }
+                      @if (leg.manual) {
+                        · <em>toll road / cable car</em>
+                      }
+                    </div>
+                  }
+                </div>
+              </li>
+            }
+          </ol>
+
+          <!-- ==== ACTIVITIES ==== -->
+          <h3 class="section-heading">Activities</h3>
+          @if (day.activities.length === 0) {
+            <p class="empty">No planned activities today.</p>
+          } @else {
+            <div class="activities">
+              @for (a of day.activities; track $index) {
+                <article
+                  class="card activity"
+                  [class.has-ref]="!!a.waypointRef"
+                  [class.focused]="isFocused(a.waypointRef)"
+                  (click)="focus(a.waypointRef)"
+                >
+                  <div class="card-title">
+                    <span class="card-icon">⭐</span>
+                    <span class="card-name">{{ a.name }}</span>
+                    <span class="activity-kind">{{ a.kind }}</span>
+                    <span class="duration-badge">⏱ {{ fmtMins(a.duration_min) }}</span>
+                  </div>
+                  <p class="card-summary">{{ a.summary }}</p>
+                  <ul class="card-details">
+                    @for (bullet of a.details; track $index) {
+                      <li>{{ bullet }}</li>
+                    }
+                  </ul>
+                </article>
+              }
+            </div>
+          }
+
+          <!-- ==== SIGNIFICANT STOPS ==== -->
+          <h3 class="section-heading">Significant stops / locations</h3>
+          @if (day.significantStops.length === 0) {
+            <p class="empty">No extra significant stops — route is direct.</p>
+          } @else {
+            <ul class="stops">
+              @for (s of day.significantStops; track $index) {
+                <li
+                  class="stop-item"
+                  [class.has-ref]="!!s.waypointRef"
+                  [class.focused]="isFocused(s.waypointRef)"
+                  (click)="focus(s.waypointRef)"
+                >
+                  <span class="stop-icon">👁</span>
+                  <div class="stop-body">
+                    <div class="stop-head">
+                      <span class="stop-name">{{ s.name }}</span>
+                      @if (s.duration_min && s.duration_min > 0) {
+                        <span class="duration-badge">⏱ {{ fmtMins(s.duration_min) }}</span>
+                      }
+                    </div>
+                    @if (s.note) {
+                      <div class="stop-note">{{ s.note }}</div>
+                    }
+                  </div>
+                </li>
+              }
+            </ul>
+          }
+
+          <!-- ==== OVERNIGHT ==== -->
+          <h3 class="section-heading">Overnight</h3>
+          @if (day.overnight; as o) {
+            <article class="card overnight">
+              <div class="card-title">
+                <span class="card-icon">🛏</span>
+                {{ o.town }}
+              </div>
+              <div class="overnight-prop">
+                {{ o.property ?? '[ BOOK: TBD ]' }}
+              </div>
+              <p class="card-summary">{{ o.note }}</p>
+              @if (o.bookingUrl) {
+                <a
+                  class="overnight-link"
+                  [href]="o.bookingUrl"
+                  target="_blank"
+                  rel="noopener"
+                >Search on Booking.com ↗</a>
+              }
+            </article>
+          } @else {
+            <article class="card overnight">
+              <div class="card-title">
+                <span class="card-icon">🏠</span>
+                Home — no overnight
+              </div>
+            </article>
+          }
+
+          <!-- ==== TIMELINE (collapsed) ==== -->
+          <details class="timeline-wrap">
+            <summary>Detailed timeline</summary>
+            <ol class="timeline">
+              @for (t of day.timeline; track $index) {
+                <li
+                  class="tl-item"
+                  [class.has-ref]="!!t.waypointRef"
+                  [class.focused]="isFocused(t.waypointRef)"
+                  (click)="focus(t.waypointRef)"
+                >
+                  <span class="tl-dot" [style.background]="day.color"></span>
+                  <div class="tl-body">
+                    <div class="tl-head">
+                      <span class="tl-time">{{ t.time }}</span>
+                      <span class="tl-event">{{ t.event }}</span>
+                    </div>
+                    @if (t.notes) {
+                      <div class="tl-notes">{{ t.notes }}</div>
+                    }
+                  </div>
+                </li>
+              }
+            </ol>
+          </details>
+        </section>
       }
-      <ol class="waypoints">
-        @for (wp of day.waypoints; track $index) {
-          <li class="wp">
-            <span class="wp-icon">{{ typeIcon(wp.type) }}</span>
-            <span class="wp-label">{{ wp.label }}</span>
-            <span class="wp-type">{{ wp.type }}</span>
-          </li>
-        }
-      </ol>
-    </section>
+    }
   }
 
   <footer class="footer">
