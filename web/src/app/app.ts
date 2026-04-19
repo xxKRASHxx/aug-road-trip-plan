@@ -2,6 +2,8 @@ import { ChangeDetectionStrategy, Component, computed, effect, inject, OnInit, s
 import { MapComponent } from './map/map.component';
 import { DayPanelComponent, PanelView } from './day-panel/day-panel.component';
 import { RouteService } from './route.service';
+import { Lang, LanguageService } from './language.service';
+import { UI, UIKey } from './i18n';
 
 const SIDEBAR_MIN = 320;
 const SIDEBAR_MAX = 900;
@@ -19,10 +21,12 @@ const LS_KEY = 'alps-trip.sidebar-width';
 })
 export class App implements OnInit {
   private routeSvc = inject(RouteService);
+  private langSvc = inject(LanguageService);
 
   readonly route = this.routeSvc.data;
   readonly loading = this.routeSvc.loading;
   readonly error = this.routeSvc.error;
+  readonly lang = this.langSvc.lang;
 
   readonly view = signal<PanelView>('overview');
   readonly focusedWaypointId = signal<string | null>(null);
@@ -46,6 +50,11 @@ export class App implements OnInit {
       this.view();
       this.focusedWaypointId.set(null);
     });
+    // Reactively (re)load the route whenever the language changes.
+    effect(() => {
+      const l = this.lang();
+      void this.routeSvc.load(l);
+    });
   }
 
   ngOnInit(): void {
@@ -58,7 +67,14 @@ export class App implements OnInit {
     } catch {
       // localStorage may be unavailable (private mode) — keep default
     }
-    void this.routeSvc.load();
+  }
+
+  setLang(l: Lang): void {
+    this.langSvc.set(l);
+  }
+
+  t(key: UIKey): string {
+    return UI[key][this.lang()];
   }
 
   onViewChange(v: PanelView): void {

@@ -1,5 +1,7 @@
-import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, input, output, signal } from '@angular/core';
 import { Day, RouteData, WaypointType } from '../route.types';
+import { Lang } from '../language.service';
+import { UI, UIKey } from '../i18n';
 
 const TYPE_EMOJI: Record<WaypointType, string> = {
   start: '🚗',
@@ -24,9 +26,39 @@ export class DayPanelComponent {
   readonly route = input.required<RouteData>();
   readonly view = input<PanelView>('overview');
   readonly focusedWaypointId = input<string | null>(null);
+  readonly lang = input<Lang>('en');
 
   readonly viewChange = output<PanelView>();
   readonly focusWaypoint = output<string>();
+  readonly langChange = output<Lang>();
+
+  /**
+   * Per-item selection key, unique across every clickable sidebar row.
+   * Several timeline / activity / stop rows can share the same `waypointRef`
+   * (same place, different events), so we highlight by item key rather than
+   * by waypoint id to avoid selecting multiple rows at once.
+   *
+   * Key formats:
+   *   wp-<waypointId>            route row for a waypoint
+   *   act-<dayNum>-<index>       activity card
+   *   stop-<dayNum>-<index>      significant stop
+   *   tl-<dayNum>-<index>        timeline entry
+   */
+  readonly focusedItemKey = signal<string | null>(null);
+
+  constructor() {
+    // Map → sidebar: when the outside world focuses a waypoint, mirror that
+    // as the route-row highlight (always 1:1, so unique).
+    effect(() => {
+      const wpId = this.focusedWaypointId();
+      this.focusedItemKey.set(wpId ? `wp-${wpId}` : null);
+    });
+    // View change clears any stale selection.
+    effect(() => {
+      this.view();
+      this.focusedItemKey.set(null);
+    });
+  }
 
   readonly activeDay = computed<Day | null>(() => {
     const v = this.view();
@@ -101,12 +133,22 @@ export class DayPanelComponent {
     this.viewChange.emit(v);
   }
 
-  focus(waypointId: string | undefined): void {
-    if (waypointId) this.focusWaypoint.emit(waypointId);
+  setLang(l: Lang): void {
+    if (l !== this.lang()) this.langChange.emit(l);
   }
 
-  isFocused(waypointId: string | undefined): boolean {
-    return !!waypointId && this.focusedWaypointId() === waypointId;
+  /**
+   * Select a sidebar item uniquely AND emit its map-waypoint reference.
+   * @param itemKey      unique-per-row key (see `focusedItemKey` doc)
+   * @param waypointRef  optional waypoint id to pan the map to
+   */
+  focusItem(itemKey: string, waypointRef: string | null | undefined): void {
+    this.focusedItemKey.set(itemKey);
+    if (waypointRef) this.focusWaypoint.emit(waypointRef);
+  }
+
+  isFocused(itemKey: string | null | undefined): boolean {
+    return !!itemKey && this.focusedItemKey() === itemKey;
   }
 
   isDayTab(v: PanelView, day: number): boolean {
@@ -117,19 +159,27 @@ export class DayPanelComponent {
     return TYPE_EMOJI[t];
   }
 
+  t(key: UIKey): string {
+    return UI[key][this.lang()];
+  }
+
   fmtMins(m: number): string {
+    const l = this.lang();
+    const unitMin = UI['unit.min'][l];
+    const unitHour = UI['unit.hour'][l];
     const h = Math.floor(m / 60);
     const mm = m % 60;
-    if (h === 0) return `${mm} min`;
-    return `${h}h ${mm.toString().padStart(2, '0')}min`;
+    if (h === 0) return `${mm} ${unitMin}`;
+    return `${h}${unitHour} ${mm.toString().padStart(2, '0')}${unitMin}`;
   }
 
   fmtLeg(leg: { duration_s: number | null; distance_m: number | null; manual?: boolean } | null): string | null {
     if (!leg) return null;
-    if (leg.manual) return 'not routable';
+    const l = this.lang();
+    if (leg.manual) return UI['unit.notRoutable'][l];
     const parts: string[] = [];
     if (leg.duration_s != null) parts.push(this.fmtMins(Math.round(leg.duration_s / 60)));
-    if (leg.distance_m != null) parts.push(`${(leg.distance_m / 1000).toFixed(1)} km`);
+    if (leg.distance_m != null) parts.push(`${(leg.distance_m / 1000).toFixed(1)} ${UI['unit.km'][l]}`);
     return parts.join(' · ');
   }
 }

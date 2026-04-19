@@ -1,22 +1,48 @@
 {
+  "overview": {
+    "summary": "Пятидневная петля из Клагенфурта через восточные Альпы: самая высокая перевальная дорога Австрии, день с канатной дорогой в Инсбруке на хребет Нордкетте (2 256 м), целый день виа-ферраты в Эцтале, два эффектных перевала в Южном Тироле и возвращение домой через озеро Мизурина и Тре-Чиме.",
+    "facts": [
+      {
+        "label": "Старт и финиш",
+        "value": "Клагенфурт"
+      },
+      {
+        "label": "Длительность",
+        "value": "5 дней · 4 ночи"
+      },
+      {
+        "label": "Сезон",
+        "value": "конец июня – начало сентября"
+      },
+      {
+        "label": "Ритм дня",
+        "value": "подъём в 09:00 · выезд в 10:00"
+      },
+      {
+        "label": "Стиль",
+        "value": "живописные дороги · по одной активности в день"
+      }
+    ],
+    "hint": "Нажмите на вкладку дня выше — или на метку на карте — чтобы увидеть маршрут дня, активности, достопримечательности и ночёвку."
+  },
   "days": [
     {
       "day": 1,
-      "title": "Klagenfurt → Großglockner → Kaprun",
-      "theme": "Austria's highest alpine pass road, iconic high-altitude lake",
+      "title": "Клагенфурт → Гросглокнер → Капрун",
+      "theme": "Самая высокая альпийская дорога Австрии и знаменитое высокогорное озеро",
       "color": "#e63946",
-      "from": "Klagenfurt",
-      "to": "Kaprun",
+      "from": "Клагенфурт",
+      "to": "Капрун",
       "overnight": {
-        "town": "Kaprun",
+        "town": "Капрун",
         "property": null,
-        "note": "6 km south of Zell am See, 20–40% cheaper, far less crowded. Has Kitzsteinhorn glacier cable car; Zell lakeshore 10 min by car.",
+        "note": "6 км к югу от Целль-ам-Зее, на 20–40% дешевле и заметно спокойнее. Своя канатная дорога на ледник Кицштайнхорн; набережная Целль — 10 минут на машине.",
         "bookingUrl": "https://www.booking.com/searchresults.html?ss=Kaprun"
       },
       "waypoints": [
         {
           "id": "d1-w0",
-          "label": "Klagenfurt (start)",
+          "label": "Клагенфурт (старт)",
           "coords": [
             46.6228,
             14.305
@@ -25,7 +51,7 @@
         },
         {
           "id": "d1-w1",
-          "label": "Heiligenblut — toll gate & church",
+          "label": "Хайлигенблут — пункт оплаты и церковь",
           "coords": [
             47.0401,
             12.8454
@@ -34,7 +60,7 @@
         },
         {
           "id": "d1-w2",
-          "label": "Hochtor (2,504 m)",
+          "label": "Хохтор (2 504 м)",
           "coords": [
             47.083,
             12.853
@@ -43,16 +69,17 @@
         },
         {
           "id": "d1-w3",
-          "label": "Fuscher Lacke (2,262 m)",
+          "label": "Фушер-Лаке (2 262 м)",
           "coords": [
             47.1185,
             12.8369
           ],
-          "type": "activity"
+          "type": "activity",
+          "appleMapsUrl": "https://maps.apple/p/aN0sfTsmvQwP8s"
         },
         {
           "id": "d1-w4",
-          "label": "Bruck a.d. Großglocknerstraße",
+          "label": "Брук-ан-дер-Гросглокнерштрассе",
           "coords": [
             47.2862,
             12.8218
@@ -61,7 +88,7 @@
         },
         {
           "id": "d1-w5",
-          "label": "Kaprun (overnight)",
+          "label": "Капрун (ночёвка)",
           "coords": [
             47.2724,
             12.7477
@@ -72,101 +99,172 @@
       "timeline": [
         {
           "time": "09:00",
-          "event": "Wake",
-          "notes": "Klagenfurt",
+          "event": "Подъём",
+          "notes": "Клагенфурт",
           "waypointRef": "d1-w0"
         },
         {
           "time": "10:00",
-          "event": "Depart",
-          "notes": "B100 → B106 Mölltal scenic — not A10",
+          "event": "Выезд",
+          "notes": "B100 → B106 живописно через Мёльталь (не A10)",
           "waypointRef": "d1-w0"
         },
         {
           "time": "~12:17",
-          "event": "Heiligenblut toll gate",
-          "notes": "10 min photo stop at the Gothic church viewpoint",
+          "event": "Пункт оплаты Хайлигенблут",
+          "notes": "10-минутная остановка у готической церкви для фото",
           "waypointRef": "d1-w1"
         },
         {
           "time": "~12:30",
-          "event": "Großglockner High Alpine Road",
-          "notes": "~€37–40 / car. Drive northbound.",
+          "event": "Гросглокнер Хохальпенштрассе",
+          "notes": "~€37–40 за авто. Едем на север.",
           "waypointRef": "d1-w1"
         },
         {
           "time": "~13:15",
-          "event": "Hochtor (2,504 m)",
-          "notes": "Highest point, short panorama stop",
+          "event": "Хохтор (2 504 м)",
+          "notes": "Высшая точка, короткая остановка на панораму",
           "waypointRef": "d1-w2"
         },
         {
           "time": "~13:45",
-          "event": "Fuscher Lacke",
-          "notes": "Park, ~30–45 min loop walk around the lake",
+          "event": "Фушер-Лаке",
+          "notes": "Парковка и прогулка вокруг озера ~30–45 мин",
           "waypointRef": "d1-w3"
         },
         {
           "time": "~14:30",
-          "event": "Continue north",
-          "notes": "Descend via Ferleiten",
+          "event": "Едем дальше на север",
+          "notes": "Спуск через Ферлайтен",
           "waypointRef": "d1-w3"
         },
         {
           "time": "~15:00",
-          "event": "Exit toll road at Bruck",
+          "event": "Выезд с платной дороги в Бруке",
           "notes": null,
           "waypointRef": "d1-w4"
         },
         {
           "time": "~15:17",
-          "event": "Arrive Kaprun",
-          "notes": "17 min from Bruck. Check in.",
+          "event": "Прибытие в Капрун",
+          "notes": "17 мин от Брука. Заселение.",
           "waypointRef": "d1-w5"
         },
         {
           "time": "Evening",
-          "event": "Settle in",
-          "notes": "Kaprun stroll or 10 min drive to Zell am See lakeshore",
+          "event": "Вечер",
+          "notes": "Прогулка по Капруну или 10 мин до набережной Целль-ам-Зее",
           "waypointRef": "d1-w5"
         }
       ],
       "activities": [
         {
-          "name": "Fuscher Lacke lake walk",
-          "kind": "walk",
+          "name": "Прогулка вокруг Фушер-Лаке",
+          "kind": "прогулка",
           "waypointRef": "d1-w3",
           "duration_min": 45,
-          "summary": "Small high-alpine lake at 2,262 m on the Großglockner High Alpine Road.",
+          "summary": "Небольшое высокогорное озеро на высоте 2 262 м на Гросглокнерской альпийской дороге.",
           "details": [
-            "Easy flat perimeter path — ~20 min loop, no elevation gain",
-            "Großglockner (3,798 m) and surrounding glaciers frame the lake; mirror reflections on clear mornings",
-            "Café and toilets at the parking",
-            "Crowds peak in early afternoon; post-lunch arrival (~13:45) often quietest",
-            "Trail shoes sufficient — gravel / grassed path"
+            "Лёгкая ровная тропа по периметру — круг ~20 мин, без набора высоты",
+            "Гросглокнер (3 798 м) и окружающие ледники обрамляют озеро; зеркальные отражения в ясные утра",
+            "Кафе и туалеты у парковки",
+            "Пик туристов в начале дня; после обеда (~13:45) обычно свободнее",
+            "Подойдут трекинговые кроссовки — гравий и травянистая тропа"
+          ],
+          "links": [
+            {
+              "label": "Гросглокнер Хохальпенштрассе (офиц.)",
+              "url": "https://www.grossglockner.at/gg/en",
+              "note": "Плата, статус открытия, вебкамеры"
+            },
+            {
+              "label": "Национальный парк Высокий Тауэрн",
+              "url": "https://hohetauern.at/en/"
+            }
+          ],
+          "photos": [
+            {
+              "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Fuscher%20Lacke%20Panorama%20Gro%C3%9Fglocknerhochalpenstra%C3%9Fe.jpg?width=800",
+              "alt": "Панорама Фушер-Лаке на Гросглокнерской дороге",
+              "credit": "Public domain via Wikimedia Commons",
+              "href": "https://commons.wikimedia.org/wiki/File:Fuscher_Lacke_Panorama_Gro%C3%9Fglocknerhochalpenstra%C3%9Fe.jpg"
+            }
           ]
         }
       ],
       "significantStops": [
         {
-          "name": "Heiligenblut church + Großglockner backdrop",
+          "name": "Церковь в Хайлигенблуте + Гросглокнер на фоне",
           "waypointRef": "d1-w1",
           "duration_min": 15,
-          "note": "The classic Austrian postcard view"
+          "note": "Классический австрийский открыточный вид"
         },
         {
-          "name": "Hochtor panorama (2,504 m)",
+          "name": "Панорама Хохтора (2 504 м)",
           "waypointRef": "d1-w2",
           "duration_min": 15,
-          "note": "Highest point on the road, Austria/Salzburg border tunnel"
+          "note": "Высшая точка дороги, тоннель на границе Каринтии и Зальцбурга"
         },
         {
-          "name": "Bruck an der Großglocknerstraße",
+          "name": "Брук-ан-дер-Гросглокнерштрассе",
           "waypointRef": "d1-w4",
           "duration_min": 0,
-          "note": "North exit of the toll road; refuel here if needed"
+          "note": "Северный выезд с платной дороги; здесь удобно заправиться"
         }
       ],
+      "photos": [
+        {
+          "src": "https://commons.wikimedia.org/wiki/Special:FilePath/1291-Heiligenblut.jpg?width=800",
+          "alt": "Церковь Хайлигенблут с Гросглокнером на фоне — классический открыточный вид",
+          "credit": "CC BY-SA 3.0 via Wikimedia Commons",
+          "href": "https://commons.wikimedia.org/wiki/File:1291-Heiligenblut.jpg"
+        },
+        {
+          "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Fuscher%20Lacke%20Panorama%20Gro%C3%9Fglocknerhochalpenstra%C3%9Fe.jpg?width=800",
+          "alt": "Панорама озера Фушер-Лаке на высоте 2 262 м",
+          "credit": "Public domain via Wikimedia Commons",
+          "href": "https://commons.wikimedia.org/wiki/File:Fuscher_Lacke_Panorama_Gro%C3%9Fglocknerhochalpenstra%C3%9Fe.jpg"
+        },
+        {
+          "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Grossglockner%20High%20Alpine%20Road%2C%20National%20Park%20Hohe%20Tauern%20Austria.jpg?width=800",
+          "alt": "Серпантины Гросглокнерской альпийской дороги",
+          "credit": "CC BY-SA 4.0 via Wikimedia Commons",
+          "href": "https://commons.wikimedia.org/wiki/File:Grossglockner_High_Alpine_Road%2C_National_Park_Hohe_Tauern_Austria.jpg"
+        },
+        {
+          "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Grossglockner%20hochalpenstrasse%2012%202016.jpg?width=800",
+          "alt": "Гросглокнер Хохальпенштрассе летом",
+          "credit": "CC BY-SA 4.0 via Wikimedia Commons",
+          "href": "https://commons.wikimedia.org/wiki/File:Grossglockner_hochalpenstrasse_12_2016.jpg"
+        }
+      ],
+      "blurb": {
+        "summary": "Живописный переезд по самой высокой горной дороге Австрии. Длинные подъёмы выше границы леса, пастельно-голубые альпийские озёра и почти гарантированные сурки. Ближе к вечеру спуск в зелёную долину Капруна на ужин у подножия Кицштайнхорна.",
+        "facts": [
+          {
+            "label": "Перевал",
+            "value": "Хохтор · 2 504 м"
+          },
+          {
+            "label": "Платная дорога",
+            "value": "€44 / авто (1 день, Гросглокнерштрассе)"
+          },
+          {
+            "label": "Изюминка",
+            "value": "бирюзовое озеро Фушер-Лаке"
+          },
+          {
+            "label": "Животные",
+            "value": "сурки и горные козлы — высокая вероятность"
+          },
+          {
+            "label": "Одежда",
+            "value": "тёплый слой — наверху на 10 °C холоднее"
+          }
+        ],
+        "hint": "Нажмите на метку на карте — или на строку ниже — чтобы подсветить это место."
+      },
       "legs": [
         {
           "duration_s": 8195.4,
@@ -16032,21 +16130,21 @@
     },
     {
       "day": 2,
-      "title": "Kaprun → Nordkette → Zirl",
-      "theme": "Alpine city cable car, panorama ridge, old town stroll",
+      "title": "Капрун → Нордкетте → Цирль",
+      "theme": "Городская канатная дорога, панорамный хребет и прогулка по старому городу",
       "color": "#f4a261",
-      "from": "Kaprun",
-      "to": "Zirl",
+      "from": "Капрун",
+      "to": "Цирль",
       "overnight": {
-        "town": "Zirl",
+        "town": "Цирль",
         "property": null,
-        "note": "Small Inn valley town 18 min west of Innsbruck. Quieter and cheaper than the city. Saves 13 min on Day 3 morning drive to Ötztal.",
+        "note": "Небольшой городок в долине Инна в 18 минутах к западу от Инсбрука. Тише и дешевле города. Экономит 13 минут на утреннем выезде в Эцталь на день 3.",
         "bookingUrl": "https://www.booking.com/searchresults.html?ss=Zirl+Tirol"
       },
       "waypoints": [
         {
           "id": "d2-w0",
-          "label": "Kaprun (start)",
+          "label": "Капрун (старт)",
           "coords": [
             47.2724,
             12.7477
@@ -16055,7 +16153,7 @@
         },
         {
           "id": "d2-w1",
-          "label": "Innsbruck — Hungerburg / Congress",
+          "label": "Инсбрук — Хунгербург / Конгресс",
           "coords": [
             47.2867,
             11.4034
@@ -16064,7 +16162,7 @@
         },
         {
           "id": "d2-w2",
-          "label": "Seegrube (1,905 m) — Nordkette",
+          "label": "Зегрубе (1 905 м) — Нордкетте",
           "coords": [
             47.3167,
             11.3833
@@ -16073,7 +16171,7 @@
         },
         {
           "id": "d2-w3",
-          "label": "Hafelekar (2,256 m) — Nordkette top",
+          "label": "Хафелекар (2 256 м) — вершина Нордкетте",
           "coords": [
             47.3236,
             11.3897
@@ -16082,7 +16180,7 @@
         },
         {
           "id": "d2-w4",
-          "label": "Innsbruck old town — Goldenes Dachl",
+          "label": "Старый город Инсбрука — Голденес Дахль",
           "coords": [
             47.2682,
             11.3933
@@ -16091,7 +16189,7 @@
         },
         {
           "id": "d2-w5",
-          "label": "Zirl (overnight)",
+          "label": "Цирль (ночёвка)",
           "coords": [
             47.2677,
             11.2395
@@ -16102,119 +16200,207 @@
       "timeline": [
         {
           "time": "09:00",
-          "event": "Wake",
-          "notes": "Kaprun",
+          "event": "Подъём",
+          "notes": "Капрун",
           "waypointRef": "d2-w0"
         },
         {
           "time": "10:00",
-          "event": "Depart",
-          "notes": "B311 → B178 → A12 Inn valley motorway",
+          "event": "Выезд",
+          "notes": "B311 → B178 → автобан A12 по долине Инна",
           "waypointRef": "d2-w0"
         },
         {
           "time": "~12:32",
-          "event": "Arrive Innsbruck",
-          "notes": "Park Congressgarage or Marktplatz",
+          "event": "Прибытие в Инсбрук",
+          "notes": "Парковка Congressgarage или Marktplatz",
           "waypointRef": "d2-w1"
         },
         {
           "time": "12:30–13:15",
-          "event": "Lunch in old town",
-          "notes": "Herzog-Friedrich-Straße",
+          "event": "Обед в старом городе",
+          "notes": "улица Herzog-Friedrich-Straße",
           "waypointRef": "d2-w4"
         },
         {
           "time": "13:30",
-          "event": "Hungerburgbahn funicular",
-          "notes": "8-min ride up from Rennweg (Congress)",
+          "event": "Фуникулёр Hungerburgbahn",
+          "notes": "8-минутный подъём от Реннвег (Конгресс)",
           "waypointRef": "d2-w1"
         },
         {
           "time": "13:40",
-          "event": "Nordkette gondola to Seegrube",
-          "notes": "Transfer from Hungerburg",
+          "event": "Канатная дорога до Зегрубе",
+          "notes": "Пересадка в Хунгербурге",
           "waypointRef": "d2-w2"
         },
         {
           "time": "14:00–15:30",
-          "event": "Nordkette hike",
-          "notes": "Gondola to Hafelekar; walk panorama trail back to Seegrube (~1h, moderate)",
+          "event": "Поход по Нордкетте",
+          "notes": "Гондола до Хафелекара; панорамная тропа назад к Зегрубе (~1 ч, средний уровень)",
           "waypointRef": "d2-w3"
         },
         {
           "time": "15:30",
-          "event": "Ride down",
-          "notes": "Seegrube → Hungerburg → Congress",
+          "event": "Спуск",
+          "notes": "Зегрубе → Хунгербург → Конгресс",
           "waypointRef": "d2-w2"
         },
         {
           "time": "16:00–18:00",
-          "event": "Innsbruck old town",
-          "notes": "Goldenes Dachl, Maria-Theresien-Str., Triumphpforte",
+          "event": "Старый город Инсбрука",
+          "notes": "Голденес Дахль, Maria-Theresien-Str., Триумфальные ворота",
           "waypointRef": "d2-w4"
         },
         {
           "time": "18:00",
-          "event": "Depart Innsbruck",
-          "notes": "~18 min west on A12",
+          "event": "Выезд из Инсбрука",
+          "notes": "~18 мин по A12 на запад",
           "waypointRef": "d2-w4"
         },
         {
           "time": "~18:20",
-          "event": "Arrive Zirl",
-          "notes": "Check in",
+          "event": "Прибытие в Цирль",
+          "notes": "Заселение",
           "waypointRef": "d2-w5"
         }
       ],
       "activities": [
         {
-          "name": "Nordkette cable car + Hafelekar panorama hike",
-          "kind": "cable-car + hike",
+          "name": "Канатная дорога Нордкетте + панорамная прогулка с Хафелекара",
+          "kind": "канатная дорога + прогулка",
           "waypointRef": "d2-w3",
           "duration_min": 180,
-          "summary": "Urban cable car system: Innsbruck (631 m) → Hafelekar (2,256 m) in ~20 min, then panorama trail back to Seegrube.",
+          "summary": "Городская канатная система: Инсбрук (631 м) → Хафелекар (2 256 м) за ~20 мин, затем панорамная тропа назад к Зегрубе.",
           "details": [
-            "Route: Congress → Hungerburg (funicular) → Seegrube (gondola) → Hafelekar (gondola)",
-            "Hafelekar → Seegrube panorama trail ~1h, moderate — some steep rocky sections, solid footwear",
-            "Easier option: plateau walk at Seegrube level (~45 min flat)",
-            "Queues of 20–30 min at Hungerburg / Seegrube in July–August — book online in advance",
-            "Full return ticket ~€40–45 / person"
+            "Маршрут: Конгресс → Хунгербург (фуникулёр) → Зегрубе (гондола) → Хафелекар (гондола)",
+            "Панорамная тропа Хафелекар → Зегрубе ~1 ч, средний уровень; местами крутые скалистые участки, нужна уверенная обувь",
+            "Более лёгкий вариант: прогулка по плато на уровне Зегрубе (~45 мин без набора)",
+            "Очереди на Хунгербурге / Зегрубе 20–30 мин в июле–августе — брать билет онлайн заранее",
+            "Полный билет туда-обратно ~€40–45 / человек"
+          ],
+          "links": [
+            {
+              "label": "Нордкетте — билеты и расписание",
+              "url": "https://www.nordkette.com/en/",
+              "note": "Покупайте онлайн, чтобы миновать очередь в Хунгербурге"
+            },
+            {
+              "label": "Фуникулёр Hungerburgbahn",
+              "url": "https://www.nordkette.com/en/ticket-shop/"
+            },
+            {
+              "label": "Innsbruck Card",
+              "url": "https://www.innsbruck.info/en/highlights/innsbruck-card.html",
+              "note": "Включает проезд по Нордкетте туда-обратно и большинство музеев"
+            }
+          ],
+          "photos": [
+            {
+              "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Airport%20Innsbruck%20(LOWI)%20Panorama%20-%20Nordkette.jpg?width=800",
+              "alt": "Хребет Нордкетте над Инсбруком",
+              "credit": "CC BY-SA 4.0 via Wikimedia Commons",
+              "href": "https://commons.wikimedia.org/wiki/File:Airport_Innsbruck_(LOWI)_Panorama_-_Nordkette.jpg"
+            }
           ]
         },
         {
-          "name": "Innsbruck old town stroll",
-          "kind": "walk",
+          "name": "Прогулка по старому городу Инсбрука",
+          "kind": "прогулка",
           "waypointRef": "d2-w4",
           "duration_min": 90,
-          "summary": "Medieval city core around Goldenes Dachl.",
+          "summary": "Средневековый центр города вокруг Голденес Дахль.",
           "details": [
-            "Goldenes Dachl (Golden Roof) — the must-see; courtyard and streets are free",
-            "Maria-Theresien-Straße for the postcard view of the Nordkette ridge",
-            "Triumphpforte, Hofkirche, Hofburg if time allows"
+            "Голденес Дахль (Золотая крыша) — главная достопримечательность; двор и улицы бесплатные",
+            "Maria-Theresien-Straße — открыточный вид на хребет Нордкетте",
+            "Триумфальные ворота, Хофкирхе, Хофбург — если останется время"
+          ],
+          "links": [
+            {
+              "label": "Туристический сайт Инсбрука",
+              "url": "https://www.innsbruck.info/en/"
+            },
+            {
+              "label": "Голденес Дахль (музей)",
+              "url": "https://www.innsbruck.gv.at/maximilianeum"
+            }
+          ],
+          "photos": [
+            {
+              "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Goldenes%20Dachl%20(Innsbruck).jpg?width=800",
+              "alt": "Голденес Дахль — Золотая крыша Инсбрука",
+              "credit": "CC BY-SA 3.0 via Wikimedia Commons",
+              "href": "https://commons.wikimedia.org/wiki/File:Goldenes_Dachl_(Innsbruck).jpg"
+            }
           ]
         }
       ],
       "significantStops": [
         {
-          "name": "Seegrube (1,905 m)",
+          "name": "Зегрубе (1 905 м)",
           "waypointRef": "d2-w2",
           "duration_min": 0,
-          "note": "Innsbruck and Inn valley from the ridge (included in cable-car activity)"
+          "note": "Панорама Инсбрука и долины Инна с хребта (входит в активность с канатной дорогой)"
         },
         {
-          "name": "Hafelekar (2,256 m)",
+          "name": "Хафелекар (2 256 м)",
           "waypointRef": "d2-w3",
           "duration_min": 0,
-          "note": "Top station — best panorama (included in cable-car activity)"
+          "note": "Верхняя станция — лучшая панорама (входит в активность с канатной дорогой)"
         },
         {
-          "name": "Goldenes Dachl",
+          "name": "Голденес Дахль",
           "waypointRef": "d2-w4",
           "duration_min": 0,
-          "note": "Iconic Innsbruck golden roof (included in old-town stroll)"
+          "note": "Культовая Золотая крыша Инсбрука (входит в прогулку по старому городу)"
         }
       ],
+      "photos": [
+        {
+          "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Airport%20Innsbruck%20(LOWI)%20Panorama%20-%20Nordkette.jpg?width=800",
+          "alt": "Хребет Нордкетте над Инсбруком с юга",
+          "credit": "CC BY-SA 4.0 via Wikimedia Commons",
+          "href": "https://commons.wikimedia.org/wiki/File:Airport_Innsbruck_(LOWI)_Panorama_-_Nordkette.jpg"
+        },
+        {
+          "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Goldenes%20Dachl%20(Innsbruck).jpg?width=800",
+          "alt": "Голденес Дахль — Золотая крыша Инсбрука",
+          "credit": "CC BY-SA 3.0 via Wikimedia Commons",
+          "href": "https://commons.wikimedia.org/wiki/File:Goldenes_Dachl_(Innsbruck).jpg"
+        },
+        {
+          "src": "https://commons.wikimedia.org/wiki/Special:FilePath/2731%20-%20Innsbruck%20-%20Goldenes%20Dachl.JPG?width=800",
+          "alt": "Переулок старого города Инсбрука ведёт к Голденес Дахль",
+          "credit": "CC BY-SA 2.5 via Wikimedia Commons",
+          "href": "https://commons.wikimedia.org/wiki/File:2731_-_Innsbruck_-_Goldenes_Dachl.JPG"
+        }
+      ],
+      "blurb": {
+        "summary": "Быстрый переезд по автобану на запад, затем классический инсбрукский полдень: фуникулёр и две канатные дороги из центра города прямо на 2 256 м. Панорамный обед над долиной Инна, прогулка по старому городу на закате и тихая ночь в Цирле.",
+        "facts": [
+          {
+            "label": "Канатная дорога",
+            "value": "Nordkettenbahnen (~€47 туда-обратно)"
+          },
+          {
+            "label": "Верх",
+            "value": "Хафелекар · 2 256 м"
+          },
+          {
+            "label": "Старый город",
+            "value": "Голденес Дахль, Хофгартен"
+          },
+          {
+            "label": "Дорога",
+            "value": "автобан A10 → A12"
+          },
+          {
+            "label": "Ночёвка",
+            "value": "Цирль — тише и дешевле Инсбрука"
+          }
+        ],
+        "hint": "Нажмите на метку на карте — или на строку ниже — чтобы подсветить это место."
+      },
       "legs": [
         {
           "duration_s": 9105.3,
@@ -37568,21 +37754,21 @@
     },
     {
       "day": 3,
-      "title": "Zirl → Stuibenfall Klettersteig → Ötztal",
-      "theme": "Full-day via ferrata — Austria's longest waterfall",
+      "title": "Цирль → клеттерштайг Штуйбенфалль → Эцталь",
+      "theme": "Целый день виа-ферраты — самый высокий водопад Австрии",
       "color": "#2a9d8f",
-      "from": "Zirl",
-      "to": "Umhausen / Längenfeld",
+      "from": "Цирль",
+      "to": "Умхаузен / Ленгенфельд",
       "overnight": {
-        "town": "Umhausen or Längenfeld (Ötztal)",
+        "town": "Умхаузен или Ленгенфельд (Эцталь)",
         "property": null,
-        "note": "Small valley villages with guesthouses / Gasthöfe. Längenfeld (10 km up from Umhausen) has Aqua Dome thermal spa if legs are tired.",
+        "note": "Небольшие деревни в долине с гостевыми домами (Gasthöfe). В Ленгенфельде (10 км от Умхаузена) есть термы Aqua Dome — если ноги устали.",
         "bookingUrl": "https://www.booking.com/searchresults.html?ss=L%C3%A4ngenfeld+%C3%96tztal"
       },
       "waypoints": [
         {
           "id": "d3-w0",
-          "label": "Zirl (start)",
+          "label": "Цирль (старт)",
           "coords": [
             47.2677,
             11.2395
@@ -37591,7 +37777,7 @@
         },
         {
           "id": "d3-w1",
-          "label": "Umhausen — gear rental, parking & Stuibenfall trailhead",
+          "label": "Умхаузен — прокат, парковка и начало тропы Штуйбенфалль",
           "coords": [
             47.1289,
             10.9349
@@ -37600,7 +37786,7 @@
         },
         {
           "id": "d3-w2",
-          "label": "Längenfeld (overnight)",
+          "label": "Ленгенфельд (ночёвка)",
           "coords": [
             47.0731,
             10.9736
@@ -37611,103 +37797,182 @@
       "timeline": [
         {
           "time": "09:00",
-          "event": "Wake",
-          "notes": "Zirl — check weather (mountain-forecast + ZAMG Tirol)",
+          "event": "Подъём",
+          "notes": "Цирль — проверить погоду (mountain-forecast и ZAMG Tirol)",
           "waypointRef": "d3-w0"
         },
         {
           "time": "10:00",
-          "event": "Depart",
-          "notes": "B171 → B186 into Ötztal",
+          "event": "Выезд",
+          "notes": "B171 → B186 в Эцталь",
           "waypointRef": "d3-w0"
         },
         {
           "time": "~11:03",
-          "event": "Arrive Umhausen",
-          "notes": "Park at / near the gear shop — you walk from here, no further driving",
+          "event": "Прибытие в Умхаузен",
+          "notes": "Парковка у/рядом с прокатом — дальше пешком, без машины",
           "waypointRef": "d3-w1"
         },
         {
           "time": "11:00–11:30",
-          "event": "Gear pickup",
-          "notes": "Helmet, harness, via ferrata Y-lanyard — reserve ahead",
+          "event": "Получение снаряжения",
+          "notes": "Каска, беседка, самостраховка-ус — бронировать заранее",
           "waypointRef": "d3-w1"
         },
         {
           "time": "11:30",
-          "event": "Walk / approach to trailhead",
-          "notes": "~15–30 min walk east to the Stuibenfall base",
+          "event": "Подход к началу тропы",
+          "notes": "~15–30 мин пешком на восток к основанию Штуйбенфалля",
           "waypointRef": "d3-w1"
         },
         {
           "time": "12:00–15:00",
-          "event": "Stuibenfall Klettersteig",
-          "notes": "B/C difficulty, ~2.5–3h on route",
+          "event": "Клеттерштайг Штуйбенфалль",
+          "notes": "Сложность B/C, ~2,5–3 ч на маршруте",
           "waypointRef": "d3-w1"
         },
         {
           "time": "~15:15",
-          "event": "Descent",
-          "notes": "~45 min walk back to the village",
+          "event": "Спуск",
+          "notes": "~45 мин пешком назад к деревне",
           "waypointRef": "d3-w1"
         },
         {
           "time": "~16:00",
-          "event": "Return gear in Umhausen",
+          "event": "Возврат снаряжения в Умхаузене",
           "notes": null,
           "waypointRef": "d3-w1"
         },
         {
           "time": "~16:15",
-          "event": "Drive on to Längenfeld",
-          "notes": "South on B186 — new road, no backtracking",
+          "event": "Переезд в Ленгенфельд",
+          "notes": "На юг по B186 — новая дорога, без возвратов",
           "waypointRef": "d3-w2"
         },
         {
           "time": "~16:37",
-          "event": "Arrive Längenfeld",
-          "notes": "Check in, shower, optional Aqua Dome thermal spa",
+          "event": "Прибытие в Ленгенфельд",
+          "notes": "Заселение, душ, опционально термы Aqua Dome",
           "waypointRef": "d3-w2"
         },
         {
           "time": "Evening",
-          "event": "Dinner",
-          "notes": "Längenfeld or Umhausen village",
+          "event": "Ужин",
+          "notes": "Ленгенфельд или Умхаузен",
           "waypointRef": "d3-w2"
         }
       ],
       "activities": [
         {
-          "name": "Stuibenfall Klettersteig",
-          "kind": "via ferrata",
+          "name": "Клеттерштайг Штуйбенфалль",
+          "kind": "виа феррата",
           "waypointRef": "d3-w1",
           "duration_min": 270,
-          "summary": "Via ferrata alongside Austria's highest waterfall (159 m). Iron rungs and cables bolted to the rock beside the cascade.",
+          "summary": "Виа-феррата вдоль самого высокого водопада Австрии (159 м). Металлические ступени и тросы, закреплённые в скале рядом с потоком.",
           "details": [
-            "Approached on foot from Umhausen (no separate drive — park once at the gear shop)",
-            "Difficulty: B/C (moderate-difficult, UIAA via ferrata scale)",
-            "Significant exposure — sections over the gorge with big drop below",
-            "Total time: ~20–30 min approach + 2.5–3h ferrata + 45 min descent = ~4–4.5h door to door",
-            "No own gear: book a certified guide (€60–120/pp) 4–6 weeks ahead, or rent Y-lanyard + harness + helmet locally (requires prior B/C experience)",
-            "Footwear: approach shoes or stiff hiking boots — not trail runners",
-            "ABORT on thunderstorm risk — lightning on a metal-clipped route is life-threatening"
+            "Подход пешком из Умхаузена (без отдельного переезда — паркуемся один раз у проката)",
+            "Сложность: B/C (средне-сложный по шкале UIAA)",
+            "Серьёзная экспозиция — участки над ущельем с большим обрывом",
+            "Общее время: ~20–30 мин подход + 2,5–3 ч феррата + 45 мин спуск = ~4–4,5 ч «от двери до двери»",
+            "Без своего снаряжения: сертифицированный гид (€60–120 / чел.) за 4–6 недель, или прокат беседки, каски и самостраховки (нужен опыт B/C)",
+            "Обувь: подходные кроссовки или жёсткие горные ботинки — не беговые",
+            "ОТМЕНА при риске грозы — молния на металлических тросах смертельно опасна"
+          ],
+          "links": [
+            {
+              "label": "Клеттерштайг Штуйбенфалль (Ötztal Tourismus)",
+              "url": "https://www.oetztal.com/en/active-in-the-oetztal/outdoor-oetztal/climbing/via-ferrata-oetztal/stuibenfall.html",
+              "note": "Карта маршрута, топо, снаряжение, бронирование гида"
+            },
+            {
+              "label": "Прогноз — mountain-forecast.com",
+              "url": "https://www.mountain-forecast.com/peaks/Acherkogel/forecasts/2987"
+            },
+            {
+              "label": "Прогноз — ZAMG Tirol",
+              "url": "https://www.zamg.ac.at/cms/de/wetter/wetter-oesterreich/tirol"
+            },
+            {
+              "label": "Туристический портал Эцталя",
+              "url": "https://www.oetztal.com/en/"
+            }
+          ],
+          "photos": [
+            {
+              "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Stuibenfall%2C%20H%C3%A4ngebr%C3%BCcke.jpg?width=800",
+              "alt": "Подвесной мост и металлические ступени на ферате Штуйбенфалль",
+              "credit": "CC BY-SA 4.0 via Wikimedia Commons",
+              "href": "https://commons.wikimedia.org/wiki/File:Stuibenfall%2C_H%C3%A4ngebr%C3%BCcke.jpg"
+            },
+            {
+              "src": "https://commons.wikimedia.org/wiki/Special:FilePath/H%C3%A4ngebr%C3%BCcke%20und%20Treppenanlage%20am%20Stuibenfall.jpg?width=800",
+              "alt": "Верхний участок фераты Штуйбенфалль",
+              "credit": "CC BY-SA 4.0 via Wikimedia Commons",
+              "href": "https://commons.wikimedia.org/wiki/File:H%C3%A4ngebr%C3%BCcke_und_Treppenanlage_am_Stuibenfall.jpg"
+            }
           ]
         }
       ],
       "significantStops": [
         {
-          "name": "Stuibenfall waterfall (159 m)",
+          "name": "Водопад Штуйбенфалль (159 м)",
           "waypointRef": "d3-w1",
           "duration_min": 0,
-          "note": "Austria's highest waterfall — visible from the approach trail (included in ferrata activity)"
+          "note": "Самый высокий водопад Австрии — виден с подходной тропы (входит в активность)"
         },
         {
-          "name": "Umhausen village",
+          "name": "Деревня Умхаузен",
           "waypointRef": "d3-w1",
           "duration_min": 30,
-          "note": "Gear pickup + return, plus lunch"
+          "note": "Получение и возврат снаряжения, плюс обед"
         }
       ],
+      "photos": [
+        {
+          "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Stuibenfall%2C%20H%C3%A4ngebr%C3%BCcke.jpg?width=800",
+          "alt": "Штуйбенфалль — самый высокий водопад Австрии, 159 м",
+          "credit": "CC BY-SA 4.0 via Wikimedia Commons",
+          "href": "https://commons.wikimedia.org/wiki/File:Stuibenfall%2C_H%C3%A4ngebr%C3%BCcke.jpg"
+        },
+        {
+          "src": "https://commons.wikimedia.org/wiki/Special:FilePath/H%C3%A4ngebr%C3%BCcke%20und%20Treppenanlage%20am%20Stuibenfall.jpg?width=800",
+          "alt": "Металлические ступени рядом с каскадом Штуйбенфалля",
+          "credit": "CC BY-SA 4.0 via Wikimedia Commons",
+          "href": "https://commons.wikimedia.org/wiki/File:H%C3%A4ngebr%C3%BCcke_und_Treppenanlage_am_Stuibenfall.jpg"
+        },
+        {
+          "src": "https://commons.wikimedia.org/wiki/Special:FilePath/S%C3%B6lden%20%C3%96tztal%20Strasse.jpg?width=800",
+          "alt": "Дорога в долине Эцталь — B186",
+          "credit": "CC BY-SA 4.0 via Wikimedia Commons",
+          "href": "https://commons.wikimedia.org/wiki/File:S%C3%B6lden_%C3%96tztal_Strasse.jpg"
+        }
+      ],
+      "blurb": {
+        "summary": "Короткий утренний переезд в Эцталь, затем весь день на скале: виа-феррата вдоль самого высокого водопада Тироля под руководством гида. Прокат снаряжения в Эцтале, ~3–4 часа на тросах, спокойная вечерняя прогулка в Ленгенфельде.",
+        "facts": [
+          {
+            "label": "Главное событие",
+            "value": "клеттерштайг Штуйбенфалль (B/C)"
+          },
+          {
+            "label": "Гид + снаряжение",
+            "value": "~€95 / человек"
+          },
+          {
+            "label": "Время на скале",
+            "value": "3–4 часа"
+          },
+          {
+            "label": "Возраст от",
+            "value": "12 лет"
+          },
+          {
+            "label": "Погода",
+            "value": "только по сухой скале — переносим при дожде"
+          }
+        ],
+        "hint": "Нажмите на метку на карте — или на строку ниже — чтобы подсветить это место."
+      },
       "legs": [
         {
           "duration_s": 2512,
@@ -45015,21 +45280,21 @@
     },
     {
       "day": 4,
-      "title": "Ötztal → Timmelsjoch → Jaufenpass → Cortina",
-      "theme": "Two high alpine passes through South Tyrol to the Dolomites",
+      "title": "Эцталь → Тиммельсйох → Яуфенпасс → Кортина",
+      "theme": "Два высоких альпийских перевала через Южный Тироль в Доломиты",
       "color": "#457b9d",
-      "from": "Längenfeld (Ötztal)",
-      "to": "Cortina d'Ampezzo",
+      "from": "Ленгенфельд (Эцталь)",
+      "to": "Кортина-д’Ампеццо",
       "overnight": {
-        "town": "Cortina d'Ampezzo",
+        "town": "Кортина-д’Ампеццо",
         "property": null,
-        "note": "Upscale mountain resort; July–August tightens fast. Cheaper alternatives within 15 min: San Vito di Cadore, Pocol. (Arrival ~17:00 with the scenic route — book ahead.)",
+        "note": "Престижный горный курорт; июль–август быстро заполняются. Более дешёвые варианты в 15 мин: Сан-Вито-ди-Кадоре, Поколь. (Прибытие ~17:00 по живописному маршруту — бронировать заранее.)",
         "bookingUrl": "https://www.booking.com/searchresults.html?ss=Cortina+d%27Ampezzo"
       },
       "waypoints": [
         {
           "id": "d4-w0",
-          "label": "Längenfeld (start)",
+          "label": "Ленгенфельд (старт)",
           "coords": [
             47.0731,
             10.9736
@@ -45038,7 +45303,7 @@
         },
         {
           "id": "d4-w1",
-          "label": "Sölden",
+          "label": "Зёльден",
           "coords": [
             46.9676,
             11.0075
@@ -45047,7 +45312,7 @@
         },
         {
           "id": "d4-w2",
-          "label": "Timmelsjoch / Passo del Rombo (2,509 m)",
+          "label": "Тиммельсйох / Passo del Rombo (2 509 м)",
           "coords": [
             46.9053,
             11.0972
@@ -45056,7 +45321,7 @@
         },
         {
           "id": "d4-w3",
-          "label": "Walten / Valtina — Passeier valley",
+          "label": "Вальтен / Вальтина — долина Пассайер",
           "coords": [
             46.8257,
             11.2887
@@ -45065,7 +45330,7 @@
         },
         {
           "id": "d4-w4",
-          "label": "Jaufenpass / Passo Giovo (2,094 m)",
+          "label": "Яуфенпасс / Passo Giovo (2 094 м)",
           "coords": [
             46.8394,
             11.3211
@@ -45074,7 +45339,7 @@
         },
         {
           "id": "d4-w5",
-          "label": "Sterzing / Vipiteno",
+          "label": "Штерцинг / Випитено",
           "coords": [
             46.8963,
             11.4336
@@ -45083,7 +45348,7 @@
         },
         {
           "id": "d4-w6",
-          "label": "Cortina d'Ampezzo (overnight)",
+          "label": "Кортина-д’Ампеццо (ночёвка)",
           "coords": [
             46.5366,
             12.1357
@@ -45094,132 +45359,231 @@
       "timeline": [
         {
           "time": "09:00",
-          "event": "Wake",
-          "notes": "Längenfeld (Ötztal)",
+          "event": "Подъём",
+          "notes": "Ленгенфельд (Эцталь)",
           "waypointRef": "d4-w0"
         },
         {
           "time": "10:00",
-          "event": "Depart",
-          "notes": "B186 south through the upper Ötztal",
+          "event": "Выезд",
+          "notes": "B186 на юг по верхнему Эцталю",
           "waypointRef": "d4-w0"
         },
         {
           "time": "~10:20",
-          "event": "Sölden",
-          "notes": "Quick coffee / fuel stop — last Austrian town before the pass",
+          "event": "Зёльден",
+          "notes": "Короткая остановка на кофе / заправку — последний австрийский город перед перевалом",
           "waypointRef": "d4-w1"
         },
         {
           "time": "~11:00–11:30",
-          "event": "Timmelsjoch summit (2,509 m)",
-          "notes": "One of Europe's most spectacular pass roads. Toll ~€22/car. Architecture pavilions at the border.",
+          "event": "Вершина Тиммельсйох (2 509 м)",
+          "notes": "Одна из самых впечатляющих перевальных дорог Европы. Плата ~€22 / авто. Архитектурные павильоны на границе.",
           "waypointRef": "d4-w2"
         },
         {
           "time": "~11:30–12:20",
-          "event": "Descend into Passeier",
-          "notes": "Italian side — tight hairpins, views back into the Ötztal Alps",
+          "event": "Спуск в Пассайер",
+          "notes": "Итальянская сторона — крутые серпантины, виды назад на Эцтальские Альпы",
           "waypointRef": "d4-w3"
         },
         {
           "time": "~12:20–13:15",
-          "event": "Walten / Valtina — lunch",
-          "notes": "Tiny Passeier-valley hamlet at 1,300 m. Gasthaus / trattoria lunch. Stretch.",
+          "event": "Вальтен / Вальтина — обед",
+          "notes": "Крошечная деревушка в долине Пассайер на 1 300 м. Обед в гастхаузе или траттории.",
           "waypointRef": "d4-w3"
         },
         {
           "time": "~13:15",
-          "event": "Depart via St. Leonhard",
-          "notes": "SS44 east — Jaufenpass road branches off at St. Leonhard",
+          "event": "Выезд через Санкт-Леонхард",
+          "notes": "SS44 на восток — дорога на Яуфенпасс уходит в Санкт-Леонхарде",
           "waypointRef": "d4-w3"
         },
         {
           "time": "~13:50–14:15",
-          "event": "Jaufenpass summit (2,094 m)",
-          "notes": "Northernmost pass entirely within Italy — ~20 switchbacks on the climb",
+          "event": "Вершина Яуфенпасса (2 094 м)",
+          "notes": "Самый северный перевал полностью в Италии — ~20 серпантинов на подъёме",
           "waypointRef": "d4-w4"
         },
         {
           "time": "~14:15–14:55",
-          "event": "Descend to Sterzing / Vipiteno",
-          "notes": "Medieval South-Tyrolean town on the Eisack; arcaded Neustadt",
+          "event": "Спуск в Штерцинг / Випитено",
+          "notes": "Средневековый южно-тирольский город на реке Айзак; аркады Нойштадт",
           "waypointRef": "d4-w5"
         },
         {
           "time": "~14:55–15:15",
-          "event": "Sterzing — stretch / photo",
-          "notes": "Quick walk down Neustadt arcade if time allows",
+          "event": "Штерцинг — прогулка / фото",
+          "notes": "Быстрая прогулка по аркадам Нойштадт, если есть время",
           "waypointRef": "d4-w5"
         },
         {
           "time": "~15:15",
-          "event": "Depart",
-          "notes": "A22 south to Brixen/Bressanone, then SS49 (Val Pusteria) → SR51 to Cortina",
+          "event": "Выезд",
+          "notes": "A22 на юг до Бриксен/Брессаноне, затем SS49 (Валь-Пустерия) → SR51 до Кортины",
           "waypointRef": "d4-w5"
         },
         {
           "time": "~17:00",
-          "event": "Arrive Cortina d'Ampezzo",
-          "notes": "Check in; evening stroll on Corso Italia",
+          "event": "Прибытие в Кортину-д’Ампеццо",
+          "notes": "Заселение; вечерняя прогулка по Корсо-Италия",
           "waypointRef": "d4-w6"
         },
         {
           "time": "Evening",
-          "event": "Dinner",
-          "notes": "Corso Italia restaurants — one block off main is noticeably cheaper",
+          "event": "Ужин",
+          "notes": "Рестораны на Корсо-Италия — в квартале от главной улицы заметно дешевле",
           "waypointRef": "d4-w6"
         }
       ],
       "activities": [
         {
-          "name": "Timmelsjoch pass drive (Passo del Rombo)",
-          "kind": "scenic drive",
+          "name": "Переезд через Тиммельсйох (Passo del Rombo)",
+          "kind": "живописная дорога",
           "waypointRef": "d4-w2",
           "duration_min": 90,
-          "summary": "Austria's most spectacular paved pass road (2,509 m), connecting Ötztal with the Passeier valley via ~34 km of hairpins on the Italian descent.",
+          "summary": "Самая впечатляющая асфальтированная перевальная дорога Австрии (2 509 м), соединяющая Эцталь с долиной Пассайер через ~34 км серпантинов на итальянском спуске.",
           "details": [
-            "Open roughly late May to late October — closes with first heavy snow. Check https://www.timmelsjoch.com before departure",
-            "Toll ~€22 per car (2025 prices); purchased at the Austrian toll gate above Hochgurgl",
-            "Architecture pavilions at the summit (Matthias Schmuck) with short walks — good 20–30 min stop",
-            "Views: Ötztal Alps north, Dolomites and Passeier south from the summit",
-            "Caravans / trailers prohibited on the road"
+            "Открыт примерно с конца мая до конца октября — закрывается с первым сильным снегом. Проверять timmelsjoch.com перед выездом",
+            "Плата ~€22 за авто (2025); оплата на австрийском пункте над Хохгургль",
+            "Архитектурные павильоны на вершине (Маттиас Шмук) с короткими прогулками — хорошая остановка на 20–30 мин",
+            "Виды: Эцтальские Альпы на север, Доломиты и Пассайер на юг с вершины",
+            "Караваны и прицепы на дороге запрещены"
+          ],
+          "links": [
+            {
+              "label": "Тиммельсйох — официальный сайт (статус / платы / вебкамеры)",
+              "url": "https://www.timmelsjoch.com",
+              "note": "Проверяйте статус открытия перед выездом"
+            },
+            {
+              "label": "Timmelsjoch Experience (павильоны на вершине)",
+              "url": "https://www.timmelsjoch.com/en/experience/"
+            },
+            {
+              "label": "Википедия: Тиммельсйох",
+              "url": "https://en.wikipedia.org/wiki/Timmelsjoch"
+            }
+          ],
+          "photos": [
+            {
+              "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Passo%20del%20Rombo%2006.JPG?width=800",
+              "alt": "Перевальная дорога Тиммельсйох / Passo del Rombo",
+              "credit": "CC BY-SA 3.0 via Wikimedia Commons",
+              "href": "https://commons.wikimedia.org/wiki/File:Passo_del_Rombo_06.JPG"
+            }
           ]
         },
         {
-          "name": "Jaufenpass drive (Passo Giovo)",
-          "kind": "scenic drive",
+          "name": "Переезд через Яуфенпасс (Passo Giovo)",
+          "kind": "живописная дорога",
           "waypointRef": "d4-w4",
           "duration_min": 60,
-          "summary": "Free public pass (SS44) at 2,094 m connecting Passeier and Sterzing with ~20 switchbacks each side.",
+          "summary": "Бесплатный общественный перевал (SS44) на высоте 2 094 м, соединяющий Пассайер со Штерцингом, ~20 серпантинов с каждой стороны.",
           "details": [
-            "Open year-round barring heavy snow; simpler and less exposed than Timmelsjoch",
-            "Small Gasthaus at the summit — coffee / strudel stop",
-            "Less-touristed than Timmelsjoch; traffic usually light except on weekends",
-            "Good fallback if Timmelsjoch is closed — reroute via Jaufenpass + A22 down to Cortina"
+            "Открыт круглый год, кроме сильного снега; проще и менее экспонирован, чем Тиммельсйох",
+            "Небольшой гастхаус на вершине — кофе / штрудель",
+            "Менее туристический, чем Тиммельсйох; обычно мало машин, кроме выходных",
+            "Хороший запасной вариант, если Тиммельсйох закрыт — через Яуфенпасс + A22 до Кортины"
+          ],
+          "links": [
+            {
+              "label": "Википедия: Яуфенпасс",
+              "url": "https://en.wikipedia.org/wiki/Jaufen_Pass"
+            },
+            {
+              "label": "Туризм Штерцинга / Випитено",
+              "url": "https://www.vipiteno.com/en/"
+            }
+          ],
+          "photos": [
+            {
+              "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Passo%20di%20Monte%20Giovo-Jaufenpass%20004.JPG?width=800",
+              "alt": "Дорога Яуфенпасс в Южном Тироле",
+              "credit": "CC BY-SA 3.0 via Wikimedia Commons",
+              "href": "https://commons.wikimedia.org/wiki/File:Passo_di_Monte_Giovo-Jaufenpass_004.JPG"
+            },
+            {
+              "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Jaufenhaus%2001.jpg?width=800",
+              "alt": "Яуфенхаус — гастхаус на вершине Яуфенпасса",
+              "credit": "CC BY-SA 4.0 via Wikimedia Commons",
+              "href": "https://commons.wikimedia.org/wiki/File:Jaufenhaus_01.jpg"
+            }
           ]
         }
       ],
       "significantStops": [
         {
-          "name": "Sölden (1,368 m)",
+          "name": "Зёльден (1 368 м)",
           "waypointRef": "d4-w1",
           "duration_min": 15,
-          "note": "Ötztal's best-known ski town; last fuel before the pass toll gate"
+          "note": "Самый известный горнолыжный городок Эцталя; последняя заправка перед платной дорогой"
         },
         {
-          "name": "Walten / Valtina (1,300 m)",
+          "name": "Вальтен / Вальтина (1 300 м)",
           "waypointRef": "d4-w3",
           "duration_min": 55,
-          "note": "Passeier-valley hamlet, frazione of St. Leonhard — Gasthaus lunch stop with the Pfarrkirche St. Anton on the roadside"
+          "note": "Деревушка в долине Пассайер, фракция Санкт-Леонхарда — остановка на обед в гастхаузе, у дороги приходская церковь Св. Антона"
         },
         {
-          "name": "Sterzing / Vipiteno (948 m)",
+          "name": "Штерцинг / Випитено (948 м)",
           "waypointRef": "d4-w5",
           "duration_min": 20,
-          "note": "Medieval arcaded town; quick stretch / coffee on Neustadt before the A22 south"
+          "note": "Средневековый город с аркадами; короткая прогулка / кофе на Нойштадт перед A22 на юг"
         }
       ],
+      "photos": [
+        {
+          "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Passo%20del%20Rombo%2006.JPG?width=800",
+          "alt": "Тиммельсйох — высокий перевал в Южный Тироль",
+          "credit": "CC BY-SA 3.0 via Wikimedia Commons",
+          "href": "https://commons.wikimedia.org/wiki/File:Passo_del_Rombo_06.JPG"
+        },
+        {
+          "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Passo%20di%20Monte%20Giovo-Jaufenpass%20004.JPG?width=800",
+          "alt": "Серпантины Яуфенпасса над Штерцингом",
+          "credit": "CC BY-SA 3.0 via Wikimedia Commons",
+          "href": "https://commons.wikimedia.org/wiki/File:Passo_di_Monte_Giovo-Jaufenpass_004.JPG"
+        },
+        {
+          "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Sterzing-Vipiteno.JPG?width=800",
+          "alt": "Штерцинг / Випитено — средневековый южно-тирольский город",
+          "credit": "CC BY-SA 3.0 via Wikimedia Commons",
+          "href": "https://commons.wikimedia.org/wiki/File:Sterzing-Vipiteno.JPG"
+        },
+        {
+          "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Cortina%20d'Ampezzo%2001.jpg?width=800",
+          "alt": "Кортина-д’Ампеццо с массивом Тофане",
+          "credit": "CC BY-SA 4.0 via Wikimedia Commons",
+          "href": "https://commons.wikimedia.org/wiki/File:Cortina_d'Ampezzo_01.jpg"
+        }
+      ],
+      "blurb": {
+        "summary": "Два высоких альпийских перевала за один день. Подъём на Тиммельсйох (2 509 м) из Зёльдена, спуск на юг через долину Пассайер, затем обратно вверх через Яуфенпасс в Южный Тироль. Обед в Штерцинге, длинная послеобеденная дорога через Доломиты и ужин в Кортине.",
+        "facts": [
+          {
+            "label": "Перевалы",
+            "value": "Тиммельсйох + Яуфенпасс"
+          },
+          {
+            "label": "Платная дорога",
+            "value": "~€20 (Тиммельсйох, авто)"
+          },
+          {
+            "label": "Граница",
+            "value": "Австрия → Италия"
+          },
+          {
+            "label": "Язык",
+            "value": "немецкий → итальянский / ладинский"
+          },
+          {
+            "label": "Дорога",
+            "value": "самый длинный день · ~3,5 ч за рулём"
+          }
+        ],
+        "hint": "Нажмите на метку на карте — или на строку ниже — чтобы подсветить это место."
+      },
       "legs": [
         {
           "duration_s": 900.2,
@@ -81471,16 +81835,16 @@
     },
     {
       "day": 5,
-      "title": "Cortina → Lago di Misurina → Tre Cime → Klagenfurt",
-      "theme": "Two iconic Dolomites stops on the way home — no backtracking",
+      "title": "Кортина → Лаго-ди-Мизурина → Тре-Чиме → Клагенфурт",
+      "theme": "Две культовые остановки в Доломитах по пути домой — без возвратов",
       "color": "#6d4c93",
-      "from": "Cortina d'Ampezzo",
-      "to": "Klagenfurt (home)",
+      "from": "Кортина-д’Ампеццо",
+      "to": "Клагенфурт (дом)",
       "overnight": null,
       "waypoints": [
         {
           "id": "d5-w0",
-          "label": "Cortina d'Ampezzo (start)",
+          "label": "Кортина-д’Ампеццо (старт)",
           "coords": [
             46.5366,
             12.1357
@@ -81489,7 +81853,7 @@
         },
         {
           "id": "d5-w1",
-          "label": "Lago di Misurina (1,754 m)",
+          "label": "Лаго-ди-Мизурина (1 754 м)",
           "coords": [
             46.5827,
             12.2533
@@ -81498,7 +81862,7 @@
         },
         {
           "id": "d5-w2",
-          "label": "Rifugio Auronzo / Tre Cime (2,333 m)",
+          "label": "Рифуджо Ауронцо / Тре-Чиме (2 333 м)",
           "coords": [
             46.6128,
             12.2967
@@ -81507,7 +81871,7 @@
         },
         {
           "id": "d5-w3",
-          "label": "Klagenfurt (home)",
+          "label": "Клагенфурт (дом)",
           "coords": [
             46.6228,
             14.305
@@ -81518,115 +81882,214 @@
       "timeline": [
         {
           "time": "09:00",
-          "event": "Wake",
-          "notes": "Cortina d'Ampezzo",
+          "event": "Подъём",
+          "notes": "Кортина-д’Ампеццо",
           "waypointRef": "d5-w0"
         },
         {
           "time": "09:30",
-          "event": "Depart Cortina",
-          "notes": "SR48 east toward Misurina",
+          "event": "Выезд из Кортины",
+          "notes": "SR48 на восток в сторону Мизурины",
           "waypointRef": "d5-w0"
         },
         {
           "time": "~10:00",
-          "event": "Arrive Lago di Misurina",
-          "notes": "~45 min flat lake walk (2.6 km perimeter)",
+          "event": "Прибытие на Лаго-ди-Мизурина",
+          "notes": "~45 мин ровная прогулка вокруг озера (2,6 км по периметру)",
           "waypointRef": "d5-w1"
         },
         {
           "time": "~10:45",
-          "event": "Drive up Tre Cime toll road",
-          "notes": "~€30 / car round trip, ~15 min up",
+          "event": "Подъём по платной дороге к Тре-Чиме",
+          "notes": "~€30 / авто туда-обратно, ~15 мин вверх",
           "waypointRef": "d5-w2"
         },
         {
           "time": "~11:00",
-          "event": "Arrive Rifugio Auronzo (2,333 m)",
-          "notes": "Paved parking; can fill by mid-morning on sunny weekends",
+          "event": "Прибытие в рифуджо Ауронцо (2 333 м)",
+          "notes": "Асфальтированная парковка; может заполниться к середине утра в солнечные выходные",
           "waypointRef": "d5-w2"
         },
         {
           "time": "11:15–12:45",
-          "event": "Tre Cime viewpoint walk",
-          "notes": "Rifugio Auronzo → Rifugio Lavaredo and back, ~1h30, graded path",
+          "event": "Прогулка к смотровой Тре-Чиме",
+          "notes": "Рифуджо Ауронцо → рифуджо Лаваредо и обратно, ~1 ч 30 мин, ровная тропа",
           "waypointRef": "d5-w2"
         },
         {
           "time": "~12:45",
-          "event": "Drive back down toll road",
-          "notes": "~15 min to Misurina",
+          "event": "Спуск по платной дороге",
+          "notes": "~15 мин до Мизурины",
           "waypointRef": "d5-w1"
         },
         {
           "time": "~13:00",
-          "event": "Lunch to go in Misurina",
+          "event": "Обед с собой в Мизурине",
           "notes": null,
           "waypointRef": "d5-w1"
         },
         {
           "time": "13:30",
-          "event": "Depart east for home",
-          "notes": "SR48 → Auronzo → SS51 → SS52 → A23 → A2",
+          "event": "Выезд на восток, домой",
+          "notes": "SR48 → Ауронцо → SS51 → SS52 → A23 → A2",
           "waypointRef": "d5-w1"
         },
         {
           "time": "~15:00",
-          "event": "Cross into Austria",
-          "notes": "Tarvisio border",
+          "event": "Пересечение австрийской границы",
+          "notes": "Пункт Тарвизио",
           "waypointRef": "d5-w3"
         },
         {
           "time": "~16:48",
-          "event": "Arrive Klagenfurt",
-          "notes": "Home",
+          "event": "Прибытие в Клагенфурт",
+          "notes": "Дом",
           "waypointRef": "d5-w3"
         }
       ],
       "activities": [
         {
-          "name": "Lago di Misurina lake walk",
-          "kind": "walk",
+          "name": "Прогулка вокруг Лаго-ди-Мизурина",
+          "kind": "прогулка",
           "waypointRef": "d5-w1",
           "duration_min": 45,
-          "summary": "\"Pearl of Cadore\" — largest natural lake of the area at 1,754 m.",
+          "summary": "«Жемчужина Кадоре» — самое большое естественное озеро района на высоте 1 754 м.",
           "details": [
-            "Easy flat perimeter, ~2.6 km, no elevation, paved/gravel mix",
-            "~45 min relaxed pace",
-            "Reflections of Sorapiss (south) and Tre Cime (north)",
-            "Busy midday — ~10:00 is quiet",
-            "Cafés, toilets, paid parking (~€3/hr)"
+            "Лёгкий ровный периметр, ~2,6 км, без набора, асфальт / гравий",
+            "~45 мин в спокойном темпе",
+            "Отражения Сорапис (юг) и Тре-Чиме (север)",
+            "В середине дня много туристов — в ~10:00 тихо",
+            "Кафе, туалеты, платная парковка (~€3 / час)"
+          ],
+          "links": [
+            {
+              "label": "Википедия: озеро Мизурина",
+              "url": "https://en.wikipedia.org/wiki/Lake_Misurina"
+            },
+            {
+              "label": "Информация о районе Мизурины",
+              "url": "https://www.misurina.com/en"
+            }
+          ],
+          "photos": [
+            {
+              "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Lago%20di%20misurina.jpg?width=800",
+              "alt": "Озеро Мизурина на 1 754 м на фоне Доломитов",
+              "credit": "GFDL / CC BY-SA 3.0 via Wikimedia Commons",
+              "href": "https://commons.wikimedia.org/wiki/File:Lago_di_misurina.jpg"
+            }
           ]
         },
         {
-          "name": "Tre Cime di Lavaredo viewpoint walk",
-          "kind": "walk",
+          "name": "Прогулка к смотровой Тре-Чиме-ди-Лаваредо",
+          "kind": "прогулка",
           "waypointRef": "d5-w2",
           "duration_min": 90,
-          "summary": "The iconic Dolomites panorama — three vertical rock towers (Cima Grande 2,999 m).",
+          "summary": "Культовая панорама Доломитов — три вертикальные скальные башни (Чима-Гранде 2 999 м).",
           "details": [
-            "Short loop: Rifugio Auronzo (2,333 m) → Rifugio Lavaredo (2,344 m) and back, ~4 km, ~1h30",
-            "Wide gravel path, minimal elevation — trail shoes fine",
-            "Gives the famous north-face view without the full 3-hour Rifugio Locatelli loop",
-            "Plateau is exposed — bring a wind layer even in August",
-            "Morning is usually clearest; afternoon clouds often build by 13:00"
+            "Короткий круг: рифуджо Ауронцо (2 333 м) → рифуджо Лаваредо (2 344 м) и обратно, ~4 км, ~1 ч 30 мин",
+            "Широкая гравийная тропа, почти без набора — подойдут трекинговые кроссовки",
+            "Даёт знаменитый вид на северную стену без полного 3-часового круга через рифуджо Локателли",
+            "Плато открыто всем ветрам — возьмите ветровку даже в августе",
+            "Утром обычно яснее всего; после обеда облака часто к 13:00"
+          ],
+          "links": [
+            {
+              "label": "Платная дорога к Тре-Чиме (инфо + статус)",
+              "url": "https://www.dolomiti.org/en/cortina/places/tre-cime-di-lavaredo/",
+              "note": "Платный подъезд от Мизурины до рифуджо Ауронцо"
+            },
+            {
+              "label": "Рифуджо Ауронцо (приют)",
+              "url": "https://www.rifugioauronzo.it/"
+            },
+            {
+              "label": "Википедия: Тре-Чиме-ди-Лаваредо",
+              "url": "https://en.wikipedia.org/wiki/Tre_Cime_di_Lavaredo"
+            }
+          ],
+          "photos": [
+            {
+              "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Dsdas.jpg?width=800",
+              "alt": "Северная стена Тре-Чиме-ди-Лаваредо",
+              "credit": "CC BY 3.0 via Wikimedia Commons",
+              "href": "https://commons.wikimedia.org/wiki/File:Dsdas.jpg"
+            },
+            {
+              "src": "https://commons.wikimedia.org/wiki/Special:FilePath/DreiZinnenH%C3%BCtte.JPG?width=800",
+              "alt": "Приют Дрей-Циннен (рифуджо Локателли) под Тре-Чиме",
+              "credit": "CC BY-SA 3.0 via Wikimedia Commons",
+              "href": "https://commons.wikimedia.org/wiki/File:DreiZinnenH%C3%BCtte.JPG"
+            }
           ]
         }
       ],
       "significantStops": [
         {
-          "name": "Lago di Misurina (1,754 m)",
+          "name": "Лаго-ди-Мизурина (1 754 м)",
           "waypointRef": "d5-w1",
           "duration_min": 0,
-          "note": "\"Pearl of Cadore\"; panorama of Sorapiss & Tre Cime (included in lake walk)"
+          "note": "«Жемчужина Кадоре»; панорама Сораписа и Тре-Чиме (входит в прогулку вокруг озера)"
         },
         {
-          "name": "Rifugio Auronzo (2,333 m)",
+          "name": "Рифуджо Ауронцо (2 333 м)",
           "waypointRef": "d5-w2",
           "duration_min": 0,
-          "note": "Trailhead viewpoint under the Tre Cime north face (included in Tre Cime walk)"
+          "note": "Смотровая у начала тропы под северной стеной Тре-Чиме (входит в прогулку к Тре-Чиме)"
         }
       ],
+      "photos": [
+        {
+          "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Lago%20di%20misurina.jpg?width=800",
+          "alt": "Лаго-ди-Мизурина — «Жемчужина Кадоре»",
+          "credit": "GFDL / CC BY-SA 3.0 via Wikimedia Commons",
+          "href": "https://commons.wikimedia.org/wiki/File:Lago_di_misurina.jpg"
+        },
+        {
+          "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Dsdas.jpg?width=800",
+          "alt": "Тре-Чиме-ди-Лаваредо — панорама северной стены",
+          "credit": "CC BY 3.0 via Wikimedia Commons",
+          "href": "https://commons.wikimedia.org/wiki/File:Dsdas.jpg"
+        },
+        {
+          "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Tre%20Cime%20di%20Lavaredo%202012%202.jpg?width=800",
+          "alt": "Тре-Чиме-ди-Лаваредо с юга",
+          "credit": "CC BY-SA 4.0 via Wikimedia Commons",
+          "href": "https://commons.wikimedia.org/wiki/File:Tre_Cime_di_Lavaredo_2012_2.jpg"
+        },
+        {
+          "src": "https://commons.wikimedia.org/wiki/Special:FilePath/DreiZinnenH%C3%BCtte.JPG?width=800",
+          "alt": "Приют Дрей-Циннен с Тре-Чиме на фоне",
+          "credit": "CC BY-SA 3.0 via Wikimedia Commons",
+          "href": "https://commons.wikimedia.org/wiki/File:DreiZinnenH%C3%BCtte.JPG"
+        }
+      ],
+      "blurb": {
+        "summary": "Последнее утро в Доломитах: зеркальное озеро Лаго-ди-Мизурина, затем платная дорога до рифуджо Ауронцо ради культового вида на Тре-Чиме-ди-Лаваредо. Длинная послеобеденная дорога домой через Фриули и Каринтию — к раннему вечеру должны быть в Клагенфурте.",
+        "facts": [
+          {
+            "label": "Главное",
+            "value": "смотровая на Тре-Чиме-ди-Лаваредо"
+          },
+          {
+            "label": "Платная дорога",
+            "value": "до рифуджо Ауронцо · ~€30 / авто"
+          },
+          {
+            "label": "Озеро",
+            "value": "Лаго-ди-Мизурина · 1 754 м"
+          },
+          {
+            "label": "Дорога домой",
+            "value": "~3 ч 15 мин"
+          },
+          {
+            "label": "Дома к",
+            "value": "~19:00 по плану"
+          }
+        ],
+        "hint": "Нажмите на метку на карте — или на строку ниже — чтобы подсветить это место."
+      },
       "legs": [
         {
           "duration_s": 903.5,

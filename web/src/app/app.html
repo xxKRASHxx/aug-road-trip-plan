@@ -1,11 +1,11 @@
 @if (loading()) {
   <div class="state">
     <div class="spinner"></div>
-    <p>Loading route…</p>
+    <p>{{ t('state.loading') }}</p>
   </div>
 } @else if (error(); as err) {
   <div class="state error">
-    <h2>Failed to load route</h2>
+    <h2>{{ t('state.errorTitle') }}</h2>
     <p>{{ err }}</p>
   </div>
 } @else if (route(); as r) {
@@ -15,8 +15,10 @@
         [route]="r"
         [view]="view()"
         [focusedWaypointId]="focusedWaypointId()"
+        [lang]="lang()"
         (viewChange)="onViewChange($event)"
         (focusWaypoint)="onFocusWaypoint($event)"
+        (langChange)="setLang($event)"
       />
     </aside>
     <div
@@ -34,6 +36,7 @@
         [route]="r"
         [selectedDay]="mapSelectedDay()"
         [focusedWaypointId]="focusedWaypointId()"
+        [lang]="lang()"
         (waypointClicked)="onFocusWaypoint($event)"
       />
     </main>

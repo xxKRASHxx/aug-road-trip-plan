@@ -7,14 +7,57 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import RU from './translations.ru.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const OUT = path.resolve(__dirname, '..', 'public', 'assets', 'route.json');
+const OUT_DIR = path.resolve(__dirname, '..', 'public', 'assets');
+const OUT_EN = path.join(OUT_DIR, 'route.en.json');
+const OUT_RU = path.join(OUT_DIR, 'route.ru.json');
+
+// Top-level overview blurb shown on the Overview tab. Same shape as a day's
+// blurb (summary + facts + hint). Russian version is in translations.ru.mjs.
+const OVERVIEW_EN = {
+  summary:
+    'A 5-day loop from Klagenfurt through the eastern Alps: ' +
+    "Austria's highest pass road, a cable-car day in Innsbruck up to the " +
+    '2,256 m Nordkette ridge, a full-day via ferrata in the Ötztal, two spectacular ' +
+    'South-Tyrolean passes into the Dolomites, and home via Lago di Misurina ' +
+    'and Tre Cime.',
+  facts: [
+    { label: 'Start / end',   value: 'Klagenfurt' },
+    { label: 'Duration',      value: '5 days · 4 nights' },
+    { label: 'Best season',   value: 'Late June – early September' },
+    { label: 'Daily rhythm',  value: 'Wake 09:00 · depart 10:00' },
+    { label: 'Driving style', value: 'Scenic over fastest · one real activity per day' },
+  ],
+  hint:
+    'Click any day tab above — or a marker on the map — to see its route, ' +
+    'activities, sightseeing stops, and overnight.',
+};
 
 /**
  * Waypoint ids follow the pattern d{day}-w{index}.
  * Timeline / activity / stop entries reference those ids.
  */
+
+// --- Photo helpers (Wikimedia Commons) ------------------------------------
+// Special:FilePath redirects any filename to the underlying file and respects
+// a requested width, so these URLs are stable across Commons thumbnail churn.
+const COMMONS = 'https://commons.wikimedia.org';
+const wmSrc  = (file, w = 800) => `${COMMONS}/wiki/Special:FilePath/${encodeURIComponent(file)}?width=${w}`;
+const wmPage = (file)          => `${COMMONS}/wiki/File:${encodeURIComponent(file).replace(/%20/g, '_')}`;
+/**
+ * Build a Photo object from a Commons filename and metadata.
+ * @param {string} file   exact Commons filename, WITH extension (e.g. "Fuscher_Lacke.jpg")
+ * @param {string} alt    accessible alt text
+ * @param {string} credit human-readable attribution ("Author / CC BY-SA 4.0 via Wikimedia Commons")
+ */
+const wmPhoto = (file, alt, credit) => ({
+  src: wmSrc(file),
+  alt,
+  credit,
+  href: wmPage(file),
+});
 
 const days = [
   // =========================================================================
@@ -25,13 +68,32 @@ const days = [
     title: 'Klagenfurt → Großglockner → Kaprun',
     theme: "Austria's highest alpine pass road, iconic high-altitude lake",
     color: '#e63946',
+    blurb: {
+      summary:
+        "A scenic crossing of Austria's highest mountain road. Long climbs above the tree " +
+        "line, pastel-blue alpine lakes, and near-certain marmot sightings. By late " +
+        "afternoon you drop into the green Kaprun valley for dinner at the foot of the " +
+        "Kitzsteinhorn.",
+      facts: [
+        { label: 'Pass',      value: 'Hochtor · 2,504 m' },
+        { label: 'Toll',      value: '€44 / car (1-day Glocknerstraße)' },
+        { label: 'Highlight', value: 'Fuscher Lacke turquoise lake' },
+        { label: 'Wildlife',  value: 'Marmots & ibex likely' },
+        { label: 'Bring',     value: 'Warm layer — ~10 °C colder up top' },
+      ],
+      hint: 'Click any marker on the map — or a row below — to focus that location.',
+    },
     from: 'Klagenfurt',
     to: 'Kaprun',
     waypoints: [
       { id: 'd1-w0', label: 'Klagenfurt (start)',                      coords: [46.6228, 14.3050], type: 'start' },
       { id: 'd1-w1', label: 'Heiligenblut — toll gate & church',       coords: [47.0401, 12.8454], type: 'viewpoint' },
       { id: 'd1-w2', label: 'Hochtor (2,504 m)',                        coords: [47.0830, 12.8530], type: 'viewpoint' },
-      { id: 'd1-w3', label: 'Fuscher Lacke (2,262 m)',                  coords: [47.1185, 12.8369], type: 'activity' },
+      {
+        id: 'd1-w3', label: 'Fuscher Lacke (2,262 m)',
+        coords: [47.1185, 12.8369], type: 'activity',
+        appleMapsUrl: 'https://maps.apple/p/aN0sfTsmvQwP8s',
+      },
       { id: 'd1-w4', label: 'Bruck a.d. Großglocknerstraße',            coords: [47.2862, 12.8218], type: 'via' },
       { id: 'd1-w5', label: 'Kaprun (overnight)',                       coords: [47.2724, 12.7477], type: 'overnight' },
     ],
@@ -68,6 +130,15 @@ const days = [
           'Crowds peak in early afternoon; post-lunch arrival (~13:45) often quietest',
           'Trail shoes sufficient — gravel / grassed path',
         ],
+        links: [
+          { label: 'Großglockner High Alpine Road (official)', url: 'https://www.grossglockner.at/gg/en', note: 'Tolls, opening status, webcams' },
+          { label: 'Hohe Tauern National Park', url: 'https://hohetauern.at/en/' },
+        ],
+        photos: [
+          wmPhoto('Fuscher Lacke Panorama Großglocknerhochalpenstraße.jpg',
+                  'Fuscher Lacke panorama on the Großglockner road',
+                  'Public domain via Wikimedia Commons'),
+        ],
       },
     ],
     significantStops: [
@@ -81,6 +152,20 @@ const days = [
       note: "6 km south of Zell am See, 20–40% cheaper, far less crowded. Has Kitzsteinhorn glacier cable car; Zell lakeshore 10 min by car.",
       bookingUrl: 'https://www.booking.com/searchresults.html?ss=Kaprun',
     },
+    photos: [
+      wmPhoto('1291-Heiligenblut.jpg',
+              'Heiligenblut church with Großglockner behind — the classic postcard view',
+              'CC BY-SA 3.0 via Wikimedia Commons'),
+      wmPhoto('Fuscher Lacke Panorama Großglocknerhochalpenstraße.jpg',
+              'Panorama of Fuscher Lacke at 2,262 m',
+              'Public domain via Wikimedia Commons'),
+      wmPhoto('Grossglockner High Alpine Road, National Park Hohe Tauern Austria.jpg',
+              'Großglockner High Alpine Road switchbacks',
+              'CC BY-SA 4.0 via Wikimedia Commons'),
+      wmPhoto('Grossglockner hochalpenstrasse 12 2016.jpg',
+              'Großglockner Hochalpenstraße in summer',
+              'CC BY-SA 4.0 via Wikimedia Commons'),
+    ],
   },
 
   // =========================================================================
@@ -90,6 +175,20 @@ const days = [
     day: 2,
     title: 'Kaprun → Nordkette → Zirl',
     theme: 'Alpine city cable car, panorama ridge, old town stroll',
+    blurb: {
+      summary:
+        'A fast motorway transfer west, then a classic Innsbruck half-day: a funicular ' +
+        'plus two cable cars straight from the city centre to 2,256 m. Panoramic lunch ' +
+        'above the Inn valley, an old-town stroll at golden hour, and a quiet night in Zirl.',
+      facts: [
+        { label: 'Cable car',  value: 'Nordkettenbahnen (~€47 pp return)' },
+        { label: 'Top',        value: 'Hafelekar · 2,256 m' },
+        { label: 'Old town',   value: 'Goldenes Dachl, Hofgarten' },
+        { label: 'Driving',    value: 'A10 → A12 motorway' },
+        { label: 'Sleep',      value: 'Zirl — quieter & cheaper than Innsbruck' },
+      ],
+      hint: 'Click any marker on the map — or a row below — to focus that location.',
+    },
     color: '#f4a261',
     from: 'Kaprun',
     to: 'Zirl',
@@ -134,6 +233,16 @@ const days = [
           'Queues of 20–30 min at Hungerburg / Seegrube in July–August — book online in advance',
           'Full return ticket ~€40–45 / person',
         ],
+        links: [
+          { label: 'Nordkette cable car (tickets + timetable)', url: 'https://www.nordkette.com/en/', note: 'Buy online to skip the Hungerburg queue' },
+          { label: 'Hungerburgbahn (funicular)',               url: 'https://www.nordkette.com/en/ticket-shop/' },
+          { label: 'Innsbruck Card',                            url: 'https://www.innsbruck.info/en/highlights/innsbruck-card.html', note: 'Includes the Nordkette return + most museums' },
+        ],
+        photos: [
+          wmPhoto('Airport Innsbruck (LOWI) Panorama - Nordkette.jpg',
+                  'Nordkette ridge towering over Innsbruck',
+                  'CC BY-SA 4.0 via Wikimedia Commons'),
+        ],
       },
       {
         name: 'Innsbruck old town stroll',
@@ -145,6 +254,15 @@ const days = [
           'Goldenes Dachl (Golden Roof) — the must-see; courtyard and streets are free',
           'Maria-Theresien-Straße for the postcard view of the Nordkette ridge',
           'Triumphpforte, Hofkirche, Hofburg if time allows',
+        ],
+        links: [
+          { label: 'Innsbruck tourist info',  url: 'https://www.innsbruck.info/en/' },
+          { label: 'Goldenes Dachl (museum)', url: 'https://www.innsbruck.gv.at/maximilianeum' },
+        ],
+        photos: [
+          wmPhoto('Goldenes Dachl (Innsbruck).jpg',
+                  'Goldenes Dachl — the Golden Roof of Innsbruck',
+                  'CC BY-SA 3.0 via Wikimedia Commons'),
         ],
       },
     ],
@@ -160,6 +278,17 @@ const days = [
       note: 'Small Inn valley town 18 min west of Innsbruck. Quieter and cheaper than the city. Saves 13 min on Day 3 morning drive to Ötztal.',
       bookingUrl: 'https://www.booking.com/searchresults.html?ss=Zirl+Tirol',
     },
+    photos: [
+      wmPhoto('Airport Innsbruck (LOWI) Panorama - Nordkette.jpg',
+              'Nordkette ridge over Innsbruck from the south',
+              'CC BY-SA 4.0 via Wikimedia Commons'),
+      wmPhoto('Goldenes Dachl (Innsbruck).jpg',
+              'Goldenes Dachl — Golden Roof of Innsbruck',
+              'CC BY-SA 3.0 via Wikimedia Commons'),
+      wmPhoto('2731 - Innsbruck - Goldenes Dachl.JPG',
+              'Innsbruck old town alley toward Goldenes Dachl',
+              'CC BY-SA 2.5 via Wikimedia Commons'),
+    ],
   },
 
   // =========================================================================
@@ -169,6 +298,20 @@ const days = [
     day: 3,
     title: 'Zirl → Stuibenfall Klettersteig → Ötztal',
     theme: "Full-day via ferrata — Austria's longest waterfall",
+    blurb: {
+      summary:
+        "Short morning drive into the Ötztal, then the whole day is on rock: a guided " +
+        "via ferrata climb beside Tirol's tallest waterfall. Rental gear from the Ötztal " +
+        "centre, ~3–4 h on the wire, easy evening stroll in Längenfeld.",
+      facts: [
+        { label: 'Main event',   value: 'Stuibenfall Klettersteig (B/C)' },
+        { label: 'Guide + gear', value: '~€95 / person' },
+        { label: 'Time on rock', value: '3–4 hours' },
+        { label: 'Minimum age',  value: '12 years' },
+        { label: 'Weather',      value: 'Dry rock only — reschedule if rain' },
+      ],
+      hint: 'Click any marker on the map — or a row below — to focus that location.',
+    },
     color: '#2a9d8f',
     from: 'Zirl',
     to: 'Umhausen / Längenfeld',
@@ -211,6 +354,20 @@ const days = [
           'Footwear: approach shoes or stiff hiking boots — not trail runners',
           'ABORT on thunderstorm risk — lightning on a metal-clipped route is life-threatening',
         ],
+        links: [
+          { label: 'Stuibenfall Klettersteig (Ötztal Tourismus)', url: 'https://www.oetztal.com/en/active-in-the-oetztal/outdoor-oetztal/climbing/via-ferrata-oetztal/stuibenfall.html', note: 'Route map, topo, gear, guide bookings' },
+          { label: 'Weather — mountain-forecast.com',             url: 'https://www.mountain-forecast.com/peaks/Acherkogel/forecasts/2987' },
+          { label: 'Weather — ZAMG Tirol',                        url: 'https://www.zamg.ac.at/cms/de/wetter/wetter-oesterreich/tirol' },
+          { label: 'Ötztal tourism portal',                       url: 'https://www.oetztal.com/en/' },
+        ],
+        photos: [
+          wmPhoto('Stuibenfall, Hängebrücke.jpg',
+                  'Suspension bridge and iron stairs on the Stuibenfall ferrata',
+                  'CC BY-SA 4.0 via Wikimedia Commons'),
+          wmPhoto('Hängebrücke und Treppenanlage am Stuibenfall.jpg',
+                  'Upper section of the Stuibenfall ferrata',
+                  'CC BY-SA 4.0 via Wikimedia Commons'),
+        ],
       },
     ],
     significantStops: [
@@ -223,6 +380,17 @@ const days = [
       note: 'Small valley villages with guesthouses / Gasthöfe. Längenfeld (10 km up from Umhausen) has Aqua Dome thermal spa if legs are tired.',
       bookingUrl: 'https://www.booking.com/searchresults.html?ss=L%C3%A4ngenfeld+%C3%96tztal',
     },
+    photos: [
+      wmPhoto('Stuibenfall, Hängebrücke.jpg',
+              "Stuibenfall — Austria's highest waterfall at 159 m",
+              'CC BY-SA 4.0 via Wikimedia Commons'),
+      wmPhoto('Hängebrücke und Treppenanlage am Stuibenfall.jpg',
+              'Iron stairs beside the Stuibenfall cascade',
+              'CC BY-SA 4.0 via Wikimedia Commons'),
+      wmPhoto('Sölden Ötztal Strasse.jpg',
+              'Ötztal valley road — the B186',
+              'CC BY-SA 4.0 via Wikimedia Commons'),
+    ],
   },
 
   // =========================================================================
@@ -233,6 +401,21 @@ const days = [
     day: 4,
     title: 'Ötztal → Timmelsjoch → Jaufenpass → Cortina',
     theme: 'Two high alpine passes through South Tyrol to the Dolomites',
+    blurb: {
+      summary:
+        'Two high Alpine passes in one day. Climb Timmelsjoch (2,509 m) from Sölden, ' +
+        'drop south through the Passeier valley, then back up over the Jaufenpass into ' +
+        'South Tyrol. Lunch in Sterzing, a long afternoon drive across the Dolomites, ' +
+        'and dinner in Cortina.',
+      facts: [
+        { label: 'Passes',    value: 'Timmelsjoch + Jaufenpass' },
+        { label: 'Toll',      value: '~€20 (Timmelsjoch car)' },
+        { label: 'Border',    value: 'Austria → Italy' },
+        { label: 'Language',  value: 'German → Italian / Ladin' },
+        { label: 'Drive',     value: 'Longest day · ~3½ h behind the wheel' },
+      ],
+      hint: 'Click any marker on the map — or a row below — to focus that location.',
+    },
     color: '#457b9d',
     from: 'Längenfeld (Ötztal)',
     to: "Cortina d'Ampezzo",
@@ -279,6 +462,16 @@ const days = [
           'Views: Ötztal Alps north, Dolomites and Passeier south from the summit',
           'Caravans / trailers prohibited on the road',
         ],
+        links: [
+          { label: 'Timmelsjoch official (status / tolls / webcams)', url: 'https://www.timmelsjoch.com', note: 'Check opening status before departure' },
+          { label: 'Timmelsjoch Experience (summit pavilions)',        url: 'https://www.timmelsjoch.com/en/experience/' },
+          { label: 'Wikipedia: Timmelsjoch',                           url: 'https://en.wikipedia.org/wiki/Timmelsjoch' },
+        ],
+        photos: [
+          wmPhoto('Passo del Rombo 06.JPG',
+                  'Timmelsjoch / Passo del Rombo pass road',
+                  'CC BY-SA 3.0 via Wikimedia Commons'),
+        ],
       },
       {
         name: 'Jaufenpass drive (Passo Giovo)',
@@ -291,6 +484,18 @@ const days = [
           'Small Gasthaus at the summit — coffee / strudel stop',
           "Less-touristed than Timmelsjoch; traffic usually light except on weekends",
           'Good fallback if Timmelsjoch is closed — reroute via Jaufenpass + A22 down to Cortina',
+        ],
+        links: [
+          { label: 'Wikipedia: Jaufenpass',       url: 'https://en.wikipedia.org/wiki/Jaufen_Pass' },
+          { label: 'Sterzing / Vipiteno tourism', url: 'https://www.vipiteno.com/en/' },
+        ],
+        photos: [
+          wmPhoto('Passo di Monte Giovo-Jaufenpass 004.JPG',
+                  'Jaufenpass road in South Tyrol',
+                  'CC BY-SA 3.0 via Wikimedia Commons'),
+          wmPhoto('Jaufenhaus 01.jpg',
+                  'Jaufenhaus — the Gasthaus at the Jaufenpass summit',
+                  'CC BY-SA 4.0 via Wikimedia Commons'),
         ],
       },
     ],
@@ -305,6 +510,20 @@ const days = [
       note: 'Upscale mountain resort; July–August tightens fast. Cheaper alternatives within 15 min: San Vito di Cadore, Pocol. (Arrival ~17:00 with the scenic route — book ahead.)',
       bookingUrl: "https://www.booking.com/searchresults.html?ss=Cortina+d%27Ampezzo",
     },
+    photos: [
+      wmPhoto('Passo del Rombo 06.JPG',
+              'Timmelsjoch — the high pass into South Tyrol',
+              'CC BY-SA 3.0 via Wikimedia Commons'),
+      wmPhoto('Passo di Monte Giovo-Jaufenpass 004.JPG',
+              'Jaufenpass switchbacks above Sterzing',
+              'CC BY-SA 3.0 via Wikimedia Commons'),
+      wmPhoto('Sterzing-Vipiteno.JPG',
+              'Sterzing / Vipiteno — medieval South-Tyrolean town',
+              'CC BY-SA 3.0 via Wikimedia Commons'),
+      wmPhoto("Cortina d'Ampezzo 01.jpg",
+              "Cortina d'Ampezzo with the Tofane range",
+              'CC BY-SA 4.0 via Wikimedia Commons'),
+    ],
   },
 
   // =========================================================================
@@ -314,6 +533,21 @@ const days = [
     day: 5,
     title: 'Cortina → Lago di Misurina → Tre Cime → Klagenfurt',
     theme: 'Two iconic Dolomites stops on the way home — no backtracking',
+    blurb: {
+      summary:
+        'A final Dolomites morning: the mirror-like Lago di Misurina, then a toll road ' +
+        'up to Rifugio Auronzo for the iconic view of Tre Cime di Lavaredo. Long ' +
+        'afternoon drive home across Friuli and Carinthia — you should be back in ' +
+        'Klagenfurt by early evening.',
+      facts: [
+        { label: 'Icon',       value: 'Tre Cime di Lavaredo viewpoint' },
+        { label: 'Toll road',  value: 'Rifugio Auronzo · ~€30 car' },
+        { label: 'Lake',       value: 'Lago di Misurina · 1,754 m' },
+        { label: 'Drive home', value: '~3 h 15 min' },
+        { label: 'Home by',    value: '~19:00 if on schedule' },
+      ],
+      hint: 'Click any marker on the map — or a row below — to focus that location.',
+    },
     color: '#6d4c93',
     from: "Cortina d'Ampezzo",
     to: 'Klagenfurt (home)',
@@ -354,6 +588,15 @@ const days = [
           'Busy midday — ~10:00 is quiet',
           'Cafés, toilets, paid parking (~€3/hr)',
         ],
+        links: [
+          { label: 'Wikipedia: Lake Misurina', url: 'https://en.wikipedia.org/wiki/Lake_Misurina' },
+          { label: 'Misurina area info',        url: 'https://www.misurina.com/en' },
+        ],
+        photos: [
+          wmPhoto('Lago di misurina.jpg',
+                  'Lago di Misurina at 1,754 m with Dolomite peaks',
+                  'GFDL / CC BY-SA 3.0 via Wikimedia Commons'),
+        ],
       },
       {
         name: 'Tre Cime di Lavaredo viewpoint walk',
@@ -368,6 +611,19 @@ const days = [
           'Plateau is exposed — bring a wind layer even in August',
           'Morning is usually clearest; afternoon clouds often build by 13:00',
         ],
+        links: [
+          { label: 'Tre Cime toll road (info + live status)', url: 'https://www.dolomiti.org/en/cortina/places/tre-cime-di-lavaredo/', note: 'Paid access road from Misurina to Rifugio Auronzo' },
+          { label: 'Rifugio Auronzo (refuge)',                 url: 'https://www.rifugioauronzo.it/' },
+          { label: 'Wikipedia: Tre Cime di Lavaredo',          url: 'https://en.wikipedia.org/wiki/Tre_Cime_di_Lavaredo' },
+        ],
+        photos: [
+          wmPhoto('Dsdas.jpg',
+                  'Tre Cime di Lavaredo north face',
+                  'CC BY 3.0 via Wikimedia Commons'),
+          wmPhoto('DreiZinnenHütte.JPG',
+                  'Drei Zinnen hut (Rifugio Locatelli) below the Tre Cime',
+                  'CC BY-SA 3.0 via Wikimedia Commons'),
+        ],
       },
     ],
     significantStops: [
@@ -375,6 +631,20 @@ const days = [
       { name: 'Rifugio Auronzo (2,333 m)',    waypointRef: 'd5-w2', duration_min: 0, note: 'Trailhead viewpoint under the Tre Cime north face (included in Tre Cime walk)' },
     ],
     overnight: null,
+    photos: [
+      wmPhoto('Lago di misurina.jpg',
+              'Lago di Misurina — "Pearl of Cadore"',
+              'GFDL / CC BY-SA 3.0 via Wikimedia Commons'),
+      wmPhoto('Dsdas.jpg',
+              'Tre Cime di Lavaredo — north face panorama',
+              'CC BY 3.0 via Wikimedia Commons'),
+      wmPhoto('Tre Cime di Lavaredo 2012 2.jpg',
+              'Tre Cime di Lavaredo from the south',
+              'CC BY-SA 4.0 via Wikimedia Commons'),
+      wmPhoto('DreiZinnenHütte.JPG',
+              'Drei Zinnen hut with the Tre Cime behind',
+              'CC BY-SA 3.0 via Wikimedia Commons'),
+    ],
   },
 ];
 
@@ -418,8 +688,92 @@ function manualLegsMap(raw) {
   return m;
 }
 
+/**
+ * Apply Russian translations to a deep-cloned English result.
+ * Arrays (timeline, activities, stops, photos) match positionally; waypoints
+ * match by id. A length mismatch emits a warning so data drift surfaces early.
+ */
+function applyRu(resultEn, ru) {
+  const result = JSON.parse(JSON.stringify(resultEn));
+  if (ru.overview) result.overview = ru.overview;
+
+  for (const day of result.days) {
+    const rd = ru.days?.[day.day];
+    if (!rd) {
+      console.warn(`  ⚠ no RU translation for day ${day.day}`);
+      continue;
+    }
+    if (rd.title) day.title = rd.title;
+    if (rd.theme) day.theme = rd.theme;
+    if (rd.from)  day.from  = rd.from;
+    if (rd.to)    day.to    = rd.to;
+    if (rd.blurb) day.blurb = rd.blurb;
+
+    if (rd.waypoints) {
+      for (const wp of day.waypoints) {
+        if (rd.waypoints[wp.id]) wp.label = rd.waypoints[wp.id];
+      }
+    }
+
+    const translateList = (enList, ruList, label, fields) => {
+      if (!ruList) return;
+      if (ruList.length !== enList.length) {
+        console.warn(`  ⚠ day ${day.day} ${label}: RU has ${ruList.length}, EN has ${enList.length}`);
+      }
+      const n = Math.min(enList.length, ruList.length);
+      for (let i = 0; i < n; i++) {
+        for (const f of fields) {
+          if (ruList[i][f] !== undefined) enList[i][f] = ruList[i][f];
+        }
+      }
+    };
+
+    translateList(day.timeline, rd.timeline, 'timeline', ['event', 'notes']);
+    translateList(day.significantStops, rd.significantStops, 'significantStops', ['name', 'note']);
+
+    if (rd.activities) {
+      translateList(day.activities, rd.activities, 'activities',
+                    ['name', 'kind', 'summary', 'details']);
+      const n = Math.min(day.activities.length, rd.activities.length);
+      for (let i = 0; i < n; i++) {
+        const en = day.activities[i];
+        const ruA = rd.activities[i];
+        if (ruA.links && en.links) {
+          const m = Math.min(en.links.length, ruA.links.length);
+          for (let j = 0; j < m; j++) {
+            if (ruA.links[j].label) en.links[j].label = ruA.links[j].label;
+            if (ruA.links[j].note !== undefined) en.links[j].note = ruA.links[j].note;
+          }
+        }
+        if (ruA.photos && en.photos) {
+          const m = Math.min(en.photos.length, ruA.photos.length);
+          for (let j = 0; j < m; j++) {
+            if (ruA.photos[j].alt) en.photos[j].alt = ruA.photos[j].alt;
+          }
+        }
+      }
+    }
+
+    if (rd.overnight === null) {
+      day.overnight = null;
+    } else if (rd.overnight && day.overnight) {
+      if (rd.overnight.town) day.overnight.town = rd.overnight.town;
+      if (rd.overnight.property !== undefined) day.overnight.property = rd.overnight.property;
+      if (rd.overnight.note !== undefined) day.overnight.note = rd.overnight.note;
+    }
+
+    if (rd.photos && day.photos) {
+      const n = Math.min(day.photos.length, rd.photos.length);
+      for (let i = 0; i < n; i++) {
+        if (rd.photos[i].alt) day.photos[i].alt = rd.photos[i].alt;
+      }
+    }
+  }
+  return result;
+}
+
 async function main() {
-  const result = { days: [] };
+  const result = { overview: OVERVIEW_EN, days: [] };
   for (const d of days) {
     const legs = [];
     const manual = manualLegsMap(d.manualLegs);
@@ -453,12 +807,20 @@ async function main() {
       timeline: d.timeline,
       activities: d.activities,
       significantStops: d.significantStops,
+      photos: d.photos ?? [],
+      blurb: d.blurb ?? null,
       legs,
     });
   }
-  await fs.mkdir(path.dirname(OUT), { recursive: true });
-  await fs.writeFile(OUT, JSON.stringify(result, null, 2));
-  console.log(`\nWrote ${OUT}`);
+
+  await fs.mkdir(OUT_DIR, { recursive: true });
+  await fs.writeFile(OUT_EN, JSON.stringify(result, null, 2));
+  console.log(`\nWrote ${OUT_EN}`);
+
+  console.log('Applying Russian translations...');
+  const resultRu = applyRu(result, RU);
+  await fs.writeFile(OUT_RU, JSON.stringify(resultRu, null, 2));
+  console.log(`Wrote ${OUT_RU}`);
 }
 
 main().catch(err => { console.error(err); process.exit(1); });

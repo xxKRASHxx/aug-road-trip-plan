@@ -1,4 +1,4 @@
-# Alps family trip — Trip Overview
+# Alps trip — Trip Overview
 
 **Route:** Klagenfurt → Hohe Tauern (Großglockner) → Kaprun → Innsbruck → Ötztal (Stuibenfall) → Cortina d'Ampezzo → Klagenfurt  
 **Duration:** 5 days, 4 nights  

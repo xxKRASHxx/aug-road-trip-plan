@@ -11,6 +11,8 @@ import {
 } from '@angular/core';
 import * as L from 'leaflet';
 import { Day, RouteData, Waypoint, WaypointType } from '../route.types';
+import { Lang } from '../language.service';
+import { UI } from '../i18n';
 
 // Fix Leaflet default icon pathing when bundled
 type DefaultIconProto = L.Icon.Default & { _getIconUrl?: unknown };
@@ -54,6 +56,8 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   readonly selectedDay = input<number>(0);
   /** Waypoint id that should be centered and popped open. */
   readonly focusedWaypointId = input<string | null>(null);
+  /** Current UI language — popup labels re-bind when this changes. */
+  readonly lang = input<Lang>('en');
 
   readonly waypointClicked = output<string>();
 
@@ -72,6 +76,14 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       const id = this.focusedWaypointId();
       if (this.map && id) this.focusMarker(id);
     });
+    // When language changes, the entire route signal is swapped out by
+    // RouteService (different JSON file). Rebuild all layers/markers/popups
+    // so labels and popup chrome pick up the new strings.
+    effect(() => {
+      this.route();
+      this.lang();
+      if (this.map) this.rebuildLayers();
+    });
   }
 
   ngAfterViewInit(): void {
@@ -80,9 +92,13 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       attributionControl: true,
     }).setView([47.0, 12.5], 8);
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap contributors',
-      maxZoom: 18,
+    // CartoDB "Dark Matter" — OpenStreetMap data rendered in a dark palette.
+    // Free to use with attribution; retina-friendly via {r}.
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+      attribution:
+        '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors · © <a href="https://carto.com/attributions">CARTO</a>',
+      subdomains: 'abcd',
+      maxZoom: 19,
     }).addTo(map);
 
     this.map = map;
@@ -109,6 +125,21 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     this.resizeObserver?.disconnect();
     this.map?.remove();
+  }
+
+  /** Tear down all existing layers/markers then rebuild from current data. */
+  private rebuildLayers(): void {
+    if (!this.map) return;
+    for (const [, group] of this.dayLayers) {
+      this.map.removeLayer(group);
+      group.clearLayers();
+    }
+    this.dayLayers.clear();
+    this.markerIndex.clear();
+    this.buildLayers();
+    this.applySelection(this.selectedDay());
+    const initialFocus = this.focusedWaypointId();
+    if (initialFocus) this.focusMarker(initialFocus);
   }
 
   private buildLayers(): void {
@@ -168,18 +199,25 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     const [lat, lon] = wp.coords;
     const name = this.searchName(wp.label);
     const encName = encodeURIComponent(name);
-    // Google resolves named places well; append coords so obscure names still land on the right spot.
-    const gmaps = `https://www.google.com/maps/search/?api=1&query=${encName}%20${lat},${lon}`;
-    // Apple Maps: `q` labels the pin with the place name, `ll` pins it at the exact coords.
-    const amaps = `https://maps.apple.com/?q=${encName}&ll=${lat},${lon}`;
+    // Prefer per-waypoint POI shortlinks when provided (they land on the real
+    // place card in each app). Fall back to name + coordinate search URLs
+    // which work for any waypoint but point to a generic pin.
+    const gmaps = wp.googleMapsUrl
+      ?? `https://www.google.com/maps/search/?api=1&query=${encName}%20${lat},${lon}`;
+    const amaps = wp.appleMapsUrl
+      ?? `https://maps.apple.com/?q=${encName}&ll=${lat},${lon}`;
+    const l = this.lang();
+    const dayLabel = UI['map.popup.day'][l];
+    const gLabel = UI['map.popup.google'][l];
+    const aLabel = UI['map.popup.apple'][l];
     return `
       <div class="wp-popup">
-        <div class="wp-day" style="color:${day.color}">Day ${day.day} · ${this.escapeHtml(day.title)}</div>
+        <div class="wp-day" style="color:${day.color}">${dayLabel} ${day.day} · ${this.escapeHtml(day.title)}</div>
         <div class="wp-label">${TYPE_EMOJI[wp.type]} ${this.escapeHtml(wp.label)}</div>
         <div class="wp-coords">${lat.toFixed(4)}, ${lon.toFixed(4)}</div>
         <div class="wp-links">
-          <a href="${gmaps}" target="_blank" rel="noopener">Google Maps ↗</a>
-          <a href="${amaps}" target="_blank" rel="noopener">Apple Maps ↗</a>
+          <a href="${gmaps}" target="_blank" rel="noopener">${gLabel}</a>
+          <a href="${amaps}" target="_blank" rel="noopener">${aLabel}</a>
         </div>
       </div>
     `;

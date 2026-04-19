@@ -1,7 +1,25 @@
 <div class="panel">
   <header class="header">
-    <h1>Alps Ttrip</h1>
-    <p class="subtitle">5 days · Klagenfurt → Dolomites → Klagenfurt</p>
+    <div class="header-row">
+      <div class="header-text">
+        <h1>{{ t('header.title') }}</h1>
+        <p class="subtitle">{{ t('header.subtitle') }}</p>
+      </div>
+      <div class="lang-toggle" role="group" [attr.aria-label]="t('lang.aria')">
+        <button
+          type="button"
+          class="lang-btn"
+          [class.active]="lang() === 'en'"
+          (click)="setLang('en')"
+        >{{ t('lang.en') }}</button>
+        <button
+          type="button"
+          class="lang-btn"
+          [class.active]="lang() === 'ru'"
+          (click)="setLang('ru')"
+        >{{ t('lang.ru') }}</button>
+      </div>
+    </div>
   </header>
 
   <nav class="tabs" aria-label="Section selector">
@@ -11,7 +29,7 @@
       [class.active]="view() === 'overview'"
       (click)="setView('overview')"
     >
-      Overview
+      {{ t('tab.overview') }}
     </button>
     @for (d of route().days; track d.day) {
       <button
@@ -22,7 +40,7 @@
         (click)="setView(d.day)"
       >
         <span class="tab-dot" [style.background]="d.color"></span>
-        Day {{ d.day }}
+        {{ t('tab.day') }} {{ d.day }}
       </button>
     }
     <button
@@ -31,7 +49,7 @@
       [class.active]="view() === 'overnights'"
       (click)="setView('overnights')"
     >
-      🛏 Overnights
+      {{ t('tab.overnights') }}
     </button>
   </nav>
 
@@ -40,32 +58,52 @@
     <!-- ============================ OVERVIEW ============================ -->
     @case ('overview') {
       <section class="content">
-        <h2>All days</h2>
+        <h2>{{ t('overview.trip') }}</h2>
+        @if (route().overview; as o) {
+          <div class="trip-blurb">
+            <p>{{ o.summary }}</p>
+            @if (o.facts && o.facts.length > 0) {
+              <ul class="trip-facts">
+                @for (f of o.facts; track f.label) {
+                  <li>
+                    <span class="tf-label">{{ f.label }}</span>
+                    <span>{{ f.value }}</span>
+                  </li>
+                }
+              </ul>
+            }
+            @if (o.hint) {
+              <p class="trip-hint">{{ o.hint }}</p>
+            }
+          </div>
+        }
+
+        <h2>{{ t('overview.allDays') }}</h2>
         <div class="stat-grid">
           <div class="stat">
             <span class="stat-icon">🚗</span>
-            <span class="stat-label">Driving</span>
+            <span class="stat-label">{{ t('overview.stat.driving') }}</span>
             <span class="stat-value">{{ fmtMins(overviewStats().driveMin) }}</span>
-            <span class="stat-aux">{{ overviewStats().totalKm }} km</span>
+            <span class="stat-aux">{{ overviewStats().totalKm }} {{ t('unit.km') }}</span>
           </div>
           <div class="stat">
             <span class="stat-icon">⭐</span>
-            <span class="stat-label">Activities</span>
+            <span class="stat-label">{{ t('overview.stat.activities') }}</span>
             <span class="stat-value">{{ fmtMins(overviewStats().activityMin) }}</span>
-            <span class="stat-aux">on foot / lifts / stops</span>
+            <span class="stat-aux">{{ t('overview.stat.auxActivities') }}</span>
           </div>
           <div class="stat total">
             <span class="stat-icon">⏱</span>
-            <span class="stat-label">Total time</span>
+            <span class="stat-label">{{ t('overview.stat.total') }}</span>
             <span class="stat-value">{{ fmtMins(overviewStats().driveMin + overviewStats().activityMin) }}</span>
-            <span class="stat-aux">across 5 days</span>
+            <span class="stat-aux">{{ t('overview.stat.auxAcross5') }}</span>
           </div>
         </div>
 
         <ul class="day-list">
           @for (d of route().days; track d.day) {
             <li class="day-item" (click)="setView(d.day)">
-              <span class="day-chip" [style.background]="d.color">Day {{ d.day }}</span>
+              <span class="day-chip" [style.background]="d.color">{{ t('tab.day') }} {{ d.day }}</span>
               <div class="day-meta">
                 <div class="day-title">{{ d.title }}</div>
                 <div class="day-sub day-times">
@@ -78,7 +116,7 @@
                 @if (d.overnight; as o) {
                   <div class="day-sub">🛏 {{ o.town }}</div>
                 } @else {
-                  <div class="day-sub">🏠 Home</div>
+                  <div class="day-sub">{{ t('overview.day.home') }}</div>
                 }
               </div>
             </li>
@@ -90,8 +128,8 @@
     <!-- ============================ OVERNIGHTS ============================ -->
     @case ('overnights') {
       <section class="content">
-        <h2>Overnight placeholders</h2>
-        <p class="stats">Fill in <code>[ BOOK: TBD ]</code> once accommodation is confirmed.</p>
+        <h2>{{ t('overnights.heading') }}</h2>
+        <p class="stats">{{ t('overnights.hint') }}</p>
 
         <ul class="overnight-list">
           @for (d of route().days; track d.day) {
@@ -100,7 +138,7 @@
                 <span class="night-num" [style.background]="d.color">N{{ d.day }}</span>
                 <div class="night-meta">
                   <div class="night-town">🛏 {{ o.town }}</div>
-                  <div class="night-prop">{{ o.property ?? '[ BOOK: TBD ]' }}</div>
+                  <div class="night-prop">{{ o.property ?? t('day.overnight.bookTbd') }}</div>
                   <div class="night-note">{{ o.note }}</div>
                   @if (o.bookingUrl) {
                     <a
@@ -109,7 +147,7 @@
                       target="_blank"
                       rel="noopener"
                       (click)="$event.stopPropagation()"
-                    >Search on Booking.com ↗</a>
+                    >{{ t('overnights.bookingLink') }}</a>
                   }
                 </div>
               </li>
@@ -118,8 +156,8 @@
           <li class="final">
             <span class="night-num home">🏠</span>
             <div class="night-meta">
-              <div class="night-town">Day 5 — Home</div>
-              <div class="night-note">No overnight; return to Klagenfurt.</div>
+              <div class="night-town">{{ t('overnights.day5home') }}</div>
+              <div class="night-note">{{ t('overnights.day5note') }}</div>
             </div>
           </li>
         </ul>
@@ -130,44 +168,80 @@
     @default {
       @if (activeDay(); as day) {
         <section class="content">
-          <h2 [style.color]="day.color">Day {{ day.day }}</h2>
+          <h2 [style.color]="day.color">{{ t('tab.day') }} {{ day.day }}</h2>
           <p class="day-heading">{{ day.title }}</p>
           @if (day.theme) {
             <p class="day-theme">{{ day.theme }}</p>
           }
+
+          @if (day.blurb; as b) {
+            <div class="trip-blurb" [style.--accent]="day.color">
+              <p>{{ b.summary }}</p>
+              @if (b.facts && b.facts.length > 0) {
+                <ul class="trip-facts">
+                  @for (f of b.facts; track f.label) {
+                    <li>
+                      <span class="tf-label">{{ f.label }}</span>
+                      <span>{{ f.value }}</span>
+                    </li>
+                  }
+                </ul>
+              }
+              @if (b.hint) {
+                <p class="trip-hint">{{ b.hint }}</p>
+              }
+            </div>
+          }
+
+          @if (day.photos && day.photos.length > 0) {
+            <div class="photo-grid" [class.n-3]="day.photos.length === 3" [class.n-4]="day.photos.length >= 4">
+              @for (p of day.photos; track p.src) {
+                <a
+                  class="photo"
+                  [href]="p.href ?? p.src"
+                  target="_blank"
+                  rel="noopener"
+                  [title]="p.credit"
+                >
+                  <img [src]="p.src" [alt]="p.alt" loading="lazy" />
+                </a>
+              }
+            </div>
+          }
+
           @if (activeDayStats(); as s) {
             <p class="stats">{{ day.from }} → {{ day.to }}</p>
             <div class="stat-grid">
               <div class="stat">
                 <span class="stat-icon">🚗</span>
-                <span class="stat-label">Driving</span>
+                <span class="stat-label">{{ t('day.stat.driving') }}</span>
                 <span class="stat-value">{{ fmtMins(s.driveMin) }}</span>
-                <span class="stat-aux">{{ s.km }} km</span>
+                <span class="stat-aux">{{ s.km }} {{ t('unit.km') }}</span>
               </div>
               <div class="stat">
                 <span class="stat-icon">⭐</span>
-                <span class="stat-label">Activities</span>
+                <span class="stat-label">{{ t('day.stat.activities') }}</span>
                 <span class="stat-value">{{ fmtMins(s.activityMin) }}</span>
-                <span class="stat-aux">on foot / lifts / stops</span>
+                <span class="stat-aux">{{ t('day.stat.auxActivities') }}</span>
               </div>
               <div class="stat total" [style.--accent]="day.color">
                 <span class="stat-icon">⏱</span>
-                <span class="stat-label">Total</span>
+                <span class="stat-label">{{ t('day.stat.total') }}</span>
                 <span class="stat-value">{{ fmtMins(s.driveMin + s.activityMin) }}</span>
-                <span class="stat-aux">day length</span>
+                <span class="stat-aux">{{ t('day.stat.auxDayLength') }}</span>
               </div>
             </div>
           }
 
           <!-- ==== ROUTE ==== -->
-          <h3 class="section-heading">Route</h3>
+          <h3 class="section-heading">{{ t('day.sectionRoute') }}</h3>
           <ol class="route">
             @for (row of activeDayRouteRows(); track row.index) {
               <li
                 class="route-item"
                 [class.has-ref]="!!row.waypoint.id"
-                [class.focused]="isFocused(row.waypoint.id)"
-                (click)="focus(row.waypoint.id)"
+                [class.focused]="isFocused('wp-' + row.waypoint.id)"
+                (click)="focusItem('wp-' + row.waypoint.id, row.waypoint.id)"
               >
                 <span class="route-num" [style.background]="day.color">{{ row.index }}</span>
                 <div class="route-body">
@@ -182,7 +256,7 @@
                         {{ s }}
                       }
                       @if (leg.manual) {
-                        · <em>toll road / cable car</em>
+                        · <em>{{ t('day.leg.manual') }}</em>
                       }
                     </div>
                   }
@@ -192,17 +266,17 @@
           </ol>
 
           <!-- ==== ACTIVITIES ==== -->
-          <h3 class="section-heading">Activities</h3>
+          <h3 class="section-heading">{{ t('day.sectionActivities') }}</h3>
           @if (day.activities.length === 0) {
-            <p class="empty">No planned activities today.</p>
+            <p class="empty">{{ t('day.empty.activities') }}</p>
           } @else {
             <div class="activities">
               @for (a of day.activities; track $index) {
                 <article
                   class="card activity"
                   [class.has-ref]="!!a.waypointRef"
-                  [class.focused]="isFocused(a.waypointRef)"
-                  (click)="focus(a.waypointRef)"
+                  [class.focused]="isFocused('act-' + day.day + '-' + $index)"
+                  (click)="focusItem('act-' + day.day + '-' + $index, a.waypointRef)"
                 >
                   <div class="card-title">
                     <span class="card-icon">⭐</span>
@@ -216,23 +290,56 @@
                       <li>{{ bullet }}</li>
                     }
                   </ul>
+                  @if (a.photos && a.photos.length > 0) {
+                    <div class="photo-grid small" [class.n-2]="a.photos.length === 2" [class.n-3]="a.photos.length === 3" [class.n-4]="a.photos.length >= 4">
+                      @for (p of a.photos; track p.src) {
+                        <a
+                          class="photo"
+                          [href]="p.href ?? p.src"
+                          target="_blank"
+                          rel="noopener"
+                          [title]="p.credit"
+                          (click)="$event.stopPropagation()"
+                        >
+                          <img [src]="p.src" [alt]="p.alt" loading="lazy" />
+                        </a>
+                      }
+                    </div>
+                  }
+                  @if (a.links && a.links.length > 0) {
+                    <ul class="link-list">
+                      @for (l of a.links; track l.url) {
+                        <li>
+                          <a
+                            [href]="l.url"
+                            target="_blank"
+                            rel="noopener"
+                            (click)="$event.stopPropagation()"
+                          >{{ l.label }} ↗</a>
+                          @if (l.note) {
+                            <span class="link-note"> — {{ l.note }}</span>
+                          }
+                        </li>
+                      }
+                    </ul>
+                  }
                 </article>
               }
             </div>
           }
 
           <!-- ==== SIGNIFICANT STOPS ==== -->
-          <h3 class="section-heading">Significant stops / locations</h3>
+          <h3 class="section-heading">{{ t('day.sectionStops') }}</h3>
           @if (day.significantStops.length === 0) {
-            <p class="empty">No extra significant stops — route is direct.</p>
+            <p class="empty">{{ t('day.empty.stops') }}</p>
           } @else {
             <ul class="stops">
               @for (s of day.significantStops; track $index) {
                 <li
                   class="stop-item"
                   [class.has-ref]="!!s.waypointRef"
-                  [class.focused]="isFocused(s.waypointRef)"
-                  (click)="focus(s.waypointRef)"
+                  [class.focused]="isFocused('stop-' + day.day + '-' + $index)"
+                  (click)="focusItem('stop-' + day.day + '-' + $index, s.waypointRef)"
                 >
                   <span class="stop-icon">👁</span>
                   <div class="stop-body">
@@ -252,7 +359,7 @@
           }
 
           <!-- ==== OVERNIGHT ==== -->
-          <h3 class="section-heading">Overnight</h3>
+          <h3 class="section-heading">{{ t('day.sectionOvernight') }}</h3>
           @if (day.overnight; as o) {
             <article class="card overnight">
               <div class="card-title">
@@ -260,7 +367,7 @@
                 {{ o.town }}
               </div>
               <div class="overnight-prop">
-                {{ o.property ?? '[ BOOK: TBD ]' }}
+                {{ o.property ?? t('day.overnight.bookTbd') }}
               </div>
               <p class="card-summary">{{ o.note }}</p>
               @if (o.bookingUrl) {
@@ -269,28 +376,28 @@
                   [href]="o.bookingUrl"
                   target="_blank"
                   rel="noopener"
-                >Search on Booking.com ↗</a>
+                >{{ t('overnights.bookingLink') }}</a>
               }
             </article>
           } @else {
             <article class="card overnight">
               <div class="card-title">
                 <span class="card-icon">🏠</span>
-                Home — no overnight
+                {{ t('day.overnight.home') }}
               </div>
             </article>
           }
 
           <!-- ==== TIMELINE (collapsed) ==== -->
           <details class="timeline-wrap">
-            <summary>Detailed timeline</summary>
+            <summary>{{ t('day.timeline.detailed') }}</summary>
             <ol class="timeline">
               @for (t of day.timeline; track $index) {
                 <li
                   class="tl-item"
                   [class.has-ref]="!!t.waypointRef"
-                  [class.focused]="isFocused(t.waypointRef)"
-                  (click)="focus(t.waypointRef)"
+                  [class.focused]="isFocused('tl-' + day.day + '-' + $index)"
+                  (click)="focusItem('tl-' + day.day + '-' + $index, t.waypointRef)"
                 >
                   <span class="tl-dot" [style.background]="day.color"></span>
                   <div class="tl-body">
@@ -313,8 +420,8 @@
 
   <footer class="footer">
     <small>
-      Map: <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> ·
-      Routing: <a href="http://project-osrm.org" target="_blank" rel="noopener">OSRM</a>
+      {{ t('footer.map') }}: <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> ·
+      {{ t('footer.routing') }}: <a href="http://project-osrm.org" target="_blank" rel="noopener">OSRM</a>
     </small>
   </footer>
 </div>
