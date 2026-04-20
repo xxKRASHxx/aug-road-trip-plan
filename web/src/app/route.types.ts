@@ -1,4 +1,4 @@
-export type WaypointType = 'start' | 'via' | 'viewpoint' | 'activity' | 'overnight';
+export type WaypointType = 'start' | 'via' | 'viewpoint' | 'activity' | 'meal' | 'overnight' | 'end';
 
 export interface Waypoint {
   id: string;
@@ -63,6 +63,13 @@ export interface Activity {
   details: string[];
   /** Estimated duration in minutes (door-to-door, including approach + return). */
   duration_min: number;
+  /**
+   * When true, this activity is an OPTIONAL extra (weather plan B, fitness
+   * upgrade, or side-trip). The UI renders it with an "OPTIONAL" badge and
+   * EXCLUDES its duration from the default day / overview totals — it's
+   * surfaced separately in an "optional extras" aux line.
+   */
+  optional?: boolean;
   links?: LinkRef[];
   photos?: Photo[];
 }
@@ -73,6 +80,38 @@ export interface SignificantStop {
   note?: string;
   /** Estimated dwell time in minutes (photo / lunch / short look). */
   duration_min?: number;
+  /** Same semantics as `Activity.optional` — excluded from default totals. */
+  optional?: boolean;
+}
+
+/** How to reach the restaurant from wherever the meal slot starts. */
+export type MealTravelMode = 'walk' | 'drive' | 'included';
+
+/** A scheduled eating break: counts toward the day's total time. */
+export interface Meal {
+  /** Display time window, e.g. "12:30–13:15". */
+  time: string;
+  /** Meal type — drives the icon and label in the UI. */
+  kind: 'breakfast' | 'lunch' | 'dinner' | 'snack' | 'picnic';
+  /** Venue or setting, e.g. "Innsbruck old town — Herzog-Friedrich-Straße". */
+  place: string;
+  waypointRef?: string;
+  /** Planned dwell time (at the table) in minutes. */
+  duration_min: number;
+  /**
+   * Round-trip travel time (in minutes) to reach the venue from wherever
+   * the meal slot starts — short walk from parking, stroll from the
+   * hotel, short drive to a nearby village, etc. Defaults to 0 when the
+   * venue IS the current waypoint. Always included in day / meal totals.
+   */
+  travel_min?: number;
+  /** Travel mode — drives the icon (🚶 / 🚗 / ∅). */
+  travel_mode?: MealTravelMode;
+  /** Short hint about the travel leg ("5 min walk from Congressgarage"). */
+  travel_note?: string;
+  /** Short hint (dish to try, budget, booking tip). */
+  note?: string;
+  links?: LinkRef[];
 }
 
 export interface Overnight {
@@ -95,6 +134,20 @@ export interface DayBlurb {
   hint?: string;
 }
 
+/**
+ * Subjective "how busy is this day" rating. Rendered as a 5-dot pip
+ * badge (●●●○○) with a short label + one-line rationale. This is
+ * editorial, not computed from drive/activity minutes — it captures
+ * altitude exposure, physical demand, logistics complexity, and time
+ * pressure.
+ */
+export interface DayStress {
+  /** 1 = relaxed, 2 = easy, 3 = moderate, 4 = busy, 5 = intense. */
+  level: 1 | 2 | 3 | 4 | 5;
+  /** One-line rationale (why this level). */
+  summary: string;
+}
+
 export interface Day {
   day: number;
   title: string;
@@ -108,9 +161,16 @@ export interface Day {
   timeline: TimelineItem[];
   activities: Activity[];
   significantStops: SignificantStop[];
+  /**
+   * Scheduled meals for the day. Always counted toward the total; rendered
+   * in their own section between Activities and Significant stops.
+   */
+  meals?: Meal[];
   /** 3–4 highlight photos for the day (thumbnail grid at the top of the day view). */
   photos?: Photo[];
   blurb?: DayBlurb;
+  /** Subjective day intensity rating — rendered as a pip badge in the day header and overview. */
+  stress?: DayStress;
 }
 
 /** Top-of-overview editorial block — same shape as a day's blurb. */

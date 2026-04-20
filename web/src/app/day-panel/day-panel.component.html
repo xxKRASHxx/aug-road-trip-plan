@@ -83,22 +83,28 @@
           <div class="stat">
             <span class="stat-icon">🚗</span>
             <span class="stat-label">{{ t('overview.stat.driving') }}</span>
-            <span class="stat-value">{{ fmtMins(overviewStats().driveMin) }}</span>
+            <span class="stat-value">{{ fmtRounded(overviewStats().driveMin) }}</span>
             <span class="stat-aux">{{ overviewStats().totalKm }} {{ t('unit.km') }}</span>
           </div>
           <div class="stat">
             <span class="stat-icon">⭐</span>
             <span class="stat-label">{{ t('overview.stat.activities') }}</span>
-            <span class="stat-value">{{ fmtMins(overviewStats().activityMin) }}</span>
+            <span class="stat-value">{{ fmtRounded(overviewStats().activityMin) }}</span>
             <span class="stat-aux">{{ t('overview.stat.auxActivities') }}</span>
           </div>
           <div class="stat total">
             <span class="stat-icon">⏱</span>
             <span class="stat-label">{{ t('overview.stat.total') }}</span>
-            <span class="stat-value">{{ fmtMins(overviewStats().driveMin + overviewStats().activityMin) }}</span>
+            <span class="stat-value">{{ fmtRounded(overviewStats().driveMin + overviewStats().activityMin) }}</span>
             <span class="stat-aux">{{ t('overview.stat.auxAcross5') }}</span>
           </div>
         </div>
+        @if (overviewStats().extrasMin > 0) {
+          <p class="extras-aux">
+            <span class="extras-badge">✨ {{ t('day.stat.extras') }}</span>
+            + {{ fmtRounded(overviewStats().extrasMin) }} · {{ t('day.stat.auxExtras') }}
+          </p>
+        }
 
         <ul class="day-list">
           @for (d of route().days; track d.day) {
@@ -107,16 +113,26 @@
               <div class="day-meta">
                 <div class="day-title">{{ d.title }}</div>
                 <div class="day-sub day-times">
-                  🚗 {{ fmtMins(driveMinutesFor(d)) }}
-                  · ⭐ {{ fmtMins(activityMinutesFor(d)) }}
+                  🚗 {{ fmtRounded(driveMinutesFor(d)) }}
+                  · ⭐ {{ fmtRounded(activityMinutesFor(d)) }}
+                  @if (d.stress; as st) {
+                    <span
+                      class="stress-mini"
+                      [class]="stressClass(st.level)"
+                      [title]="t('stress.label') + ': ' + stressLevelLabel(st.level) + ' (' + st.level + '/5) — ' + st.summary"
+                      [attr.aria-label]="t('stress.aria') + ': ' + stressLevelLabel(st.level)"
+                    >
+                      <span aria-hidden="true">{{ stressPips(st.level) }}</span>
+                    </span>
+                  }
                 </div>
-                @if (d.activities.length > 0) {
-                  <div class="day-sub">{{ d.activities[0].name }}@if (d.activities.length > 1) { + {{ d.activities.length - 1 }} more }</div>
+                @if (d.theme) {
+                  <div class="day-sub day-vibe">{{ d.theme }}</div>
                 }
                 @if (d.overnight; as o) {
-                  <div class="day-sub">🛏 {{ o.town }}</div>
+                  <div class="day-sub day-sleep">🛏 {{ o.town }}</div>
                 } @else {
-                  <div class="day-sub">{{ t('overview.day.home') }}</div>
+                  <div class="day-sub day-sleep">🏠 {{ t('overview.day.home') }}</div>
                 }
               </div>
             </li>
@@ -174,6 +190,22 @@
             <p class="day-theme">{{ day.theme }}</p>
           }
 
+          @if (day.stress; as st) {
+            <div
+              class="stress-badge"
+              [class]="stressClass(st.level)"
+              [attr.aria-label]="t('stress.aria') + ': ' + stressLevelLabel(st.level)"
+              [title]="t('stress.label') + ': ' + stressLevelLabel(st.level) + ' (' + st.level + '/5)'"
+            >
+              <div class="stress-head">
+                <span class="stress-key">{{ t('stress.label') }}</span>
+                <span class="stress-pips" aria-hidden="true">{{ stressPips(st.level) }}</span>
+                <span class="stress-level">{{ stressLevelLabel(st.level) }}</span>
+              </div>
+              <div class="stress-summary">{{ st.summary }}</div>
+            </div>
+          }
+
           @if (day.blurb; as b) {
             <div class="trip-blurb" [style.--accent]="day.color">
               <p>{{ b.summary }}</p>
@@ -196,15 +228,15 @@
           @if (day.photos && day.photos.length > 0) {
             <div class="photo-grid" [class.n-3]="day.photos.length === 3" [class.n-4]="day.photos.length >= 4">
               @for (p of day.photos; track p.src) {
-                <a
+                <button
+                  type="button"
                   class="photo"
-                  [href]="p.href ?? p.src"
-                  target="_blank"
-                  rel="noopener"
                   [title]="p.credit"
+                  [attr.aria-label]="p.alt + ' — ' + p.credit"
+                  (click)="openPhoto(p, $event)"
                 >
                   <img [src]="p.src" [alt]="p.alt" loading="lazy" />
-                </a>
+                </button>
               }
             </div>
           }
@@ -215,22 +247,34 @@
               <div class="stat">
                 <span class="stat-icon">🚗</span>
                 <span class="stat-label">{{ t('day.stat.driving') }}</span>
-                <span class="stat-value">{{ fmtMins(s.driveMin) }}</span>
+                <span class="stat-value">{{ fmtRounded(s.driveMin) }}</span>
                 <span class="stat-aux">{{ s.km }} {{ t('unit.km') }}</span>
               </div>
               <div class="stat">
                 <span class="stat-icon">⭐</span>
                 <span class="stat-label">{{ t('day.stat.activities') }}</span>
-                <span class="stat-value">{{ fmtMins(s.activityMin) }}</span>
+                <span class="stat-value">{{ fmtRounded(s.activityMin) }}</span>
                 <span class="stat-aux">{{ t('day.stat.auxActivities') }}</span>
+              </div>
+              <div class="stat">
+                <span class="stat-icon">🍽</span>
+                <span class="stat-label">{{ t('day.stat.meals') }}</span>
+                <span class="stat-value">{{ fmtRounded(s.mealMin) }}</span>
+                <span class="stat-aux">{{ t('day.stat.auxMeals') }}</span>
               </div>
               <div class="stat total" [style.--accent]="day.color">
                 <span class="stat-icon">⏱</span>
                 <span class="stat-label">{{ t('day.stat.total') }}</span>
-                <span class="stat-value">{{ fmtMins(s.driveMin + s.activityMin) }}</span>
+                <span class="stat-value">{{ fmtRounded(s.driveMin + s.activityMin + s.mealMin) }}</span>
                 <span class="stat-aux">{{ t('day.stat.auxDayLength') }}</span>
               </div>
             </div>
+            @if (s.extrasMin > 0) {
+              <p class="extras-aux">
+                <span class="extras-badge">✨ {{ t('day.stat.extras') }}</span>
+                + {{ fmtRounded(s.extrasMin) }} · {{ t('day.stat.auxExtras') }}
+              </p>
+            }
           }
 
           <!-- ==== ROUTE ==== -->
@@ -271,17 +315,21 @@
             <p class="empty">{{ t('day.empty.activities') }}</p>
           } @else {
             <div class="activities">
-              @for (a of day.activities; track $index) {
+              @for (a of orderedActivities(day.activities); track $index) {
                 <article
                   class="card activity"
                   [class.has-ref]="!!a.waypointRef"
                   [class.focused]="isFocused('act-' + day.day + '-' + $index)"
+                  [class.is-optional]="a.optional"
                   (click)="focusItem('act-' + day.day + '-' + $index, a.waypointRef)"
                 >
                   <div class="card-title">
                     <span class="card-icon">⭐</span>
                     <span class="card-name">{{ a.name }}</span>
                     <span class="activity-kind">{{ a.kind }}</span>
+                    @if (a.optional) {
+                      <span class="opt-badge">✨ {{ t('day.badge.optional') }}</span>
+                    }
                     <span class="duration-badge">⏱ {{ fmtMins(a.duration_min) }}</span>
                   </div>
                   <p class="card-summary">{{ a.summary }}</p>
@@ -293,16 +341,15 @@
                   @if (a.photos && a.photos.length > 0) {
                     <div class="photo-grid small" [class.n-2]="a.photos.length === 2" [class.n-3]="a.photos.length === 3" [class.n-4]="a.photos.length >= 4">
                       @for (p of a.photos; track p.src) {
-                        <a
+                        <button
+                          type="button"
                           class="photo"
-                          [href]="p.href ?? p.src"
-                          target="_blank"
-                          rel="noopener"
                           [title]="p.credit"
-                          (click)="$event.stopPropagation()"
+                          [attr.aria-label]="p.alt + ' — ' + p.credit"
+                          (click)="openPhoto(p, $event)"
                         >
                           <img [src]="p.src" [alt]="p.alt" loading="lazy" />
-                        </a>
+                        </button>
                       }
                     </div>
                   }
@@ -328,23 +375,94 @@
             </div>
           }
 
+          <!-- ==== MEALS ==== -->
+          <h3 class="section-heading">{{ t('day.sectionMeals') }}</h3>
+          @if (!day.meals || day.meals.length === 0) {
+            <p class="empty">{{ t('day.empty.meals') }}</p>
+          } @else {
+            <ul class="meals">
+              @for (m of day.meals; track $index) {
+                <li
+                  class="meal-item"
+                  [class.has-ref]="!!m.waypointRef"
+                  [class.focused]="isFocused('meal-' + day.day + '-' + $index)"
+                  (click)="focusItem('meal-' + day.day + '-' + $index, m.waypointRef)"
+                >
+                  <span class="meal-icon">{{ mealKindIcon(m.kind) }}</span>
+                  <div class="meal-body">
+                    <div class="meal-head">
+                      <span class="meal-time">{{ m.time }}</span>
+                      <span class="meal-kind">{{ mealKindLabel(m.kind) }}</span>
+                      <span class="duration-badge">⏱ {{ fmtMins(m.duration_min) }}</span>
+                      @if (m.travel_min && m.travel_min > 0) {
+                        <span
+                          class="travel-badge"
+                          [title]="m.travel_note ?? (mealTravelModeLabel(m.travel_mode) + ' ' + t('meal.travel.label'))"
+                        >
+                          {{ mealTravelIcon(m.travel_mode) }}
+                          +{{ fmtMins(m.travel_min) }}
+                          {{ t('meal.travel.label') }}
+                        </span>
+                      } @else {
+                        <span
+                          class="travel-badge at-venue"
+                          [title]="t('meal.travel.atVenue')"
+                        >📍 {{ mealTravelModeLabel('included') }}</span>
+                      }
+                    </div>
+                    <div class="meal-place">{{ m.place }}</div>
+                    @if (m.travel_note) {
+                      <div class="meal-travel-note">
+                        {{ mealTravelIcon(m.travel_mode) }} {{ m.travel_note }}
+                      </div>
+                    }
+                    @if (m.note) {
+                      <div class="meal-note">{{ m.note }}</div>
+                    }
+                    @if (m.links && m.links.length > 0) {
+                      <ul class="link-list">
+                        @for (l of m.links; track l.url) {
+                          <li>
+                            <a
+                              [href]="l.url"
+                              target="_blank"
+                              rel="noopener"
+                              (click)="$event.stopPropagation()"
+                            >{{ l.label }} ↗</a>
+                            @if (l.note) {
+                              <span class="link-note"> — {{ l.note }}</span>
+                            }
+                          </li>
+                        }
+                      </ul>
+                    }
+                  </div>
+                </li>
+              }
+            </ul>
+          }
+
           <!-- ==== SIGNIFICANT STOPS ==== -->
           <h3 class="section-heading">{{ t('day.sectionStops') }}</h3>
           @if (day.significantStops.length === 0) {
             <p class="empty">{{ t('day.empty.stops') }}</p>
           } @else {
             <ul class="stops">
-              @for (s of day.significantStops; track $index) {
+              @for (s of orderedActivities(day.significantStops); track $index) {
                 <li
                   class="stop-item"
                   [class.has-ref]="!!s.waypointRef"
                   [class.focused]="isFocused('stop-' + day.day + '-' + $index)"
+                  [class.is-optional]="s.optional"
                   (click)="focusItem('stop-' + day.day + '-' + $index, s.waypointRef)"
                 >
                   <span class="stop-icon">👁</span>
                   <div class="stop-body">
                     <div class="stop-head">
                       <span class="stop-name">{{ s.name }}</span>
+                      @if (s.optional) {
+                        <span class="opt-badge">✨ {{ t('day.badge.optional') }}</span>
+                      }
                       @if (s.duration_min && s.duration_min > 0) {
                         <span class="duration-badge">⏱ {{ fmtMins(s.duration_min) }}</span>
                       }
@@ -425,3 +543,35 @@
     </small>
   </footer>
 </div>
+
+<!-- ============================= LIGHTBOX ============================= -->
+@if (lightboxPhoto(); as lbp) {
+  <div
+    class="lightbox-backdrop"
+    role="dialog"
+    aria-modal="true"
+    [attr.aria-label]="lbp.alt"
+    (click)="closePhoto()"
+  >
+    <button
+      type="button"
+      class="lightbox-close"
+      [attr.aria-label]="t('lightbox.close')"
+      [title]="t('lightbox.close')"
+      (click)="closePhoto(); $event.stopPropagation()"
+    >×</button>
+
+    <figure class="lightbox-figure" (click)="$event.stopPropagation()">
+      <img [src]="lightboxSrc(lbp)" [alt]="lbp.alt" />
+      <figcaption class="lightbox-caption">
+        <span class="lightbox-alt">{{ lbp.alt }}</span>
+        <span class="lightbox-credit">
+          {{ lbp.credit }}
+          @if (lbp.href) {
+            · <a [href]="lbp.href" target="_blank" rel="noopener">{{ t('lightbox.source') }}</a>
+          }
+        </span>
+      </figcaption>
+    </figure>
+  </div>
+}

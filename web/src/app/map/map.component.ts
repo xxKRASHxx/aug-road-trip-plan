@@ -28,7 +28,9 @@ const TYPE_EMOJI: Record<WaypointType, string> = {
   via: '⟶',
   viewpoint: '👁',
   activity: '⭐',
+  meal: '🍽',
   overnight: '🛏',
+  end: '🏠',
 };
 
 interface MarkerEntry {
@@ -165,7 +167,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         const [lat, lon] = wp.coords;
         allLatLngs.push(L.latLng(lat, lon));
         const marker = L.circleMarker([lat, lon], {
-          radius: wp.type === 'overnight' ? 9 : 7,
+          radius: wp.type === 'overnight' || wp.type === 'end' || wp.type === 'start' ? 9 : 7,
           color: '#ffffff',
           weight: 2,
           fillColor: day.color,

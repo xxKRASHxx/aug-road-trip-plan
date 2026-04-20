@@ -22,13 +22,22 @@ export type UIKey =
   | 'overview.stat.auxActivities' | 'overview.stat.auxAcross5'
   | 'overview.day.home'
   // Day view
-  | 'day.sectionRoute' | 'day.sectionActivities' | 'day.sectionStops' | 'day.sectionOvernight'
-  | 'day.stat.driving' | 'day.stat.activities' | 'day.stat.total'
-  | 'day.stat.auxDayLength' | 'day.stat.auxActivities'
-  | 'day.empty.activities' | 'day.empty.stops'
+  | 'day.sectionRoute' | 'day.sectionActivities' | 'day.sectionMeals' | 'day.sectionStops' | 'day.sectionOvernight'
+  | 'day.stat.driving' | 'day.stat.activities' | 'day.stat.meals' | 'day.stat.total' | 'day.stat.extras'
+  | 'day.stat.auxDayLength' | 'day.stat.auxActivities' | 'day.stat.auxMeals' | 'day.stat.auxExtras'
+  | 'day.empty.activities' | 'day.empty.meals' | 'day.empty.stops'
   | 'day.timeline.detailed'
   | 'day.overnight.home' | 'day.overnight.bookTbd'
   | 'day.leg.manual'
+  | 'day.badge.optional' | 'day.badge.required'
+  // Stress level labels
+  | 'stress.label' | 'stress.aria'
+  | 'stress.1' | 'stress.2' | 'stress.3' | 'stress.4' | 'stress.5'
+  // Meal kinds
+  | 'meal.breakfast' | 'meal.lunch' | 'meal.dinner' | 'meal.snack' | 'meal.picnic'
+  // Meal travel-to-venue chip
+  | 'meal.travel.walk' | 'meal.travel.drive' | 'meal.travel.included'
+  | 'meal.travel.label' | 'meal.travel.atVenue'
   // Overnights tab
   | 'overnights.heading' | 'overnights.hint' | 'overnights.day5home' | 'overnights.day5note'
   | 'overnights.bookingLink'
@@ -36,6 +45,8 @@ export type UIKey =
   | 'map.popup.day' | 'map.popup.google' | 'map.popup.apple'
   // Footer
   | 'footer.map' | 'footer.routing'
+  // Photo lightbox
+  | 'lightbox.close' | 'lightbox.source'
   // Units
   | 'unit.min' | 'unit.hour' | 'unit.km' | 'unit.notRoutable';
 
@@ -70,17 +81,26 @@ export const UI: Record<UIKey, Phrase> = {
 
   'day.sectionRoute':      { en: 'Route',       ru: 'Маршрут' },
   'day.sectionActivities': { en: 'Activities',  ru: 'Активности' },
+  'day.sectionMeals':      { en: 'Meals',       ru: 'Питание' },
   'day.sectionStops':      { en: 'Significant stops / locations',
                              ru: 'Значимые остановки' },
   'day.sectionOvernight':  { en: 'Overnight',   ru: 'Ночёвка' },
   'day.stat.driving':      { en: 'Driving',     ru: 'За рулём' },
   'day.stat.activities':   { en: 'Activities',  ru: 'Активности' },
+  'day.stat.meals':        { en: 'Meals',       ru: 'Питание' },
   'day.stat.total':        { en: 'Total',       ru: 'Итого' },
+  'day.stat.extras':       { en: 'Optional extras', ru: 'Доп. варианты' },
   'day.stat.auxDayLength': { en: 'day length',  ru: 'длина дня' },
   'day.stat.auxActivities':{ en: 'on foot / lifts / stops',
                              ru: 'пешком, подъёмники, остановки' },
+  'day.stat.auxMeals':     { en: 'scheduled breaks',
+                             ru: 'плановые приёмы пищи' },
+  'day.stat.auxExtras':    { en: 'not included in total',
+                             ru: 'не входит в общее время' },
   'day.empty.activities':  { en: 'No planned activities today.',
                              ru: 'На сегодня активностей не запланировано.' },
+  'day.empty.meals':       { en: 'No scheduled meal breaks today.',
+                             ru: 'Плановых остановок на еду сегодня нет.' },
   'day.empty.stops':       { en: 'No extra significant stops — route is direct.',
                              ru: 'Дополнительных остановок нет — маршрут прямой.' },
   'day.timeline.detailed': { en: 'Detailed timeline', ru: 'Подробное расписание' },
@@ -90,6 +110,29 @@ export const UI: Record<UIKey, Phrase> = {
                              ru: '[ БРОНЬ: уточнить ]' },
   'day.leg.manual':        { en: 'toll road / cable car',
                              ru: 'платная дорога / канатная дорога' },
+  'day.badge.optional':    { en: 'OPTIONAL',    ru: 'ОПЦИЯ' },
+  'day.badge.required':    { en: 'REQUIRED',    ru: 'БАЗОВЫЙ' },
+
+  'stress.label': { en: 'Day intensity',      ru: 'Интенсивность дня' },
+  'stress.aria':  { en: 'Day intensity rating', ru: 'Рейтинг интенсивности дня' },
+  'stress.1':     { en: 'Relaxed',   ru: 'Расслабленный' },
+  'stress.2':     { en: 'Easy',      ru: 'Лёгкий' },
+  'stress.3':     { en: 'Moderate',  ru: 'Умеренный' },
+  'stress.4':     { en: 'Busy',      ru: 'Насыщенный' },
+  'stress.5':     { en: 'Intense',   ru: 'Интенсивный' },
+
+  'meal.breakfast': { en: 'breakfast', ru: 'завтрак' },
+  'meal.lunch':     { en: 'lunch',     ru: 'обед' },
+  'meal.dinner':    { en: 'dinner',    ru: 'ужин' },
+  'meal.snack':     { en: 'snack',     ru: 'перекус' },
+  'meal.picnic':    { en: 'picnic',    ru: 'пикник' },
+
+  'meal.travel.walk':     { en: 'walk',      ru: 'пешком' },
+  'meal.travel.drive':    { en: 'drive',     ru: 'на авто' },
+  'meal.travel.included': { en: 'at venue',  ru: 'на месте' },
+  'meal.travel.label':    { en: 'to venue',  ru: 'до места' },
+  'meal.travel.atVenue':  { en: 'at venue — no transfer',
+                            ru: 'на месте — без переезда' },
 
   'overnights.heading':     { en: 'Overnight placeholders',
                               ru: 'Ночёвки (заглушки)' },
@@ -107,6 +150,9 @@ export const UI: Record<UIKey, Phrase> = {
 
   'footer.map':     { en: 'Map',     ru: 'Карта' },
   'footer.routing': { en: 'Routing', ru: 'Маршрут' },
+
+  'lightbox.close':  { en: 'Close',           ru: 'Закрыть' },
+  'lightbox.source': { en: 'View on Commons', ru: 'Открыть на Commons' },
 
   'unit.min':          { en: 'min',  ru: 'мин' },
   'unit.hour':         { en: 'h',    ru: 'ч' },
