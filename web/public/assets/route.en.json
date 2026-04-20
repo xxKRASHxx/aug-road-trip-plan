@@ -247,6 +247,14 @@
               "label": "Kitzsteinhorn (tickets + live status)",
               "url": "https://www.kitzsteinhorn.at/en"
             }
+          ],
+          "photos": [
+            {
+              "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Kitzsteinhorn%20und%20Schmiedingerkees.JPG?width=800",
+              "alt": "Kitzsteinhorn summit area with Schmiedinger glacier",
+              "credit": "CC BY-SA 4.0 via Wikimedia Commons",
+              "href": "https://commons.wikimedia.org/wiki/File:Kitzsteinhorn_und_Schmiedingerkees.JPG"
+            }
           ]
         }
       ],
@@ -293,7 +301,15 @@
           "waypointRef": "d1-w1",
           "duration_min": 75,
           "optional": true,
-          "note": "9 km dead-end spur from Heiligenblut (toll included). Parking deck + café at 2,369 m with direct views of Großglockner (3,798 m) and the receding Pasterze glacier. Funicular down to the ice edge runs when conditions allow."
+          "note": "9 km dead-end spur from Heiligenblut (toll included). Parking deck + café at 2,369 m with direct views of Großglockner (3,798 m) and the receding Pasterze glacier. Funicular down to the ice edge runs when conditions allow.",
+          "photos": [
+            {
+              "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Kaiser-Franz-Josefs-H%C3%B6he.jpg?width=800",
+              "alt": "Kaiser-Franz-Josefs-Höhe viewpoint toward Großglockner and Pasterze glacier",
+              "credit": "CC BY-SA 3.0 via Wikimedia Commons",
+              "href": "https://commons.wikimedia.org/wiki/File:Kaiser-Franz-Josefs-H%C3%B6he.jpg"
+            }
+          ]
         }
       ],
       "photos": [
@@ -16490,6 +16506,14 @@
             "Noticeably less crowded than the Seegrube panorama trail",
             "Sharper, more dramatic summit viewpoint over Innsbruck",
             "Skip in rain or snow, exposed last 20 m"
+          ],
+          "photos": [
+            {
+              "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Hafelekarspitze%20N.JPG?width=800",
+              "alt": "Hafelekarspitze summit above Innsbruck",
+              "credit": "CC BY-SA 4.0 via Wikimedia Commons",
+              "href": "https://commons.wikimedia.org/wiki/File:Hafelekarspitze_N.JPG"
+            }
           ]
         }
       ],
@@ -38552,6 +38576,14 @@
               "label": "Aqua Dome (tickets + hours)",
               "url": "https://www.aqua-dome.at/en"
             }
+          ],
+          "photos": [
+            {
+              "src": "https://commons.wikimedia.org/wiki/Special:FilePath/AQUA%20DOME%20Au%C3%9Fen%20Schalen%202.jpg?width=800",
+              "alt": "Aqua Dome thermal spa outdoor pools, Längenfeld",
+              "credit": "CC BY-SA 4.0 via Wikimedia Commons",
+              "href": "https://commons.wikimedia.org/wiki/File:AQUA_DOME_Au%C3%9Fen_Schalen_2.jpg"
+            }
           ]
         },
         {
@@ -38576,6 +38608,14 @@
             {
               "label": "007 Elements museum",
               "url": "https://www.007elements.com/en/"
+            }
+          ],
+          "photos": [
+            {
+              "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Gaislachkogl%20%E2%85%A1%20Talstation%2001.jpg?width=800",
+              "alt": "Gaislachkoglbahn valley station, Sölden",
+              "credit": "CC BY-SA 4.0 via Wikimedia Commons",
+              "href": "https://commons.wikimedia.org/wiki/File:Gaislachkogl_%E2%85%A1_Talstation_01.jpg"
             }
           ]
         }
@@ -46257,10 +46297,10 @@
           ],
           "photos": [
             {
-              "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Prags%2C%20Lago%20di%20Braies-Pragser%20Wildsee.jpg?width=800",
-              "alt": "Pragser Wildsee / Lago di Braies under the Seekofel",
+              "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Pragser%20Wildsee%20Seekofel.jpg?width=800",
+              "alt": "Pragser Wildsee / Lago di Braies with Seekofel",
               "credit": "CC BY-SA 4.0 via Wikimedia Commons",
-              "href": "https://commons.wikimedia.org/wiki/File:Prags%2C_Lago_di_Braies-Pragser_Wildsee.jpg"
+              "href": "https://commons.wikimedia.org/wiki/File:Pragser_Wildsee_Seekofel.jpg"
             }
           ]
         },
@@ -46286,6 +46326,14 @@
             {
               "label": "Rifugio Scoiattoli",
               "url": "https://www.rifugioscoiattoli.it/en/"
+            }
+          ],
+          "photos": [
+            {
+              "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Cinque%20Torri%201.jpg?width=800",
+              "alt": "Cinque Torri rock towers in the Dolomites",
+              "credit": "CC BY-SA 3.0 via Wikimedia Commons",
+              "href": "https://commons.wikimedia.org/wiki/File:Cinque_Torri_1.jpg"
             }
           ]
         }
@@ -46358,6 +46406,12 @@
           "alt": "Sterzing / Vipiteno, medieval South-Tyrolean town",
           "credit": "CC BY-SA 3.0 via Wikimedia Commons",
           "href": "https://commons.wikimedia.org/wiki/File:Sterzing-Vipiteno.JPG"
+        },
+        {
+          "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Pragser%20Wildsee%20Seekofel.jpg?width=800",
+          "alt": "Pragser Wildsee / Lago di Braies with Seekofel",
+          "credit": "CC BY-SA 4.0 via Wikimedia Commons",
+          "href": "https://commons.wikimedia.org/wiki/File:Pragser_Wildsee_Seekofel.jpg"
         },
         {
           "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Cortina%20d'Ampezzo%2001.jpg?width=800",
@@ -74444,6 +74498,20 @@
               "label": "Tre Cime loop topo",
               "url": "https://en.wikipedia.org/wiki/Tre_Cime_di_Lavaredo"
             }
+          ],
+          "photos": [
+            {
+              "src": "https://commons.wikimedia.org/wiki/Special:FilePath/DreiZinnenH%C3%BCtte.JPG?width=800",
+              "alt": "Rifugio Locatelli (Drei Zinnen hut) with Tre Cime di Lavaredo",
+              "credit": "CC BY-SA 3.0 via Wikimedia Commons",
+              "href": "https://commons.wikimedia.org/wiki/File:DreiZinnenH%C3%BCtte.JPG"
+            },
+            {
+              "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Dsdas.jpg?width=800",
+              "alt": "Tre Cime di Lavaredo north face from the plateau",
+              "credit": "CC BY 3.0 via Wikimedia Commons",
+              "href": "https://commons.wikimedia.org/wiki/File:Dsdas.jpg"
+            }
           ]
         }
       ],
@@ -74489,14 +74557,30 @@
           "waypointRef": "d5-w1",
           "duration_min": 15,
           "optional": true,
-          "note": "2 min detour next to Misurina, smaller, quieter, often the better reflection of Cadini di Misurina."
+          "note": "2 min detour next to Misurina, smaller, quieter, often the better reflection of Cadini di Misurina.",
+          "photos": [
+            {
+              "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Lago%20di%20Antorno%20(1).jpg?width=800",
+              "alt": "Lago di Antorno near Misurina",
+              "credit": "CC BY-SA 4.0 via Wikimedia Commons",
+              "href": "https://commons.wikimedia.org/wiki/File:Lago_di_Antorno_(1).jpg"
+            }
+          ]
         },
         {
           "name": "Lago di Landro / Dürrensee (OPTIONAL)",
           "waypointRef": "d5-w0",
           "duration_min": 10,
           "optional": true,
-          "note": "Roadside stop on SS51 between Cortina and Dobbiaco, Cristallo massif mirrored in the lake. Free parking, no walking."
+          "note": "Roadside stop on SS51 between Cortina and Dobbiaco, Cristallo massif mirrored in the lake. Free parking, no walking.",
+          "photos": [
+            {
+              "src": "https://commons.wikimedia.org/wiki/Special:FilePath/D%C3%BCrrensee%2C%20Dolomite%2C%20South%20Tyrol%20-%2052106015064.jpg?width=800",
+              "alt": "Dürrensee (Lago di Landro) in the Dolomites",
+              "credit": "CC BY-SA 2.0 via Wikimedia Commons",
+              "href": "https://commons.wikimedia.org/wiki/File:D%C3%BCrrensee%2C_Dolomite%2C_South_Tyrol_-_52106015064.jpg"
+            }
+          ]
         }
       ],
       "photos": [

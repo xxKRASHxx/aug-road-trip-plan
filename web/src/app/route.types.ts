@@ -99,6 +99,7 @@ export interface SignificantStop {
   duration_min?: number;
   /** Same semantics as `Activity.optional` — excluded from default totals. */
   optional?: boolean;
+  photos?: Photo[];
 }
 
 /** How to reach the restaurant from wherever the meal slot starts. */

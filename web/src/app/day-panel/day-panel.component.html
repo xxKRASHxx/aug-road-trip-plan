@@ -465,6 +465,21 @@
                     @if (s.note) {
                       <div class="stop-note">{{ s.note }}</div>
                     }
+                    @if (s.photos && s.photos.length > 0) {
+                      <div class="photo-grid small" [class.n-2]="s.photos.length === 2" [class.n-3]="s.photos.length === 3" [class.n-4]="s.photos.length >= 4">
+                        @for (p of s.photos; track p.src) {
+                          <button
+                            type="button"
+                            class="photo"
+                            [title]="p.credit"
+                            [attr.aria-label]="p.alt + '. ' + p.credit"
+                            (click)="openPhoto(p, $event)"
+                          >
+                            <img [src]="p.src" [alt]="p.alt" loading="lazy" />
+                          </button>
+                        }
+                      </div>
+                    }
                   </div>
                 </li>
               }

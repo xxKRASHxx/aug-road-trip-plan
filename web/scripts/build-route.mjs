@@ -175,6 +175,11 @@ const days = [
         links: [
           { label: 'Kitzsteinhorn (tickets + live status)', url: 'https://www.kitzsteinhorn.at/en' },
         ],
+        photos: [
+          wmPhoto('Kitzsteinhorn und Schmiedingerkees.JPG',
+                  'Kitzsteinhorn summit area with Schmiedinger glacier',
+                  'CC BY-SA 4.0 via Wikimedia Commons'),
+        ],
       },
     ],
     // Meals, counted toward the day's total time.
@@ -205,6 +210,11 @@ const days = [
         duration_min: 75,
         optional: true,
         note: '9 km dead-end spur from Heiligenblut (toll included). Parking deck + café at 2,369 m with direct views of Großglockner (3,798 m) and the receding Pasterze glacier. Funicular down to the ice edge runs when conditions allow.',
+        photos: [
+          wmPhoto('Kaiser-Franz-Josefs-Höhe.jpg',
+                  'Kaiser-Franz-Josefs-Höhe viewpoint toward Großglockner and Pasterze glacier',
+                  'CC BY-SA 3.0 via Wikimedia Commons'),
+        ],
       },
     ],
     overnight: {
@@ -352,6 +362,11 @@ const days = [
           'Noticeably less crowded than the Seegrube panorama trail',
           'Sharper, more dramatic summit viewpoint over Innsbruck',
           'Skip in rain or snow, exposed last 20 m',
+        ],
+        photos: [
+          wmPhoto('Hafelekarspitze N.JPG',
+                  'Hafelekarspitze summit above Innsbruck',
+                  'CC BY-SA 4.0 via Wikimedia Commons'),
         ],
       },
     ],
@@ -501,6 +516,11 @@ const days = [
         links: [
           { label: 'Aqua Dome (tickets + hours)', url: 'https://www.aqua-dome.at/en' },
         ],
+        photos: [
+          wmPhoto('AQUA DOME Außen Schalen 2.jpg',
+                  'Aqua Dome thermal spa outdoor pools, Längenfeld',
+                  'CC BY-SA 4.0 via Wikimedia Commons'),
+        ],
       },
       // OPTIONAL: weather Plan B, if the ferrata is cancelled (rain, lightning
       // risk, or wet rock), swap in a cable-car day at Gaislachkogl in Sölden.
@@ -521,6 +541,11 @@ const days = [
         links: [
           { label: 'Gaislachkogl cable car',  url: 'https://www.soelden.com/en/summer/hike-nature/summer-ascents/gaislachkoglbahn.html' },
           { label: '007 Elements museum',     url: 'https://www.007elements.com/en/' },
+        ],
+        photos: [
+          wmPhoto('Gaislachkogl Ⅱ Talstation 01.jpg',
+                  'Gaislachkoglbahn valley station, Sölden',
+                  'CC BY-SA 4.0 via Wikimedia Commons'),
         ],
       },
     ],
@@ -707,8 +732,8 @@ const days = [
           { label: 'Wikipedia: Lago di Braies',                    url: 'https://en.wikipedia.org/wiki/Lake_Braies' },
         ],
         photos: [
-          wmPhoto('Prags, Lago di Braies-Pragser Wildsee.jpg',
-                  'Pragser Wildsee / Lago di Braies under the Seekofel',
+          wmPhoto('Pragser Wildsee Seekofel.jpg',
+                  'Pragser Wildsee / Lago di Braies with Seekofel',
                   'CC BY-SA 4.0 via Wikimedia Commons'),
         ],
       },
@@ -730,6 +755,11 @@ const days = [
         links: [
           { label: 'Cinque Torri area (trails + lift)', url: 'https://www.cortinadolomiti.eu/en/cinque-torri/' },
           { label: 'Rifugio Scoiattoli',                url: 'https://www.rifugioscoiattoli.it/en/' },
+        ],
+        photos: [
+          wmPhoto('Cinque Torri 1.jpg',
+                  'Cinque Torri rock towers in the Dolomites',
+                  'CC BY-SA 3.0 via Wikimedia Commons'),
         ],
       },
     ],
@@ -781,6 +811,9 @@ const days = [
       wmPhoto('Sterzing-Vipiteno.JPG',
               'Sterzing / Vipiteno, medieval South-Tyrolean town',
               'CC BY-SA 3.0 via Wikimedia Commons'),
+      wmPhoto('Pragser Wildsee Seekofel.jpg',
+              'Pragser Wildsee / Lago di Braies with Seekofel',
+              'CC BY-SA 4.0 via Wikimedia Commons'),
       wmPhoto("Cortina d'Ampezzo 01.jpg",
               "Cortina d'Ampezzo with the Tofane range",
               'CC BY-SA 4.0 via Wikimedia Commons'),
@@ -916,6 +949,14 @@ const days = [
         links: [
           { label: 'Tre Cime loop topo', url: 'https://en.wikipedia.org/wiki/Tre_Cime_di_Lavaredo' },
         ],
+        photos: [
+          wmPhoto('DreiZinnenHütte.JPG',
+                  'Rifugio Locatelli (Drei Zinnen hut) with Tre Cime di Lavaredo',
+                  'CC BY-SA 3.0 via Wikimedia Commons'),
+          wmPhoto('Dsdas.jpg',
+                  'Tre Cime di Lavaredo north face from the plateau',
+                  'CC BY 3.0 via Wikimedia Commons'),
+        ],
       },
     ],
     meals: [
@@ -946,8 +987,30 @@ const days = [
       { name: 'Lago di Misurina (1,754 m)',   waypointRef: 'd5-w1', duration_min: 0, note: '"Pearl of Cadore"; panorama of Sorapiss & Tre Cime (included in lake walk)' },
       { name: 'Rifugio Auronzo (2,333 m)',    waypointRef: 'd5-w2', duration_min: 0, note: 'Trailhead viewpoint under the Tre Cime north face (included in Tre Cime walk)' },
       // OPTIONAL nearby lakes, tiny detours, big ROI if weather holds.
-      { name: 'Lago di Antorno (OPTIONAL)',   waypointRef: 'd5-w1', duration_min: 15, optional: true, note: '2 min detour next to Misurina, smaller, quieter, often the better reflection of Cadini di Misurina.' },
-      { name: 'Lago di Landro / Dürrensee (OPTIONAL)', waypointRef: 'd5-w0', duration_min: 10, optional: true, note: 'Roadside stop on SS51 between Cortina and Dobbiaco, Cristallo massif mirrored in the lake. Free parking, no walking.' },
+      {
+        name: 'Lago di Antorno (OPTIONAL)',
+        waypointRef: 'd5-w1',
+        duration_min: 15,
+        optional: true,
+        note: '2 min detour next to Misurina, smaller, quieter, often the better reflection of Cadini di Misurina.',
+        photos: [
+          wmPhoto('Lago di Antorno (1).jpg',
+                  'Lago di Antorno near Misurina',
+                  'CC BY-SA 4.0 via Wikimedia Commons'),
+        ],
+      },
+      {
+        name: 'Lago di Landro / Dürrensee (OPTIONAL)',
+        waypointRef: 'd5-w0',
+        duration_min: 10,
+        optional: true,
+        note: 'Roadside stop on SS51 between Cortina and Dobbiaco, Cristallo massif mirrored in the lake. Free parking, no walking.',
+        photos: [
+          wmPhoto('Dürrensee, Dolomite, South Tyrol - 52106015064.jpg',
+                  'Dürrensee (Lago di Landro) in the Dolomites',
+                  'CC BY-SA 2.0 via Wikimedia Commons'),
+        ],
+      },
     ],
     overnight: null,
     photos: [
@@ -1049,6 +1112,19 @@ function applyRu(resultEn, ru) {
 
     translateList(day.timeline, rd.timeline, 'timeline', ['event', 'notes']);
     translateList(day.significantStops, rd.significantStops, 'significantStops', ['name', 'note']);
+    if (rd.significantStops && day.significantStops) {
+      const ns = Math.min(day.significantStops.length, rd.significantStops.length);
+      for (let i = 0; i < ns; i++) {
+        const en = day.significantStops[i];
+        const ruS = rd.significantStops[i];
+        if (ruS.photos && en.photos) {
+          const m = Math.min(en.photos.length, ruS.photos.length);
+          for (let j = 0; j < m; j++) {
+            if (ruS.photos[j].alt) en.photos[j].alt = ruS.photos[j].alt;
+          }
+        }
+      }
+    }
 
     // Meals: translate `place`, `note`, and `travel_note`; also merge link
     // labels / notes one-for-one when provided.

@@ -247,6 +247,14 @@
               "label": "Кицштайнхорн (билеты + онлайн-статус)",
               "url": "https://www.kitzsteinhorn.at/en"
             }
+          ],
+          "photos": [
+            {
+              "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Kitzsteinhorn%20und%20Schmiedingerkees.JPG?width=800",
+              "alt": "Кицштайнхорн и ледник Шмидингер",
+              "credit": "CC BY-SA 4.0 via Wikimedia Commons",
+              "href": "https://commons.wikimedia.org/wiki/File:Kitzsteinhorn_und_Schmiedingerkees.JPG"
+            }
           ]
         }
       ],
@@ -293,7 +301,15 @@
           "waypointRef": "d1-w1",
           "duration_min": 75,
           "optional": true,
-          "note": "9 км тупиковый отвилок от Хайлигенблута (плата включена). Парковка с кафе на 2 369 м, прямой вид на Гросглокнер (3 798 м) и отступающий ледник Пастерце. Фуникулёр вниз к кромке льда работает по погоде."
+          "note": "9 км тупиковый отвилок от Хайлигенблута (плата включена). Парковка с кафе на 2 369 м, прямой вид на Гросглокнер (3 798 м) и отступающий ледник Пастерце. Фуникулёр вниз к кромке льда работает по погоде.",
+          "photos": [
+            {
+              "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Kaiser-Franz-Josefs-H%C3%B6he.jpg?width=800",
+              "alt": "Смотровая Кайзер-Франц-Йозефс-Хёэ на Гросглокнер и ледник Пастерце",
+              "credit": "CC BY-SA 3.0 via Wikimedia Commons",
+              "href": "https://commons.wikimedia.org/wiki/File:Kaiser-Franz-Josefs-H%C3%B6he.jpg"
+            }
+          ]
         }
       ],
       "photos": [
@@ -16490,6 +16506,14 @@
             "Намного менее людно, чем на панорамной тропе к Зегрубе",
             "Более острая и эффектная точка обзора Инсбрука",
             "Пропустить в дождь или снег, последние 20 м открытые"
+          ],
+          "photos": [
+            {
+              "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Hafelekarspitze%20N.JPG?width=800",
+              "alt": "Вершинный крест Хафелекарспитце над Инсбруком",
+              "credit": "CC BY-SA 4.0 via Wikimedia Commons",
+              "href": "https://commons.wikimedia.org/wiki/File:Hafelekarspitze_N.JPG"
+            }
           ]
         }
       ],
@@ -38552,6 +38576,14 @@
               "label": "Aqua Dome (билеты + часы)",
               "url": "https://www.aqua-dome.at/en"
             }
+          ],
+          "photos": [
+            {
+              "src": "https://commons.wikimedia.org/wiki/Special:FilePath/AQUA%20DOME%20Au%C3%9Fen%20Schalen%202.jpg?width=800",
+              "alt": "Термы Aqua Dome, открытые чаши бассейнов в Ленгенфельде",
+              "credit": "CC BY-SA 4.0 via Wikimedia Commons",
+              "href": "https://commons.wikimedia.org/wiki/File:AQUA_DOME_Au%C3%9Fen_Schalen_2.jpg"
+            }
           ]
         },
         {
@@ -38576,6 +38608,14 @@
             {
               "label": "Музей 007 Elements",
               "url": "https://www.007elements.com/en/"
+            }
+          ],
+          "photos": [
+            {
+              "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Gaislachkogl%20%E2%85%A1%20Talstation%2001.jpg?width=800",
+              "alt": "Канатная дорога Гайслахкогль над Зёльденом",
+              "credit": "CC BY-SA 4.0 via Wikimedia Commons",
+              "href": "https://commons.wikimedia.org/wiki/File:Gaislachkogl_%E2%85%A1_Talstation_01.jpg"
             }
           ]
         }
@@ -46257,10 +46297,10 @@
           ],
           "photos": [
             {
-              "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Prags%2C%20Lago%20di%20Braies-Pragser%20Wildsee.jpg?width=800",
-              "alt": "Pragser Wildsee / Лаго-ди-Брайес под Зеекофелем",
+              "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Pragser%20Wildsee%20Seekofel.jpg?width=800",
+              "alt": "Pragser Wildsee / Лаго-ди-Брайес с Зеекофелем",
               "credit": "CC BY-SA 4.0 via Wikimedia Commons",
-              "href": "https://commons.wikimedia.org/wiki/File:Prags%2C_Lago_di_Braies-Pragser_Wildsee.jpg"
+              "href": "https://commons.wikimedia.org/wiki/File:Pragser_Wildsee_Seekofel.jpg"
             }
           ]
         },
@@ -46286,6 +46326,14 @@
             {
               "label": "Rifugio Scoiattoli",
               "url": "https://www.rifugioscoiattoli.it/en/"
+            }
+          ],
+          "photos": [
+            {
+              "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Cinque%20Torri%201.jpg?width=800",
+              "alt": "Скалы Чинкве-Торри над доломитами Кортины",
+              "credit": "CC BY-SA 3.0 via Wikimedia Commons",
+              "href": "https://commons.wikimedia.org/wiki/File:Cinque_Torri_1.jpg"
             }
           ]
         }
@@ -46358,6 +46406,12 @@
           "alt": "Штерцинг / Випитено, средневековый южно-тирольский город",
           "credit": "CC BY-SA 3.0 via Wikimedia Commons",
           "href": "https://commons.wikimedia.org/wiki/File:Sterzing-Vipiteno.JPG"
+        },
+        {
+          "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Pragser%20Wildsee%20Seekofel.jpg?width=800",
+          "alt": "Pragser Wildsee / Лаго-ди-Брайес с Зеекофелем",
+          "credit": "CC BY-SA 4.0 via Wikimedia Commons",
+          "href": "https://commons.wikimedia.org/wiki/File:Pragser_Wildsee_Seekofel.jpg"
         },
         {
           "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Cortina%20d'Ampezzo%2001.jpg?width=800",
@@ -74444,6 +74498,20 @@
               "label": "Топо круга Тре-Чиме",
               "url": "https://en.wikipedia.org/wiki/Tre_Cime_di_Lavaredo"
             }
+          ],
+          "photos": [
+            {
+              "src": "https://commons.wikimedia.org/wiki/Special:FilePath/DreiZinnenH%C3%BCtte.JPG?width=800",
+              "alt": "Приют Дрей-Циннен (Локателли) на фоне Тре-Чиме",
+              "credit": "CC BY-SA 3.0 via Wikimedia Commons",
+              "href": "https://commons.wikimedia.org/wiki/File:DreiZinnenH%C3%BCtte.JPG"
+            },
+            {
+              "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Dsdas.jpg?width=800",
+              "alt": "Северная стена Тре-Чиме с плато",
+              "credit": "CC BY 3.0 via Wikimedia Commons",
+              "href": "https://commons.wikimedia.org/wiki/File:Dsdas.jpg"
+            }
           ]
         }
       ],
@@ -74489,14 +74557,30 @@
           "waypointRef": "d5-w1",
           "duration_min": 15,
           "optional": true,
-          "note": "2 мин крюк рядом с Мизуриной, меньше, тише, часто с лучшим отражением массива Кадини-ди-Мизурина."
+          "note": "2 мин крюк рядом с Мизуриной, меньше, тише, часто с лучшим отражением массива Кадини-ди-Мизурина.",
+          "photos": [
+            {
+              "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Lago%20di%20Antorno%20(1).jpg?width=800",
+              "alt": "Озеро Анторно у Мизурины",
+              "credit": "CC BY-SA 4.0 via Wikimedia Commons",
+              "href": "https://commons.wikimedia.org/wiki/File:Lago_di_Antorno_(1).jpg"
+            }
+          ]
         },
         {
           "name": "Лаго-ди-Ландро / Dürrensee (ОПЦИЯ)",
           "waypointRef": "d5-w0",
           "duration_min": 10,
           "optional": true,
-          "note": "Придорожная остановка на SS51 между Кортиной и Добьяко, массив Кристалло зеркально отражается в озере. Бесплатная парковка, без ходьбы."
+          "note": "Придорожная остановка на SS51 между Кортиной и Добьяко, массив Кристалло зеркально отражается в озере. Бесплатная парковка, без ходьбы.",
+          "photos": [
+            {
+              "src": "https://commons.wikimedia.org/wiki/Special:FilePath/D%C3%BCrrensee%2C%20Dolomite%2C%20South%20Tyrol%20-%2052106015064.jpg?width=800",
+              "alt": "Лаго-ди-Ландро (Dürrensee) с отражением Кристалло",
+              "credit": "CC BY-SA 2.0 via Wikimedia Commons",
+              "href": "https://commons.wikimedia.org/wiki/File:D%C3%BCrrensee%2C_Dolomite%2C_South_Tyrol_-_52106015064.jpg"
+            }
+          ]
         }
       ],
       "photos": [
