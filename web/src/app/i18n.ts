@@ -42,6 +42,8 @@ export type UIKey =
   | 'overnights.bookingLink'
   // Map popup
   | 'map.popup.day' | 'map.popup.google' | 'map.popup.apple'
+  // Map layer switcher
+  | 'map.layer.dark' | 'map.layer.topo' | 'map.layer.hillshade'
   // Footer
   | 'footer.map' | 'footer.routing'
   // Photo lightbox
@@ -145,6 +147,10 @@ export const UI: Record<UIKey, Phrase> = {
   'map.popup.day':    { en: 'Day',         ru: 'День' },
   'map.popup.google': { en: 'Google Maps ↗', ru: 'Google Maps ↗' },
   'map.popup.apple':  { en: 'Apple Maps ↗',  ru: 'Apple Maps ↗' },
+
+  'map.layer.dark':      { en: '🌑 Dark',      ru: '🌑 Тёмная' },
+  'map.layer.topo':      { en: '🗺 Topographic', ru: '🗺 Топографическая' },
+  'map.layer.hillshade': { en: '⛰ Hillshade',  ru: '⛰ Рельеф' },
 
   'footer.map':     { en: 'Map',     ru: 'Карта' },
   'footer.routing': { en: 'Routing', ru: 'Маршрут' },

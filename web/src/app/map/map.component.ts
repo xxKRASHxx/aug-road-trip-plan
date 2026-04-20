@@ -68,6 +68,14 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   private markerIndex = new Map<string, MarkerEntry>();
   private allBounds?: L.LatLngBounds;
   private resizeObserver?: ResizeObserver;
+  // Basemap + overlay tile layers + the Leaflet layers-control that toggles
+  // them. Persisted so we can rebuild the control (with freshly translated
+  // labels) when the UI language changes without tearing down the tiles
+  // themselves.
+  private darkBasemap?: L.TileLayer;
+  private topoBasemap?: L.TileLayer;
+  private hillshadeOverlay?: L.TileLayer;
+  private layersControl?: L.Control.Layers;
 
   constructor() {
     effect(() => {
@@ -80,11 +88,16 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     });
     // When language changes, the entire route signal is swapped out by
     // RouteService (different JSON file). Rebuild all layers/markers/popups
-    // so labels and popup chrome pick up the new strings.
+    // so labels and popup chrome pick up the new strings. Also rebuild the
+    // layers-control so its labels ("Dark" / "Topographic" / "Hillshade")
+    // pick up the new translation — Leaflet doesn't support live relabeling.
     effect(() => {
       this.route();
       this.lang();
-      if (this.map) this.rebuildLayers();
+      if (this.map) {
+        this.rebuildLayers();
+        this.rebuildLayersControl();
+      }
     });
   }
 
@@ -94,16 +107,48 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       attributionControl: true,
     }).setView([47.0, 12.5], 8);
 
-    // CartoDB "Dark Matter" — OpenStreetMap data rendered in a dark palette.
-    // Free to use with attribution; retina-friendly via {r}.
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-      attribution:
-        '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors · © <a href="https://carto.com/attributions">CARTO</a>',
-      subdomains: 'abcd',
-      maxZoom: 19,
-    }).addTo(map);
+    // --- Basemap layers ----------------------------------------------------
+    // Dark: CartoDB "Dark Matter" — OSM data in a dark palette. Matches the
+    // app chrome; default on load. Free, no API key.
+    this.darkBasemap = L.tileLayer(
+      'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+      {
+        attribution:
+          '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors · © <a href="https://carto.com/attributions">CARTO</a>',
+        subdomains: 'abcd',
+        maxZoom: 19,
+      },
+    );
+    // Topographic: OpenTopoMap — OSM data with SRTM contour lines and
+    // hillshading baked in. Great for reading Alpine passes and ridges.
+    // Free, fair-use; tile usage policy applies.
+    this.topoBasemap = L.tileLayer(
+      'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
+      {
+        attribution:
+          'Map data: © <a href="https://www.openstreetmap.org/copyright">OSM</a> contributors, ' +
+          '<a href="http://viewfinderpanoramas.org">SRTM</a> | ' +
+          'Style: © <a href="https://opentopomap.org">OpenTopoMap</a> (CC-BY-SA)',
+        subdomains: 'abc',
+        maxZoom: 17,
+      },
+    );
+    // Hillshade OVERLAY: Esri World Hillshade — grayscale relief. Added on top
+    // of any basemap to hint elevation without breaking the basemap palette.
+    // Free, no API key. maxZoom 16 — Leaflet silently stops requesting above.
+    this.hillshadeOverlay = L.tileLayer(
+      'https://server.arcgisonline.com/ArcGIS/rest/services/Elevation/World_Hillshade/MapServer/tile/{z}/{y}/{x}',
+      {
+        attribution: 'Hillshade © <a href="https://www.esri.com/">Esri</a>',
+        opacity: 0.35,
+        maxZoom: 16,
+      },
+    );
+
+    this.darkBasemap.addTo(map);
 
     this.map = map;
+    this.rebuildLayersControl();
     this.buildLayers();
 
     // Leaflet measures its container size on init; if the container hasn't been
@@ -127,6 +172,28 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     this.resizeObserver?.disconnect();
     this.map?.remove();
+  }
+
+  /**
+   * (Re)create the top-right layers-control with labels in the current UI
+   * language. Leaflet's control has no live-rename API, so on lang change we
+   * remove the old control and build a fresh one against the same tile-layer
+   * instances — the basemap currently on the map stays active.
+   */
+  private rebuildLayersControl(): void {
+    if (!this.map || !this.darkBasemap || !this.topoBasemap || !this.hillshadeOverlay) return;
+    this.layersControl?.remove();
+    const l = this.lang();
+    this.layersControl = L.control.layers(
+      {
+        [UI['map.layer.dark'][l]]: this.darkBasemap,
+        [UI['map.layer.topo'][l]]: this.topoBasemap,
+      },
+      {
+        [UI['map.layer.hillshade'][l]]: this.hillshadeOverlay,
+      },
+      { position: 'topright', collapsed: true },
+    ).addTo(this.map);
   }
 
   /** Tear down all existing layers/markers then rebuild from current data. */
