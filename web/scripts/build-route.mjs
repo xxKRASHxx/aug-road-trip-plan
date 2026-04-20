@@ -26,13 +26,12 @@ const OVERVIEW_EN = {
   facts: [
     { label: 'Start / end',    value: 'Klagenfurt' },
     { label: 'Duration',       value: '5 days · 4 nights' },
-    { label: 'Best season',    value: 'Late June – early September' },
-    { label: 'Daily rhythm',   value: 'Wake 07:30–09:00 · depart by 10:00 (Day 5 earlier)' },
+    { label: 'Daily rhythm',   value: 'Wake 07:30–09:00 · depart by 10:00 · dinner wraps by ~21:00 (Day 5 home ~16:30)' },
     { label: 'Highest point',  value: '2,571 m (Edelweißspitze, Day 1)' },
     { label: 'Driving style',  value: 'Scenic over fastest' },
   ],
   hint:
-    'Click any day tab above — or a marker on the map — to see its route, ' +
+    'Click any day tab above, or a marker on the map, to see its route, ' +
     'activities, meals, sightseeing stops, and overnight.',
 };
 
@@ -62,13 +61,16 @@ const wmPhoto = (file, alt, credit) => ({
 
 const days = [
   // =========================================================================
-  // DAY 1 — Klagenfurt -> Großglockner -> Kaprun
+  // DAY 1, Klagenfurt -> Großglockner -> Kaprun
   // =========================================================================
   {
     day: 1,
     title: 'Klagenfurt → Großglockner → Kaprun',
-    theme: 'Epic pass-road day — switchbacks above the clouds, marmots, and a glacial sky-lake',
+    theme: 'Epic pass-road day, switchbacks above the clouds, marmots, and a glacial sky-lake',
     color: '#e63946',
+    // Most of the day is inside Hohe Tauern National Park (Salzburg/Carinthia);
+    // "Klagenfurt" and "Kaprun" are unique enough to resolve with this bias.
+    region: 'Hohe Tauern, Austria',
     blurb: {
       summary:
         "A scenic crossing of Austria's highest mountain road. Long climbs above the tree " +
@@ -81,33 +83,33 @@ const days = [
         { label: 'Toll',          value: '€44 / car (1-day Glocknerstraße)' },
         { label: 'Highlight',     value: 'Fuscher Lacke turquoise lake' },
         { label: 'Wildlife',      value: 'Marmots & ibex likely' },
-        { label: 'Bring',         value: 'Warm layer — ~10 °C colder up top' },
+        { label: 'Bring',         value: 'Warm layer, ~10 °C colder up top' },
       ],
-      hint: 'Click any marker on the map — or a row below — to focus that location.',
+      hint: 'Click any marker on the map, or a row below, to focus that location.',
     },
     stress: {
-      level: 3,
-      summary: 'Full day on a tourist-heavy high-alpine toll road; altitude, switchbacks, and wind — but no real hiking or time pressure.',
+      level: 2,
+      summary: 'Full day on a tourist-heavy high-alpine toll road; altitude, switchbacks, and wind, but no real hiking or time pressure.',
     },
     from: 'Klagenfurt',
     to: 'Kaprun',
-    // REQUIRED waypoints — base route (drive + short stops).
-    // Edelweißspitze is a ~1.6 km paved spur off Fuscher Törl — small detour,
+    // REQUIRED waypoints, base route (drive + short stops).
+    // Edelweißspitze is a ~1.6 km paved spur off Fuscher Törl, small detour,
     // highest viewpoint on the entire Glocknerstraße (360° panorama).
     waypoints: [
-      { id: 'd1-w0', label: 'Klagenfurt (start)',                      coords: [46.6228, 14.3050], type: 'start' },
-      { id: 'd1-w1', label: 'Heiligenblut — toll gate & church',       coords: [47.0401, 12.8454], type: 'viewpoint' },
+      { id: 'd1-w0', label: 'Klagenfurt (start)',                      coords: [46.6228, 14.3050], type: 'start',     city: 'Klagenfurt am Wörthersee', postcode: '9020', region: 'Carinthia, Austria' },
+      { id: 'd1-w1', label: 'Heiligenblut (toll gate & church)',      coords: [47.0401, 12.8454], type: 'viewpoint', city: 'Heiligenblut am Großglockner', postcode: '9844' },
       { id: 'd1-w2', label: 'Hochtor (2,504 m)',                       coords: [47.0830, 12.8530], type: 'viewpoint' },
       { id: 'd1-w3', label: 'Edelweißspitze (2,571 m)',                coords: [47.1261, 12.8389], type: 'viewpoint' },
       {
         id: 'd1-w4', label: 'Fuscher Lacke (2,262 m)',
         coords: [47.1185, 12.8369], type: 'activity',
-        appleMapsUrl: 'https://maps.apple/p/aN0sfTsmvQwP8s',
+        appleMapsUrl: 'https://maps.apple.com/p/aN0sfTsmvQwP8s',
       },
-      { id: 'd1-w5', label: 'Bruck a.d. Großglocknerstraße',           coords: [47.2862, 12.8218], type: 'via' },
-      { id: 'd1-w6', label: 'Kaprun (overnight)',                      coords: [47.2724, 12.7477], type: 'overnight' },
+      { id: 'd1-w5', label: 'Bruck a.d. Großglocknerstraße',           coords: [47.2862, 12.8218], type: 'via',       city: 'Bruck an der Großglocknerstraße', postcode: '5671', region: 'Salzburg, Austria' },
+      { id: 'd1-w6', label: 'Kaprun (overnight)',                      coords: [47.2724, 12.7477], type: 'overnight', city: 'Kaprun', postcode: '5710', region: 'Salzburg, Austria' },
     ],
-    // Großglockner Hochalpenstraße is a toll road — drawn as straight lines
+    // Großglockner Hochalpenstraße is a toll road, drawn as straight lines
     // between waypoints (OSRM would re-route around it). Times are estimates.
     manualLegs: [
       { index: 1, duration_min: 40, distance_km: 25 },   // Heiligenblut → Hochtor
@@ -117,10 +119,10 @@ const days = [
     ],
     timeline: [
       { time: '09:00',  event: 'Wake',                                 notes: 'Klagenfurt',                                                                           waypointRef: 'd1-w0' },
-      { time: '10:00',  event: 'Depart',                               notes: 'B100 → B106 Mölltal scenic — not A10',                                                 waypointRef: 'd1-w0' },
+      { time: '10:00',  event: 'Depart',                               notes: 'B100 → B106 Mölltal scenic, not A10',                                                 waypointRef: 'd1-w0' },
       { time: '~12:17', event: 'Heiligenblut toll gate',               notes: '10 min photo stop at the Gothic church viewpoint',                                    waypointRef: 'd1-w1' },
       { time: '~12:30', event: 'Großglockner High Alpine Road',        notes: '~€37–40 / car. Drive northbound.',                                                    waypointRef: 'd1-w1' },
-      { time: '~13:15', event: 'Hochtor (2,504 m)',                    notes: 'Highest point — panorama stop',                                                       waypointRef: 'd1-w2' },
+      { time: '~13:15', event: 'Hochtor (2,504 m)',                    notes: 'Highest point, panorama stop',                                                       waypointRef: 'd1-w2' },
       { time: '~13:35', event: 'Edelweißspitze spur',                  notes: '1.6 km paved spur off Fuscher Törl to the best 360° panorama on the whole road',      waypointRef: 'd1-w3' },
       { time: '14:00–15:00', event: 'Fuscher Törl lunch (60 min)',     notes: 'Sit-down lunch at the panorama Gasthaus at 2,428 m',                                  waypointRef: 'd1-w4' },
       { time: '15:00–15:30', event: 'Fuscher Lacke lake loop',         notes: '~20 min perimeter walk with Großglockner reflections',                                waypointRef: 'd1-w4' },
@@ -137,11 +139,11 @@ const days = [
         duration_min: 30,
         summary: 'Small high-alpine lake at 2,262 m on the Großglockner High Alpine Road.',
         details: [
-          'Easy flat perimeter path — ~20 min loop, no elevation gain',
+          'Easy flat perimeter path, ~20 min loop, no elevation gain',
           'Großglockner (3,798 m) and surrounding glaciers frame the lake; mirror reflections on clear mornings',
           'Café and toilets at the parking',
           'Crowds peak in early afternoon; post-lunch arrival (~14:00) often quietest',
-          'Trail shoes sufficient — gravel / grassed path',
+          'Trail shoes sufficient, gravel / grassed path',
         ],
         links: [
           { label: 'Großglockner High Alpine Road (official)', url: 'https://www.grossglockner.at/gg/en', note: 'Tolls, opening status, webcams' },
@@ -162,7 +164,7 @@ const days = [
         waypointRef: 'd1-w6',
         duration_min: 150,
         optional: true,
-        summary: 'Glacier cable car from Kaprun to 3,029 m — viewing platform, ice tunnel, panorama walks.',
+        summary: 'Glacier cable car from Kaprun to 3,029 m, viewing platform, ice tunnel, panorama walks.',
         details: [
           'Return ticket ~€56 / adult; last uphill ~15:00–15:30 (varies by season)',
           '~30 min drive between Kaprun hotels and the valley station',
@@ -175,7 +177,7 @@ const days = [
         ],
       },
     ],
-    // Meals — counted toward the day's total time.
+    // Meals, counted toward the day's total time.
     meals: [
       {
         time: '14:00–15:00',
@@ -185,16 +187,16 @@ const days = [
         duration_min: 60,
         travel_min: 0,
         travel_mode: 'included',
-        travel_note: 'Restaurant is right at the Fuscher Törl parking — no transfer.',
-        note: 'High-altitude mountain Gasthaus right on the road with Großglockner views — strudel, Kasnocken, beer.',
+        travel_note: 'Restaurant is right at the Fuscher Törl parking, no transfer.',
+        note: 'High-altitude mountain Gasthaus right on the road with Großglockner views, strudel, Kasnocken, beer.',
       },
     ],
     significantStops: [
       { name: 'Heiligenblut church + Großglockner backdrop', waypointRef: 'd1-w1', duration_min: 15, note: 'The classic Austrian postcard view' },
       { name: 'Hochtor panorama (2,504 m)',                  waypointRef: 'd1-w2', duration_min: 15, note: 'Highest point on the road, Austria/Salzburg border tunnel' },
-      { name: 'Edelweißspitze (2,571 m)',                    waypointRef: 'd1-w3', duration_min: 20, note: 'Highest point on the Glocknerstraße network — 360° panorama over the Hohe Tauern glaciers' },
+      { name: 'Edelweißspitze (2,571 m)',                    waypointRef: 'd1-w3', duration_min: 20, note: 'Highest point on the Glocknerstraße network, 360° panorama over the Hohe Tauern glaciers' },
       { name: 'Bruck an der Großglocknerstraße',             waypointRef: 'd1-w5', duration_min: 0,  note: 'North exit of the toll road; refuel here if needed' },
-      // OPTIONAL spur — adds ~60 min round trip but gives the actual Pasterze
+      // OPTIONAL spur, adds ~60 min round trip but gives the actual Pasterze
       // glacier + Großglockner massif view. Decide at Heiligenblut before
       // entering the toll road.
       {
@@ -213,7 +215,7 @@ const days = [
     },
     photos: [
       wmPhoto('1291-Heiligenblut.jpg',
-              'Heiligenblut church with Großglockner behind — the classic postcard view',
+              'Heiligenblut church with Großglockner behind, the classic postcard view',
               'CC BY-SA 3.0 via Wikimedia Commons'),
       wmPhoto('Fuscher Lacke Panorama Großglocknerhochalpenstraße.jpg',
               'Panorama of Fuscher Lacke at 2,262 m',
@@ -228,12 +230,16 @@ const days = [
   },
 
   // =========================================================================
-  // DAY 2 — Kaprun -> Innsbruck Nordkette -> Zirl
+  // DAY 2, Kaprun -> Innsbruck Nordkette -> Zirl
   // =========================================================================
   {
     day: 2,
     title: 'Kaprun → Nordkette → Zirl',
     theme: 'Motorway sprint, then the cable car straight from Innsbruck old town to a 2,256 m ridge',
+    // Day starts in Salzburg (Kaprun / Zell am See) then runs west into Tirol.
+    // Default to Tirol since 5 of 7 waypoints are there; Salzburg waypoints
+    // override below.
+    region: 'Tirol, Austria',
     blurb: {
       summary:
         'A fast motorway transfer west, then a classic Innsbruck half-day: a funicular ' +
@@ -244,29 +250,29 @@ const days = [
         { label: 'Top',        value: 'Hafelekar · 2,256 m' },
         { label: 'Old town',   value: 'Goldenes Dachl, Hofgarten' },
         { label: 'Driving',    value: 'A10 → A12 motorway' },
-        { label: 'Sleep',      value: 'Zirl — quieter & cheaper than Innsbruck' },
+        { label: 'Sleep',      value: 'Zirl, quieter & cheaper than Innsbruck' },
       ],
-      hint: 'Click any marker on the map — or a row below — to focus that location.',
+      hint: 'Click any marker on the map, or a row below, to focus that location.',
     },
     stress: {
-      level: 2,
+      level: 1,
       summary: 'Mostly motorway driving, a city half-day with cable cars doing the altitude work. Lightest day of the trip.',
     },
     color: '#f4a261',
     from: 'Kaprun',
     to: 'Zirl',
-    // Zell am See lakefront stretch-break added on departure — the lake is
+    // Zell am See lakefront stretch-break added on departure, the lake is
     // 10 min from Kaprun and is the "missing" sight of the Salzburg leg.
     waypoints: [
-      { id: 'd2-w0', label: 'Kaprun (start)',                           coords: [47.2724, 12.7477], type: 'start' },
-      { id: 'd2-w1', label: 'Zell am See — lakefront stretch',          coords: [47.3250, 12.7959], type: 'viewpoint' },
-      { id: 'd2-w2', label: 'Innsbruck — Hungerburg / Congress',        coords: [47.2867, 11.4034], type: 'activity' },
-      { id: 'd2-w3', label: 'Seegrube (1,905 m) — Nordkette',           coords: [47.3167, 11.3833], type: 'viewpoint' },
-      { id: 'd2-w4', label: 'Hafelekar (2,256 m) — Nordkette top',      coords: [47.3236, 11.3897], type: 'viewpoint' },
-      { id: 'd2-w5', label: 'Innsbruck old town — Goldenes Dachl',      coords: [47.2682, 11.3933], type: 'activity' },
-      { id: 'd2-w6', label: 'Zirl (overnight)',                         coords: [47.2677, 11.2395], type: 'overnight' },
+      { id: 'd2-w0', label: 'Kaprun (start)',                           coords: [47.2724, 12.7477], type: 'start',     city: 'Kaprun',      postcode: '5710', region: 'Salzburg, Austria' },
+      { id: 'd2-w1', label: 'Zell am See lakefront',                   coords: [47.3250, 12.7959], type: 'viewpoint', city: 'Zell am See', postcode: '5700', region: 'Salzburg, Austria' },
+      { id: 'd2-w2', label: 'Innsbruck Hungerburgbahn',                coords: [47.2867, 11.4034], type: 'activity',  city: 'Innsbruck',   postcode: '6020' },
+      { id: 'd2-w3', label: 'Seegrube Nordkette (1,905 m)',            coords: [47.3167, 11.3833], type: 'viewpoint', city: 'Innsbruck',   postcode: '6020' },
+      { id: 'd2-w4', label: 'Hafelekar Nordkette (2,256 m)',           coords: [47.3236, 11.3897], type: 'viewpoint', city: 'Innsbruck',   postcode: '6020' },
+      { id: 'd2-w5', label: 'Goldenes Dachl, Innsbruck',               coords: [47.2682, 11.3933], type: 'activity',  city: 'Innsbruck',   postcode: '6020' },
+      { id: 'd2-w6', label: 'Zirl (overnight)',                         coords: [47.2677, 11.2395], type: 'overnight', city: 'Zirl',        postcode: '6170' },
     ],
-    // Cable car segments — funicular + gondola, not road.
+    // Cable car segments, funicular + gondola, not road.
     manualLegs: [
       { index: 2, duration_min: 8,  distance_km: 2.5 }, // Hungerburg → Seegrube (gondola up)
       { index: 3, duration_min: 5,  distance_km: 1   }, // Seegrube → Hafelekar (gondola up)
@@ -275,9 +281,9 @@ const days = [
     timeline: [
       { time: '09:00',  event: 'Wake',                                 notes: 'Kaprun',                                                                               waypointRef: 'd2-w0' },
       { time: '10:00',  event: 'Depart',                               notes: 'B311 → B178 → A12 Inn valley motorway',                                                waypointRef: 'd2-w0' },
-      { time: '~10:10', event: 'Zell am See lakefront',                notes: '10 min stretch / photos at Esplanade — the lake day 1 skipped',                        waypointRef: 'd2-w1' },
+      { time: '~10:10', event: 'Zell am See lakefront',                notes: '10 min stretch / photos at Esplanade, the lake day 1 skipped',                        waypointRef: 'd2-w1' },
       { time: '~12:45', event: 'Arrive Innsbruck',                     notes: 'Park Congressgarage or Marktplatz',                                                   waypointRef: 'd2-w2' },
-      { time: '13:00–14:00', event: 'Lunch in old town (60 min)',      notes: 'Herzog-Friedrich-Straße — Tiroler Gröstl, schnitzel, apfelstrudel',                    waypointRef: 'd2-w5' },
+      { time: '13:00–14:00', event: 'Lunch in old town (60 min)',      notes: 'Herzog-Friedrich-Straße, Tiroler Gröstl, schnitzel, apfelstrudel',                    waypointRef: 'd2-w5' },
       { time: '14:15',  event: 'Hungerburgbahn funicular',             notes: '8-min ride up from Rennweg (Congress)',                                               waypointRef: 'd2-w2' },
       { time: '14:25',  event: 'Nordkette gondola to Seegrube',        notes: 'Transfer from Hungerburg',                                                            waypointRef: 'd2-w3' },
       { time: '14:45–16:15', event: 'Nordkette hike',                  notes: 'Gondola to Hafelekar; walk panorama trail back to Seegrube (~1 h, moderate)',         waypointRef: 'd2-w4' },
@@ -295,9 +301,9 @@ const days = [
         summary: 'Urban cable car system: Innsbruck (631 m) → Hafelekar (2,256 m) in ~20 min, then panorama trail back to Seegrube.',
         details: [
           'Route: Congress → Hungerburg (funicular) → Seegrube (gondola) → Hafelekar (gondola)',
-          'Hafelekar → Seegrube panorama trail ~1 h, moderate — some steep rocky sections, solid footwear',
+          'Hafelekar → Seegrube panorama trail ~1 h, moderate, some steep rocky sections, solid footwear',
           'Easier option: plateau walk at Seegrube level (~45 min flat)',
-          'Queues of 20–30 min at Hungerburg / Seegrube in July–August — book online in advance',
+          'Queues of 20–30 min at Hungerburg / Seegrube in July–August, book online in advance',
           'Full return ticket ~€40–45 / person',
         ],
         links: [
@@ -318,7 +324,7 @@ const days = [
         duration_min: 90,
         summary: 'Medieval city core around Goldenes Dachl.',
         details: [
-          'Goldenes Dachl (Golden Roof) — the must-see; courtyard and streets are free',
+          'Goldenes Dachl (Golden Roof), the must-see; courtyard and streets are free',
           'Maria-Theresien-Straße for the postcard view of the Nordkette ridge',
           'Triumphpforte, Hofkirche, Hofburg if time allows',
         ],
@@ -328,11 +334,11 @@ const days = [
         ],
         photos: [
           wmPhoto('Goldenes Dachl (Innsbruck).jpg',
-                  'Goldenes Dachl — the Golden Roof of Innsbruck',
+                  'Goldenes Dachl, the Golden Roof of Innsbruck',
                   'CC BY-SA 3.0 via Wikimedia Commons'),
         ],
       },
-      // OPTIONAL: 15 min summit bump from Hafelekar top station — much less
+      // OPTIONAL: 15 min summit bump from Hafelekar top station, much less
       // crowded than the Seegrube panorama trail, sharper viewpoint.
       {
         name: 'Hafelekarspitze summit bump (OPTIONAL)',
@@ -345,7 +351,7 @@ const days = [
           'Round trip ~30 min; ~80 m elevation gain, loose rocky path',
           'Noticeably less crowded than the Seegrube panorama trail',
           'Sharper, more dramatic summit viewpoint over Innsbruck',
-          'Skip in rain or snow — exposed last 20 m',
+          'Skip in rain or snow, exposed last 20 m',
         ],
       },
     ],
@@ -353,23 +359,23 @@ const days = [
       {
         time: '13:00–14:00',
         kind: 'lunch',
-        place: 'Innsbruck old town — Herzog-Friedrich-Straße',
+        place: 'Innsbruck old town, Herzog-Friedrich-Straße',
         waypointRef: 'd2-w5',
         duration_min: 60,
         travel_min: 10,
         travel_mode: 'walk',
         travel_note: '~5 min walk each way from Congressgarage / Marktplatz to the old-town pedestrian street.',
-        note: 'Tiroler Gröstl, Schnitzel, Kaiserschmarrn — Weisses Rössl and Stiftskeller are reliable staples.',
+        note: 'Tiroler Gröstl, Schnitzel, Kaiserschmarrn, Weisses Rössl and Stiftskeller are reliable staples.',
         links: [
           { label: 'Innsbruck dining guide', url: 'https://www.innsbruck.info/en/eat-and-drink/', note: 'Tourism office restaurant list' },
         ],
       },
     ],
-    // Stops covered by the activities above — no extra dwell time to count.
+    // Stops covered by the activities above, no extra dwell time to count.
     significantStops: [
-      { name: 'Zell am See lakefront',           waypointRef: 'd2-w1', duration_min: 10, note: 'Esplanade photo stop — the Salzburg-leg lake the plan would otherwise skip' },
+      { name: 'Zell am See lakefront',           waypointRef: 'd2-w1', duration_min: 10, note: 'Esplanade photo stop, the Salzburg-leg lake the plan would otherwise skip' },
       { name: 'Seegrube (1,905 m)',              waypointRef: 'd2-w3', duration_min: 0,  note: 'Innsbruck and Inn valley from the ridge (included in cable-car activity)' },
-      { name: 'Hafelekar (2,256 m)',             waypointRef: 'd2-w4', duration_min: 0,  note: 'Top station — best panorama (included in cable-car activity)' },
+      { name: 'Hafelekar (2,256 m)',             waypointRef: 'd2-w4', duration_min: 0,  note: 'Top station, best panorama (included in cable-car activity)' },
       { name: 'Goldenes Dachl',                  waypointRef: 'd2-w5', duration_min: 0,  note: 'Iconic Innsbruck golden roof (included in old-town stroll)' },
     ],
     overnight: {
@@ -383,7 +389,7 @@ const days = [
               'Nordkette ridge over Innsbruck from the south',
               'CC BY-SA 4.0 via Wikimedia Commons'),
       wmPhoto('Goldenes Dachl (Innsbruck).jpg',
-              'Goldenes Dachl — Golden Roof of Innsbruck',
+              'Goldenes Dachl, Golden Roof of Innsbruck',
               'CC BY-SA 3.0 via Wikimedia Commons'),
       wmPhoto('2731 - Innsbruck - Goldenes Dachl.JPG',
               'Innsbruck old town alley toward Goldenes Dachl',
@@ -392,12 +398,14 @@ const days = [
   },
 
   // =========================================================================
-  // DAY 3 — Zirl -> Stuibenfall Klettersteig -> Ötztal
+  // DAY 3, Zirl -> Stuibenfall Klettersteig -> Ötztal
   // =========================================================================
   {
     day: 3,
     title: 'Zirl → Stuibenfall Klettersteig → Ötztal',
-    theme: "The adrenaline day — 3 h of iron rungs beside Austria's 159 m waterfall, thermal baths at night",
+    theme: "The adrenaline day, 3 h of iron rungs beside Austria's 159 m waterfall, thermal baths at night",
+    // Entire day is inside the Ötztal valley.
+    region: 'Ötztal, Tirol, Austria',
     blurb: {
       summary:
         "Short morning drive into the Ötztal, then the whole day is on rock: a guided " +
@@ -408,38 +416,38 @@ const days = [
         { label: 'Guide + gear', value: '~€95 / person' },
         { label: 'Time on rock', value: '3–4 hours' },
         { label: 'Minimum age',  value: '12 years' },
-        { label: 'Weather',      value: 'Dry rock only — reschedule if rain' },
+        { label: 'Weather',      value: 'Dry rock only, reschedule if rain' },
       ],
-      hint: 'Click any marker on the map — or a row below — to focus that location.',
+      hint: 'Click any marker on the map, or a row below, to focus that location.',
     },
     stress: {
       level: 5,
-      summary: 'Most physically demanding day — 3 h on a B/C-grade via ferrata with significant exposure. Weather-dependent; no room to improvise.',
+      summary: 'Most physically demanding day, 3 h on a B/C-grade via ferrata with significant exposure. Weather-dependent; no room to improvise.',
     },
     color: '#2a9d8f',
     from: 'Zirl',
     to: 'Umhausen / Längenfeld',
-    // Route is strictly southward down the Ötztal valley — no backtracking.
+    // Route is strictly southward down the Ötztal valley, no backtracking.
     // Stuibenfall waterfall and ferrata approach are on foot from the Umhausen
     // gear rental + parking area, so there is no separate drive leg out to the
     // trailhead.
     waypoints: [
-      { id: 'd3-w0', label: 'Zirl (start)',                               coords: [47.2677, 11.2395], type: 'start' },
-      { id: 'd3-w1', label: 'Umhausen — gear rental, parking & Stuibenfall trailhead', coords: [47.1289, 10.9349], type: 'activity' },
-      { id: 'd3-w2', label: 'Längenfeld (overnight)',                     coords: [47.0731, 10.9736], type: 'overnight' },
+      { id: 'd3-w0', label: 'Zirl (start)',                               coords: [47.2677, 11.2395], type: 'start',     city: 'Zirl',       postcode: '6170', region: 'Tirol, Austria' },
+      { id: 'd3-w1', label: 'Stuibenfall trailhead, Umhausen',            coords: [47.1289, 10.9349], type: 'activity',  city: 'Umhausen',   postcode: '6441' },
+      { id: 'd3-w2', label: 'Längenfeld (overnight)',                     coords: [47.0731, 10.9736], type: 'overnight', city: 'Längenfeld', postcode: '6444' },
     ],
     manualLegs: [],
     timeline: [
-      { time: '09:00',       event: 'Wake',                          notes: 'Zirl — check weather (mountain-forecast + ZAMG Tirol)',                                  waypointRef: 'd3-w0' },
+      { time: '09:00',       event: 'Wake',                          notes: 'Zirl, check weather (mountain-forecast + ZAMG Tirol)',                                  waypointRef: 'd3-w0' },
       { time: '10:00',       event: 'Depart',                        notes: 'B171 → B186 into Ötztal',                                                               waypointRef: 'd3-w0' },
-      { time: '~11:03',      event: 'Arrive Umhausen',               notes: 'Park at / near the gear shop — you walk from here, no further driving',                 waypointRef: 'd3-w1' },
-      { time: '11:05–11:30', event: 'Gear pickup',                   notes: 'Helmet, harness, via ferrata Y-lanyard — reserve ahead',                                waypointRef: 'd3-w1' },
-      { time: '11:30–12:30', event: 'Pre-climb lunch (60 min)',      notes: 'Proper sit-down lunch at an Umhausen Gasthof — fuel for 3 h on rock. No food once harness is on.', waypointRef: 'd3-w1' },
+      { time: '~11:03',      event: 'Arrive Umhausen',               notes: 'Park at / near the gear shop, you walk from here, no further driving',                 waypointRef: 'd3-w1' },
+      { time: '11:05–11:30', event: 'Gear pickup',                   notes: 'Helmet, harness, via ferrata Y-lanyard, reserve ahead',                                waypointRef: 'd3-w1' },
+      { time: '11:30–12:30', event: 'Pre-climb lunch (60 min)',      notes: 'Proper sit-down lunch at an Umhausen Gasthof, fuel for 3 h on rock. No food once harness is on.', waypointRef: 'd3-w1' },
       { time: '12:30',       event: 'Walk / approach to trailhead',  notes: '~15–30 min walk east to the Stuibenfall base',                                          waypointRef: 'd3-w1' },
       { time: '13:00–16:00', event: 'Stuibenfall Klettersteig',      notes: 'B/C difficulty, ~2.5–3 h on route',                                                     waypointRef: 'd3-w1' },
       { time: '~16:15',      event: 'Descent',                       notes: '~45 min walk back to the village',                                                      waypointRef: 'd3-w1' },
       { time: '~17:00',      event: 'Return gear in Umhausen',       notes: null,                                                                                    waypointRef: 'd3-w1' },
-      { time: '~17:15',      event: 'Drive on to Längenfeld',        notes: 'South on B186 — new road, no backtracking',                                             waypointRef: 'd3-w2' },
+      { time: '~17:15',      event: 'Drive on to Längenfeld',        notes: 'South on B186, new road, no backtracking',                                             waypointRef: 'd3-w2' },
       { time: '~17:37',      event: 'Arrive Längenfeld',             notes: 'Check in, shower; optional Aqua Dome thermal spa before dinner',                        waypointRef: 'd3-w2' },
       { time: '19:30',       event: 'Dinner',                        notes: 'Längenfeld or Umhausen village Gasthof',                                                waypointRef: 'd3-w2' },
     ],
@@ -451,18 +459,18 @@ const days = [
         duration_min: 270,
         summary: "Via ferrata alongside Austria's highest waterfall (159 m). Iron rungs and cables bolted to the rock beside the cascade.",
         details: [
-          'Approached on foot from Umhausen (no separate drive — park once at the gear shop)',
+          'Approached on foot from Umhausen (no separate drive, park once at the gear shop)',
           'Difficulty: B/C (moderate-difficult, UIAA via ferrata scale)',
-          'Significant exposure — sections over the gorge with big drop below',
+          'Significant exposure, sections over the gorge with big drop below',
           'Total time: ~20–30 min approach + 2.5–3h ferrata + 45 min descent = ~4–4.5h door to door',
           'No own gear: book a certified guide (€60–120/pp) 4–6 weeks ahead, or rent Y-lanyard + harness + helmet locally (requires prior B/C experience)',
-          'Footwear: approach shoes or stiff hiking boots — not trail runners',
-          'ABORT on thunderstorm risk — lightning on a metal-clipped route is life-threatening',
+          'Footwear: approach shoes or stiff hiking boots, not trail runners',
+          'ABORT on thunderstorm risk, lightning on a metal-clipped route is life-threatening',
         ],
         links: [
           { label: 'Stuibenfall Klettersteig (Ötztal Tourismus)', url: 'https://www.oetztal.com/en/active-in-the-oetztal/outdoor-oetztal/climbing/via-ferrata-oetztal/stuibenfall.html', note: 'Route map, topo, gear, guide bookings' },
-          { label: 'Weather — mountain-forecast.com',             url: 'https://www.mountain-forecast.com/peaks/Acherkogel/forecasts/2987' },
-          { label: 'Weather — ZAMG Tirol',                        url: 'https://www.zamg.ac.at/cms/de/wetter/wetter-oesterreich/tirol' },
+          { label: 'Weather (mountain-forecast.com)',             url: 'https://www.mountain-forecast.com/peaks/Acherkogel/forecasts/2987' },
+          { label: 'Weather (ZAMG Tirol)',                        url: 'https://www.zamg.ac.at/cms/de/wetter/wetter-oesterreich/tirol' },
           { label: 'Ötztal tourism portal',                       url: 'https://www.oetztal.com/en/' },
         ],
         photos: [
@@ -483,10 +491,10 @@ const days = [
         waypointRef: 'd3-w2',
         duration_min: 120,
         optional: true,
-        summary: 'Award-winning thermal bath complex in Längenfeld — outdoor sulphur pools with Ötztal mountain views.',
+        summary: 'Award-winning thermal bath complex in Längenfeld, outdoor sulphur pools with Ötztal mountain views.',
         details: [
           'Adult 3 h ticket ~€35 (2025)',
-          '12 pools indoor/outdoor, saunas, steam baths — ideal for tired ferrata arms',
+          '12 pools indoor/outdoor, saunas, steam baths, ideal for tired ferrata arms',
           'Bring flip-flops and swimwear (rental available but slow)',
           'Busy after 17:00; quieter 16:00–17:30 window',
         ],
@@ -494,21 +502,21 @@ const days = [
           { label: 'Aqua Dome (tickets + hours)', url: 'https://www.aqua-dome.at/en' },
         ],
       },
-      // OPTIONAL: weather Plan B — if the ferrata is cancelled (rain, lightning
+      // OPTIONAL: weather Plan B, if the ferrata is cancelled (rain, lightning
       // risk, or wet rock), swap in a cable-car day at Gaislachkogl in Sölden.
       {
-        name: 'Sölden Gaislachkogl cable car (OPTIONAL — weather Plan B)',
+        name: 'Sölden Gaislachkogl cable car (OPTIONAL, weather Plan B)',
         kind: 'cable car',
         waypointRef: 'd3-w1',
         duration_min: 180,
         optional: true,
         summary: 'Bail-out: gondola from Sölden to 3,058 m. Weather-tolerant substitute for the ferrata day.',
         details: [
-          'Use ONLY when the Stuibenfall ferrata is cancelled — otherwise ferrata takes priority',
+          'Use ONLY when the Stuibenfall ferrata is cancelled, otherwise ferrata takes priority',
           '25 min drive south from Umhausen to Sölden gondola base',
           'Return ticket ~€40; top station at 3,058 m with 360° panorama + 007 Elements museum',
           'Top station restaurant "ice Q" (Bond filming location) if lunch inside at altitude',
-          'Reliable in cloud/drizzle but not in lightning — still check the 3,000 m forecast',
+          'Reliable in cloud/drizzle but not in lightning, still check the 3,000 m forecast',
         ],
         links: [
           { label: 'Gaislachkogl cable car',  url: 'https://www.soelden.com/en/summer/hike-nature/summer-ascents/gaislachkoglbahn.html' },
@@ -520,28 +528,28 @@ const days = [
       {
         time: '11:30–12:30',
         kind: 'lunch',
-        place: 'Umhausen — village Gasthof (pre-climb)',
+        place: 'Umhausen, village Gasthof (pre-climb)',
         waypointRef: 'd3-w1',
         duration_min: 60,
         travel_min: 10,
         travel_mode: 'walk',
         travel_note: '~5 min walk each way from the gear shop to a village Gasthof.',
-        note: 'Sit-down lunch before gearing up — no food once the harness is on. Hearty carbs + 1 L water minimum; avoid heavy alcohol.',
+        note: 'Sit-down lunch before gearing up, no food once the harness is on. Hearty carbs + 1 L water minimum; avoid heavy alcohol.',
       },
       {
         time: '19:30–20:45',
         kind: 'dinner',
-        place: 'Längenfeld — village Gasthof',
+        place: 'Längenfeld, village Gasthof',
         waypointRef: 'd3-w2',
         duration_min: 75,
         travel_min: 20,
         travel_mode: 'walk',
         travel_note: '~10 min walk each way from the Längenfeld hotel to the village centre.',
-        note: 'Earned calories after 3 h on rock — Kaspressknödel, Schlutzkrapfen, local Tirol beer.',
+        note: 'Earned calories after 3 h on rock, Kaspressknödel, Schlutzkrapfen, local Tirol beer.',
       },
     ],
     significantStops: [
-      { name: 'Stuibenfall waterfall (159 m)', waypointRef: 'd3-w1', duration_min: 0,  note: "Austria's highest waterfall — visible from the approach trail (included in ferrata activity)" },
+      { name: 'Stuibenfall waterfall (159 m)', waypointRef: 'd3-w1', duration_min: 0,  note: "Austria's highest waterfall, visible from the approach trail (included in ferrata activity)" },
       { name: 'Umhausen village',              waypointRef: 'd3-w1', duration_min: 30, note: 'Gear pickup + return; short stroll between climb sections' },
     ],
     overnight: {
@@ -552,25 +560,29 @@ const days = [
     },
     photos: [
       wmPhoto('Stuibenfall, Hängebrücke.jpg',
-              "Stuibenfall — Austria's highest waterfall at 159 m",
+              "Stuibenfall, Austria's highest waterfall at 159 m",
               'CC BY-SA 4.0 via Wikimedia Commons'),
       wmPhoto('Hängebrücke und Treppenanlage am Stuibenfall.jpg',
               'Iron stairs beside the Stuibenfall cascade',
               'CC BY-SA 4.0 via Wikimedia Commons'),
       wmPhoto('Sölden Ötztal Strasse.jpg',
-              'Ötztal valley road — the B186',
+              'Ötztal valley road, the B186',
               'CC BY-SA 4.0 via Wikimedia Commons'),
     ],
   },
 
   // =========================================================================
-  // DAY 4 — Ötztal -> Timmelsjoch -> Passeier -> Jaufenpass -> Sterzing -> Cortina
-  // Scenic alternative to the Brenner motorway — two iconic alpine passes.
+  // DAY 4, Ötztal -> Timmelsjoch -> Passeier -> Jaufenpass -> Sterzing -> Cortina
+  // Scenic alternative to the Brenner motorway, two iconic alpine passes.
   // =========================================================================
   {
     day: 4,
     title: 'Ötztal → Timmelsjoch → Jaufenpass → Cortina',
-    theme: 'Long scenic transfer to Italy — two cinematic passes, a border, and an emerald lake at dusk',
+    theme: 'Long scenic transfer to Italy, two cinematic passes, a border, and an emerald lake at dusk',
+    // Border-crossing day. Most waypoints (Timmelsjoch summit + Italian side
+    // through to Braies) sit in South Tyrol; Austrian-side starts and the
+    // Veneto-side Cortina endpoint override below.
+    region: 'South Tyrol, Italy',
     blurb: {
       summary:
         'Two high Alpine passes and the famous Lago di Braies. Climb Timmelsjoch ' +
@@ -580,12 +592,12 @@ const days = [
       facts: [
         { label: 'Passes',    value: 'Timmelsjoch + Jaufenpass' },
         { label: 'Toll',      value: '~€22 (Timmelsjoch, car)' },
-        { label: 'Bonus',     value: 'Lago di Braies after 16:00 — no permit' },
+        { label: 'Bonus',     value: 'Lago di Braies after 16:00, no permit' },
         { label: 'Border',    value: 'Austria → Italy' },
         { label: 'Language',  value: 'German → Italian / Ladin' },
         { label: 'Drive',     value: 'Longest day · ~4 h behind the wheel' },
       ],
-      hint: 'Click any marker on the map — or a row below — to focus that location.',
+      hint: 'Click any marker on the map, or a row below, to focus that location.',
     },
     stress: {
       level: 4,
@@ -598,16 +610,16 @@ const days = [
     // Cortina (5 min detour off SS49). Access caps 09:30–16:00 May–Oct; we
     // time arrival for ~16:00+ so no permit is needed.
     waypoints: [
-      { id: 'd4-w0', label: 'Längenfeld (start)',                        coords: [47.0731, 10.9736], type: 'start' },
-      { id: 'd4-w1', label: 'Sölden',                                    coords: [46.9676, 11.0075], type: 'via' },
+      { id: 'd4-w0', label: 'Längenfeld (start)',                        coords: [47.0731, 10.9736], type: 'start',     city: 'Längenfeld',               postcode: '6444',  region: 'Ötztal, Tirol, Austria' },
+      { id: 'd4-w1', label: 'Sölden',                                    coords: [46.9676, 11.0075], type: 'via',       city: 'Sölden',                   postcode: '6450',  region: 'Ötztal, Tirol, Austria' },
       { id: 'd4-w2', label: 'Timmelsjoch / Passo del Rombo (2,509 m)',   coords: [46.9053, 11.0972], type: 'viewpoint' },
-      { id: 'd4-w3', label: 'St. Leonhard in Passeier — stretch',        coords: [46.8100, 11.2450], type: 'via' },
-      { id: 'd4-w4', label: 'Jaufenhaus (Jaufenpass, 2,094 m) — lunch',  coords: [46.8394, 11.3211], type: 'meal' },
-      { id: 'd4-w5', label: 'Sterzing / Vipiteno — fuel stop',           coords: [46.8963, 11.4336], type: 'via' },
-      { id: 'd4-w6', label: 'Lago di Braies / Pragser Wildsee (1,494 m)', coords: [46.6946, 12.0858], type: 'viewpoint' },
-      { id: 'd4-w7', label: "Cortina d'Ampezzo (overnight)",             coords: [46.5366, 12.1357], type: 'overnight' },
+      { id: 'd4-w3', label: 'St. Leonhard in Passeier',                 coords: [46.8100, 11.2450], type: 'via',       city: 'St. Leonhard in Passeier', postcode: '39015' },
+      { id: 'd4-w4', label: 'Jaufenhaus (Jaufenpass, 2,094 m)',         coords: [46.8394, 11.3211], type: 'meal',      city: 'St. Leonhard in Passeier', postcode: '39015', feature: 'Gasthaus' },
+      { id: 'd4-w5', label: 'Sterzing / Vipiteno',                      coords: [46.8963, 11.4336], type: 'via',       city: 'Sterzing',                 postcode: '39049' },
+      { id: 'd4-w6', label: 'Lago di Braies / Pragser Wildsee (1,494 m)', coords: [46.6946, 12.0858], type: 'viewpoint', city: 'Prags',                    postcode: '39030' },
+      { id: 'd4-w7', label: "Cortina d'Ampezzo (overnight)",             coords: [46.5366, 12.1357], type: 'overnight', city: "Cortina d'Ampezzo",        postcode: '32043', region: 'Dolomites, Veneto, Italy' },
     ],
-    // Timmelsjoch is a private toll road — OSRM won't route it. Declare the
+    // Timmelsjoch is a private toll road, OSRM won't route it. Declare the
     // affected legs as manual with realistic estimates so the map is honest.
     manualLegs: [
       { index: 1, duration_min: 35, distance_km: 24 }, // Sölden → Timmelsjoch summit (toll)
@@ -616,16 +628,16 @@ const days = [
     timeline: [
       { time: '09:00',        event: 'Wake',                              notes: 'Längenfeld (Ötztal)',                                                                                   waypointRef: 'd4-w0' },
       { time: '10:00',        event: 'Depart',                            notes: 'B186 south through the upper Ötztal',                                                                   waypointRef: 'd4-w0' },
-      { time: '~10:20',       event: 'Sölden — fuel + coffee',            notes: 'Last fuel before the Timmelsjoch toll gate',                                                             waypointRef: 'd4-w1' },
+      { time: '~10:20',       event: 'Sölden, fuel + coffee',            notes: 'Last fuel before the Timmelsjoch toll gate',                                                             waypointRef: 'd4-w1' },
       { time: '~11:10',       event: 'Timmelsjoch summit (2,509 m)',      notes: "One of Europe's most spectacular pass roads. Toll ~€22 / car. Architecture pavilions at the border.",   waypointRef: 'd4-w2' },
-      { time: '~12:10',       event: 'St. Leonhard in Passeier',          notes: 'Italian side — short stretch / leg-stretch at the Jaufenpass junction',                                  waypointRef: 'd4-w3' },
-      { time: '13:00–14:00',  event: 'Jaufenhaus summit lunch',           notes: 'Mountain Gasthaus at the Jaufenpass (2,094 m) — Knödel, Speckplatte, apple strudel.',                    waypointRef: 'd4-w4' },
-      { time: '~14:30',       event: 'Descend to Sterzing',               notes: 'SS44 — ~20 switchbacks on the descent',                                                                  waypointRef: 'd4-w5' },
-      { time: '~14:30–14:45', event: 'Sterzing — fuel / coffee',          notes: 'Skip the long old-town stroll to preserve time for Braies',                                              waypointRef: 'd4-w5' },
+      { time: '~12:10',       event: 'St. Leonhard in Passeier',          notes: 'Italian side, short stretch / leg-stretch at the Jaufenpass junction',                                  waypointRef: 'd4-w3' },
+      { time: '13:00–14:00',  event: 'Jaufenhaus summit lunch',           notes: 'Mountain Gasthaus at the Jaufenpass (2,094 m), Knödel, Speckplatte, apple strudel.',                    waypointRef: 'd4-w4' },
+      { time: '~14:30',       event: 'Descend to Sterzing',               notes: 'SS44, ~20 switchbacks on the descent',                                                                  waypointRef: 'd4-w5' },
+      { time: '~14:30–14:45', event: 'Sterzing, fuel / coffee',          notes: 'Skip the long old-town stroll to preserve time for Braies',                                              waypointRef: 'd4-w5' },
       { time: '~14:45',       event: 'Depart on A22',                     notes: 'A22 south to Brixen/Bressanone, then SS49 (Val Pusteria) east',                                         waypointRef: 'd4-w5' },
-      { time: '~16:00–16:45', event: 'Lago di Braies / Pragser Wildsee',  notes: 'Access is permit-free after 16:00 (Mon–Sun May–Oct). ~30 min lakeshore walk — one of the most photographed lakes in the Alps.', waypointRef: 'd4-w6' },
+      { time: '~16:00–16:45', event: 'Lago di Braies / Pragser Wildsee',  notes: 'Access is permit-free after 16:00 (Mon–Sun May–Oct). ~30 min lakeshore walk, one of the most photographed lakes in the Alps.', waypointRef: 'd4-w6' },
       { time: '~17:30',       event: "Arrive Cortina d'Ampezzo",          notes: 'Check in; evening stroll on Corso Italia',                                                               waypointRef: 'd4-w7' },
-      { time: '19:30',        event: 'Dinner',                            notes: 'Corso Italia restaurants — one block off main is noticeably cheaper',                                    waypointRef: 'd4-w7' },
+      { time: '19:30',        event: 'Dinner',                            notes: 'Corso Italia restaurants, one block off main is noticeably cheaper',                                    waypointRef: 'd4-w7' },
     ],
     activities: [
       {
@@ -635,9 +647,9 @@ const days = [
         duration_min: 75,
         summary: "Austria's most spectacular paved pass road (2,509 m), connecting Ötztal with the Passeier valley via ~34 km of hairpins on the Italian descent.",
         details: [
-          'Open roughly late May to late October — closes with first heavy snow. Check https://www.timmelsjoch.com before departure',
+          'Open roughly late May to late October, closes with first heavy snow. Check https://www.timmelsjoch.com before departure',
           'Toll ~€22 per car (2025 prices); purchased at the Austrian toll gate above Hochgurgl',
-          'Architecture pavilions at the summit (Matthias Schmuck) with short walks — good 20–30 min stop',
+          'Architecture pavilions at the summit (Matthias Schmuck) with short walks, good 20–30 min stop',
           'Views: Ötztal Alps north, Dolomites and Passeier south from the summit',
           'Caravans / trailers prohibited on the road',
         ],
@@ -662,7 +674,7 @@ const days = [
           'Open year-round barring heavy snow; simpler and less exposed than Timmelsjoch',
           'Jaufenhaus Gasthaus at the summit is today\'s lunch stop (see Meals)',
           "Less-touristed than Timmelsjoch; traffic usually light except on weekends",
-          'Good fallback if Timmelsjoch is closed — reroute via Jaufenpass + A22 down to Cortina',
+          'Good fallback if Timmelsjoch is closed, reroute via Jaufenpass + A22 down to Cortina',
         ],
         links: [
           { label: 'Wikipedia: Jaufenpass',       url: 'https://en.wikipedia.org/wiki/Jaufen_Pass' },
@@ -673,7 +685,7 @@ const days = [
                   'Jaufenpass road in South Tyrol',
                   'CC BY-SA 3.0 via Wikimedia Commons'),
           wmPhoto('Jaufenhaus 01.jpg',
-                  'Jaufenhaus — the Gasthaus at the Jaufenpass summit',
+                  'Jaufenhaus, the Gasthaus at the Jaufenpass summit',
                   'CC BY-SA 4.0 via Wikimedia Commons'),
         ],
       },
@@ -682,16 +694,16 @@ const days = [
         kind: 'walk',
         waypointRef: 'd4-w6',
         duration_min: 45,
-        summary: 'Emerald alpine lake at 1,494 m under the Seekofel — one of the most photographed lakes in the Alps.',
+        summary: 'Emerald alpine lake at 1,494 m under the Seekofel, one of the most photographed lakes in the Alps.',
         details: [
-          'Flat gravel lakeshore loop ~3.5 km (~45 min) — trail shoes fine',
+          'Flat gravel lakeshore loop ~3.5 km (~45 min), trail shoes fine',
           'Arrival after 16:00 avoids the daily 09:30–16:00 access permit (May–Oct)',
           'Parking ~€7 (P2/P3); the lot closest to the lake (P5) is often full',
-          'Historic wooden rowboats at the boathouse — rental ~€25 / 30 min',
-          'Golden hour on the Seekofel face is genuinely magical — linger if weather cooperates',
+          'Historic wooden rowboats at the boathouse, rental ~€25 / 30 min',
+          'Golden hour on the Seekofel face is genuinely magical, linger if weather cooperates',
         ],
         links: [
-          { label: 'Pragser Wildsee official (access + booking)', url: 'https://www.prags.info/en/travel-to-prags/arrival-by-car-and-shuttle/', note: 'Permit rules — free after 16:00' },
+          { label: 'Pragser Wildsee official (access + booking)', url: 'https://www.prags.info/en/travel-to-prags/arrival-by-car-and-shuttle/', note: 'Permit rules, free after 16:00' },
           { label: 'Wikipedia: Lago di Braies',                    url: 'https://en.wikipedia.org/wiki/Lake_Braies' },
         ],
         photos: [
@@ -707,13 +719,13 @@ const days = [
         waypointRef: 'd4-w7',
         duration_min: 120,
         optional: true,
-        summary: '5 Torri rock towers above Cortina — open chairlift to Rifugio Scoiattoli, then a 20 min loop among the towers at golden hour.',
+        summary: '5 Torri rock towers above Cortina, open chairlift to Rifugio Scoiattoli, then a 20 min loop among the towers at golden hour.',
         details: [
           '15 min drive from Cortina to the Bain de Dones chairlift base',
           'Return chairlift ~€17; last uphill typically 17:30, last down ~18:45 (summer)',
-          'Short circular walk from the top Rifugio past the towers — WWI open-air museum with trenches',
+          'Short circular walk from the top Rifugio past the towers, WWI open-air museum with trenches',
           'Genuinely better evening than another Corso Italia stroll',
-          'Skip if cloud cap is below 2,400 m — the light is the whole point',
+          'Skip if cloud cap is below 2,400 m, the light is the whole point',
         ],
         links: [
           { label: 'Cinque Torri area (trails + lift)', url: 'https://www.cortinadolomiti.eu/en/cinque-torri/' },
@@ -730,8 +742,8 @@ const days = [
         duration_min: 60,
         travel_min: 0,
         travel_mode: 'included',
-        travel_note: 'Gasthaus is directly at the Jaufenpass summit parking — no transfer.',
-        note: 'Classic mountain Gasthaus at the pass — Kaspressknödel, Speckplatte, Apfelstrudel, Forst beer. Sun terrace with both-sides views.',
+        travel_note: 'Gasthaus is directly at the Jaufenpass summit parking, no transfer.',
+        note: 'Classic mountain Gasthaus at the pass, Kaspressknödel, Speckplatte, Apfelstrudel, Forst beer. Sun terrace with both-sides views.',
         links: [
           { label: 'Jaufenhaus', url: 'https://www.jaufenhaus.it/en/' },
         ],
@@ -739,7 +751,7 @@ const days = [
       {
         time: '19:30–21:00',
         kind: 'dinner',
-        place: "Cortina d'Ampezzo — one block off Corso Italia",
+        place: "Cortina d'Ampezzo, one block off Corso Italia",
         waypointRef: 'd4-w7',
         duration_min: 90,
         travel_min: 20,
@@ -751,23 +763,23 @@ const days = [
     significantStops: [
       { name: 'Sölden (1,368 m)',                 waypointRef: 'd4-w1', duration_min: 15, note: "Ötztal's best-known ski town; last fuel before the pass toll gate" },
       { name: 'St. Leonhard in Passeier',         waypointRef: 'd4-w3', duration_min: 10, note: 'Stretch stop at the Jaufenpass junction; Andreas Hofer Museum here if history-minded' },
-      { name: 'Sterzing / Vipiteno (948 m)',      waypointRef: 'd4-w5', duration_min: 15, note: 'Medieval arcaded town — fuel + coffee. Deep old-town stroll skipped to preserve time for Braies.' },
+      { name: 'Sterzing / Vipiteno (948 m)',      waypointRef: 'd4-w5', duration_min: 15, note: 'Medieval arcaded town, fuel + coffee. Deep old-town stroll skipped to preserve time for Braies.' },
     ],
     overnight: {
       town: "Cortina d'Ampezzo",
       property: null,
-      note: 'Upscale mountain resort; July–August tightens fast. Cheaper alternatives within 15 min: San Vito di Cadore, Pocol. (Arrival ~17:00 with the scenic route — book ahead.)',
+      note: 'Upscale mountain resort; July–August tightens fast. Cheaper alternatives within 15 min: San Vito di Cadore, Pocol. (Arrival ~17:00 with the scenic route, book ahead.)',
       bookingUrl: "https://www.booking.com/searchresults.html?ss=Cortina+d%27Ampezzo",
     },
     photos: [
       wmPhoto('Passo del Rombo 06.JPG',
-              'Timmelsjoch — the high pass into South Tyrol',
+              'Timmelsjoch, the high pass into South Tyrol',
               'CC BY-SA 3.0 via Wikimedia Commons'),
       wmPhoto('Passo di Monte Giovo-Jaufenpass 004.JPG',
               'Jaufenpass switchbacks above Sterzing',
               'CC BY-SA 3.0 via Wikimedia Commons'),
       wmPhoto('Sterzing-Vipiteno.JPG',
-              'Sterzing / Vipiteno — medieval South-Tyrolean town',
+              'Sterzing / Vipiteno, medieval South-Tyrolean town',
               'CC BY-SA 3.0 via Wikimedia Commons'),
       wmPhoto("Cortina d'Ampezzo 01.jpg",
               "Cortina d'Ampezzo with the Tofane range",
@@ -776,40 +788,43 @@ const days = [
   },
 
   // =========================================================================
-  // DAY 5 — Cortina -> Misurina -> Tre Cime -> Klagenfurt
+  // DAY 5, Cortina -> Misurina -> Tre Cime -> Klagenfurt
   // =========================================================================
   {
     day: 5,
     title: 'Cortina → Lago di Misurina → Tre Cime → Klagenfurt',
-    theme: 'Dolomites encore — early start, walk below Tre Cime, then the long drive home',
+    theme: 'Dolomites encore, early start, walk below Tre Cime, then the long drive home',
+    // Morning is all Italian Dolomites; the Klagenfurt endpoint is overridden
+    // to Carinthia.
+    region: 'Dolomites, Italy',
     blurb: {
       summary:
         'An early start while the Dolomites are still quiet: Lago di Misurina, then ' +
         'the toll road up to Rifugio Auronzo for the iconic view of Tre Cime di ' +
         'Lavaredo. Lunch lakeside, then a long afternoon drive home across Friuli and ' +
-        'Carinthia — you should be back in Klagenfurt by late afternoon.',
+        'Carinthia, you should be back in Klagenfurt by late afternoon.',
       facts: [
         { label: 'Icon',        value: 'Tre Cime di Lavaredo viewpoint' },
         { label: 'Toll road',   value: 'Rifugio Auronzo · ~€30 car' },
         { label: 'Lake',        value: 'Lago di Misurina · 1,754 m' },
-        { label: 'Early start', value: 'Depart 08:00 — before the parking cap fills' },
+        { label: 'Early start', value: 'Depart 08:00, before the parking cap fills' },
         { label: 'Drive home',  value: '~3 h 15 min' },
         { label: 'Home by',     value: '~16:30 if on schedule' },
       ],
-      hint: 'Click any marker on the map — or a row below — to focus that location.',
+      hint: 'Click any marker on the map, or a row below, to focus that location.',
     },
     stress: {
-      level: 4,
-      summary: 'Early start to beat the Tre Cime parking cap, a short altitude walk, then a 3 h drive home — tight morning, relaxed afternoon.',
+      level: 3,
+      summary: 'Early start to beat the Tre Cime parking cap, a short altitude walk, then a 3 h drive home, tight morning, relaxed afternoon.',
     },
     color: '#6d4c93',
     from: "Cortina d'Ampezzo",
     to: 'Klagenfurt (home)',
     waypoints: [
-      { id: 'd5-w0', label: "Cortina d'Ampezzo (start)",            coords: [46.5366, 12.1357], type: 'start' },
-      { id: 'd5-w1', label: 'Lago di Misurina (1,754 m)',           coords: [46.5827, 12.2533], type: 'activity' },
-      { id: 'd5-w2', label: 'Rifugio Auronzo / Tre Cime (2,333 m)', coords: [46.6128, 12.2967], type: 'viewpoint' },
-      { id: 'd5-w3', label: 'Klagenfurt (home)',                    coords: [46.6228, 14.3050], type: 'end' },
+      { id: 'd5-w0', label: "Cortina d'Ampezzo (start)",            coords: [46.5366, 12.1357], type: 'start',    city: "Cortina d'Ampezzo",        postcode: '32043' },
+      { id: 'd5-w1', label: 'Lago di Misurina (1,754 m)',           coords: [46.5827, 12.2533], type: 'activity', city: 'Auronzo di Cadore',        postcode: '32041' },
+      { id: 'd5-w2', label: 'Rifugio Auronzo / Tre Cime (2,333 m)', coords: [46.6128, 12.2967], type: 'viewpoint', city: 'Auronzo di Cadore',       postcode: '32041' },
+      { id: 'd5-w3', label: 'Klagenfurt (home)',                    coords: [46.6228, 14.3050], type: 'end',      city: 'Klagenfurt am Wörthersee', postcode: '9020', region: 'Carinthia, Austria' },
     ],
     // Tre Cime toll road (Misurina -> Rifugio Auronzo) is private and not routed by OSRM.
     manualLegs: [
@@ -818,17 +833,17 @@ const days = [
     // Early start so we hit the Tre Cime toll road parking before it fills
     // (sunny weekends: full by 09:30–10:00).
     timeline: [
-      { time: '07:00',       event: 'Wake',                           notes: "Cortina d'Ampezzo — early start to beat the Tre Cime parking cap",                   waypointRef: 'd5-w0' },
-      { time: '07:00–08:00', event: 'Breakfast at the hotel (60 min)',notes: 'Most Cortina hotels serve from 07:00 — proper breakfast, not to-go, since lunch is only after the Tre Cime walk', waypointRef: 'd5-w0' },
+      { time: '07:00',       event: 'Wake',                           notes: "Cortina d'Ampezzo, early start to beat the Tre Cime parking cap",                   waypointRef: 'd5-w0' },
+      { time: '07:00–08:00', event: 'Breakfast at the hotel (60 min)',notes: 'Most Cortina hotels serve from 07:00, proper breakfast, not to-go, since lunch is only after the Tre Cime walk', waypointRef: 'd5-w0' },
       { time: '08:00',       event: 'Depart Cortina',                 notes: 'SR48 east toward Misurina',                                                           waypointRef: 'd5-w0' },
-      { time: '~08:30',      event: 'Arrive Lago di Misurina',        notes: '~45 min flat lake walk (2.6 km perimeter) — still quiet',                             waypointRef: 'd5-w1' },
+      { time: '~08:30',      event: 'Arrive Lago di Misurina',        notes: '~45 min flat lake walk (2.6 km perimeter), still quiet',                             waypointRef: 'd5-w1' },
       { time: '~09:15',      event: 'Drive up Tre Cime toll road',    notes: '~€30 / car round trip, ~15 min up',                                                   waypointRef: 'd5-w2' },
       { time: '~09:30',      event: 'Arrive Rifugio Auronzo (2,333 m)', notes: 'Paved parking; arriving before 10:00 almost always gets a spot',                    waypointRef: 'd5-w2' },
       { time: '09:45–11:15', event: 'Tre Cime viewpoint walk',        notes: 'Rifugio Auronzo → Rifugio Lavaredo and back, ~1 h 30, graded path',                   waypointRef: 'd5-w2' },
       { time: '~11:30',      event: 'Drive back down toll road',      notes: '~15 min to Misurina',                                                                 waypointRef: 'd5-w1' },
-      { time: '12:00–13:00', event: 'Lunch in Misurina',              notes: 'Sit-down lunch at a lakeside café — you have time today',                             waypointRef: 'd5-w1' },
+      { time: '12:00–13:00', event: 'Lunch in Misurina',              notes: 'Sit-down lunch at a lakeside café, you have time today',                             waypointRef: 'd5-w1' },
       { time: '13:15',       event: 'Depart east for home',           notes: 'SR48 → Auronzo → SS51 → SS52 → A23 → A2',                                             waypointRef: 'd5-w1' },
-      { time: '~14:45',      event: 'Cross into Austria',             notes: 'Tarvisio border — fuel tip: diesel ~15–20 ¢/L cheaper in Italy, top up before',      waypointRef: 'd5-w3' },
+      { time: '~14:45',      event: 'Cross into Austria',             notes: 'Tarvisio border, fuel tip: diesel ~15–20 ¢/L cheaper in Italy, top up before',      waypointRef: 'd5-w3' },
       { time: '~16:30',      event: 'Arrive Klagenfurt',              notes: 'Home',                                                                                waypointRef: 'd5-w3' },
     ],
     activities: [
@@ -837,12 +852,12 @@ const days = [
         kind: 'walk',
         waypointRef: 'd5-w1',
         duration_min: 45,
-        summary: '"Pearl of Cadore" — largest natural lake of the area at 1,754 m.',
+        summary: '"Pearl of Cadore", largest natural lake of the area at 1,754 m.',
         details: [
           'Easy flat perimeter, ~2.6 km, no elevation, paved/gravel mix',
           '~45 min relaxed pace',
           'Reflections of Sorapiss (south) and Tre Cime (north)',
-          'Busy midday — ~10:00 is quiet',
+          'Busy midday, ~10:00 is quiet',
           'Cafés, toilets, paid parking (~€3/hr)',
         ],
         links: [
@@ -860,12 +875,12 @@ const days = [
         kind: 'walk',
         waypointRef: 'd5-w2',
         duration_min: 90,
-        summary: 'The iconic Dolomites panorama — three vertical rock towers (Cima Grande 2,999 m).',
+        summary: 'The iconic Dolomites panorama, three vertical rock towers (Cima Grande 2,999 m).',
         details: [
           'Short loop: Rifugio Auronzo (2,333 m) → Rifugio Lavaredo (2,344 m) and back, ~4 km, ~1 h 30',
-          'Wide gravel path, minimal elevation — trail shoes fine',
+          'Wide gravel path, minimal elevation, trail shoes fine',
           'Gives the famous north-face view without the full 3-hour Rifugio Locatelli loop',
-          'Plateau is exposed — bring a wind layer even in August',
+          'Plateau is exposed, bring a wind layer even in August',
           'Morning is usually clearest; afternoon clouds often build by 13:00',
         ],
         links: [
@@ -882,7 +897,7 @@ const days = [
                   'CC BY-SA 3.0 via Wikimedia Commons'),
         ],
       },
-      // OPTIONAL: upgrade the out-and-back to the full Locatelli loop — the
+      // OPTIONAL: upgrade the out-and-back to the full Locatelli loop, the
       // single biggest hiking upgrade of the trip. Adds 90 min; home ~18:30.
       {
         name: 'Tre Cime full Locatelli loop (OPTIONAL)',
@@ -890,12 +905,12 @@ const days = [
         waypointRef: 'd5-w2',
         duration_min: 180,
         optional: true,
-        summary: 'Full anti-clockwise loop Rifugio Auronzo → Lavaredo → Locatelli → Auronzo — the classic Dolomites trek.',
+        summary: 'Full anti-clockwise loop Rifugio Auronzo → Lavaredo → Locatelli → Auronzo, the classic Dolomites trek.',
         details: [
           '~10 km, ~350 m elevation gain, 3–3.5 h moderate hiking',
-          'Replaces the short out-and-back — adds ~90 min but gives the iconic NORTH-face view from Locatelli',
+          'Replaces the short out-and-back, adds ~90 min but gives the iconic NORTH-face view from Locatelli',
           'Trail shoes are the minimum; hiking boots recommended',
-          'Exposed plateau — check the mountain forecast and carry a wind + rain layer',
+          'Exposed plateau, check the mountain forecast and carry a wind + rain layer',
           'Only do this if starting the walk by 09:30 at the latest (home arrival ~18:30)',
         ],
         links: [
@@ -912,13 +927,13 @@ const days = [
         duration_min: 60,
         travel_min: 0,
         travel_mode: 'included',
-        travel_note: 'Breakfast is in the hotel — no transfer.',
-        note: 'Proper hotel breakfast — lunch is only after the Tre Cime walk (~13:00), so eat well: eggs, cheese, bread, coffee.',
+        travel_note: 'Breakfast is in the hotel, no transfer.',
+        note: 'Proper hotel breakfast, lunch is only after the Tre Cime walk (~13:00), so eat well: eggs, cheese, bread, coffee.',
       },
       {
         time: '12:00–13:00',
         kind: 'lunch',
-        place: 'Misurina — lakeside café',
+        place: 'Misurina, lakeside café',
         waypointRef: 'd5-w1',
         duration_min: 60,
         travel_min: 5,
@@ -930,17 +945,17 @@ const days = [
     significantStops: [
       { name: 'Lago di Misurina (1,754 m)',   waypointRef: 'd5-w1', duration_min: 0, note: '"Pearl of Cadore"; panorama of Sorapiss & Tre Cime (included in lake walk)' },
       { name: 'Rifugio Auronzo (2,333 m)',    waypointRef: 'd5-w2', duration_min: 0, note: 'Trailhead viewpoint under the Tre Cime north face (included in Tre Cime walk)' },
-      // OPTIONAL nearby lakes — tiny detours, big ROI if weather holds.
-      { name: 'Lago di Antorno (OPTIONAL)',   waypointRef: 'd5-w1', duration_min: 15, optional: true, note: '2 min detour next to Misurina — smaller, quieter, often the better reflection of Cadini di Misurina.' },
-      { name: 'Lago di Landro / Dürrensee (OPTIONAL)', waypointRef: 'd5-w0', duration_min: 10, optional: true, note: 'Roadside stop on SS51 between Cortina and Dobbiaco — Cristallo massif mirrored in the lake. Free parking, no walking.' },
+      // OPTIONAL nearby lakes, tiny detours, big ROI if weather holds.
+      { name: 'Lago di Antorno (OPTIONAL)',   waypointRef: 'd5-w1', duration_min: 15, optional: true, note: '2 min detour next to Misurina, smaller, quieter, often the better reflection of Cadini di Misurina.' },
+      { name: 'Lago di Landro / Dürrensee (OPTIONAL)', waypointRef: 'd5-w0', duration_min: 10, optional: true, note: 'Roadside stop on SS51 between Cortina and Dobbiaco, Cristallo massif mirrored in the lake. Free parking, no walking.' },
     ],
     overnight: null,
     photos: [
       wmPhoto('Lago di misurina.jpg',
-              'Lago di Misurina — "Pearl of Cadore"',
+              'Lago di Misurina, "Pearl of Cadore"',
               'GFDL / CC BY-SA 3.0 via Wikimedia Commons'),
       wmPhoto('Dsdas.jpg',
-              'Tre Cime di Lavaredo — north face panorama',
+              'Tre Cime di Lavaredo, north face panorama',
               'CC BY 3.0 via Wikimedia Commons'),
       wmPhoto('Tre Cime di Lavaredo 2012 2.jpg',
               'Tre Cime di Lavaredo from the south',
@@ -1117,7 +1132,7 @@ async function main() {
           console.log(`${(leg.duration_s / 60).toFixed(1)} min, ${(leg.distance_m / 1000).toFixed(1)} km`);
           legs.push(leg);
         } catch (e) {
-          console.log(`OSRM failed (${e.message}) — falling back to straight line`);
+          console.log(`OSRM failed (${e.message}), falling back to straight line`);
           legs.push(straightLeg(from, to));
         }
         await new Promise(r => setTimeout(r, 400));
@@ -1130,6 +1145,10 @@ async function main() {
       color: d.color,
       from: d.from,
       to: d.to,
+      region: d.region ?? null,
+      city: d.city ?? null,
+      postcode: d.postcode ?? null,
+      feature: d.feature ?? null,
       overnight: d.overnight,
       waypoints: d.waypoints,
       timeline: d.timeline,

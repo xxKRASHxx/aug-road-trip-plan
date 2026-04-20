@@ -20,7 +20,6 @@ export type UIKey =
   | 'overview.trip' | 'overview.allDays'
   | 'overview.stat.driving' | 'overview.stat.activities' | 'overview.stat.total'
   | 'overview.stat.auxActivities' | 'overview.stat.auxAcross5'
-  | 'overview.day.home'
   // Day view
   | 'day.sectionRoute' | 'day.sectionActivities' | 'day.sectionMeals' | 'day.sectionStops' | 'day.sectionOvernight'
   | 'day.stat.driving' | 'day.stat.activities' | 'day.stat.meals' | 'day.stat.total' | 'day.stat.extras'
@@ -77,7 +76,6 @@ export const UI: Record<UIKey, Phrase> = {
   'overview.stat.auxActivities': { en: 'on foot / lifts / stops',
                                    ru: 'пешком, подъёмники, остановки' },
   'overview.stat.auxAcross5':    { en: 'across 5 days', ru: 'за 5 дней' },
-  'overview.day.home':           { en: '🏠 Home',       ru: '🏠 Домой' },
 
   'day.sectionRoute':      { en: 'Route',       ru: 'Маршрут' },
   'day.sectionActivities': { en: 'Activities',  ru: 'Активности' },
@@ -101,11 +99,11 @@ export const UI: Record<UIKey, Phrase> = {
                              ru: 'На сегодня активностей не запланировано.' },
   'day.empty.meals':       { en: 'No scheduled meal breaks today.',
                              ru: 'Плановых остановок на еду сегодня нет.' },
-  'day.empty.stops':       { en: 'No extra significant stops — route is direct.',
-                             ru: 'Дополнительных остановок нет — маршрут прямой.' },
+  'day.empty.stops':       { en: 'No extra significant stops. The route is direct.',
+                             ru: 'Дополнительных остановок нет, маршрут прямой.' },
   'day.timeline.detailed': { en: 'Detailed timeline', ru: 'Подробное расписание' },
-  'day.overnight.home':    { en: 'Home — no overnight',
-                             ru: 'Дом — без ночёвки' },
+  'day.overnight.home':    { en: 'Home, no overnight',
+                             ru: 'Дом, без ночёвки' },
   'day.overnight.bookTbd': { en: '[ BOOK: TBD ]',
                              ru: '[ БРОНЬ: уточнить ]' },
   'day.leg.manual':        { en: 'toll road / cable car',
@@ -131,14 +129,14 @@ export const UI: Record<UIKey, Phrase> = {
   'meal.travel.drive':    { en: 'drive',     ru: 'на авто' },
   'meal.travel.included': { en: 'at venue',  ru: 'на месте' },
   'meal.travel.label':    { en: 'to venue',  ru: 'до места' },
-  'meal.travel.atVenue':  { en: 'at venue — no transfer',
-                            ru: 'на месте — без переезда' },
+  'meal.travel.atVenue':  { en: 'at venue, no transfer',
+                            ru: 'на месте, без переезда' },
 
   'overnights.heading':     { en: 'Overnight placeholders',
                               ru: 'Ночёвки (заглушки)' },
   'overnights.hint':        { en: 'Fill in [ BOOK: TBD ] once accommodation is confirmed.',
                               ru: 'Замените [ БРОНЬ: уточнить ], когда бронирование подтверждено.' },
-  'overnights.day5home':    { en: 'Day 5 — Home', ru: 'День 5 — Дом' },
+  'overnights.day5home':    { en: 'Day 5: Home', ru: 'День 5: Дом' },
   'overnights.day5note':    { en: 'No overnight; return to Klagenfurt.',
                               ru: 'Без ночёвки; возвращение в Клагенфурт.' },
   'overnights.bookingLink': { en: 'Search on Booking.com ↗',

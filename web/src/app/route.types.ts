@@ -15,6 +15,23 @@ export interface Waypoint {
    */
   appleMapsUrl?: string;
   googleMapsUrl?: string;
+  /**
+   * Optional address components used to disambiguate the map-search query.
+   * The popup builds `[feature] ${label}, ${city}, ${postcode}, ${region}`
+   * (each piece skipped when empty). Per-waypoint values override the
+   * enclosing Day's defaults.
+   *
+   *   feature  — POI type hint prepended to the label, e.g. "Hotel", "Gasthof",
+   *              "Rifugio". Skip when the label already carries it
+   *              ("Goldenes Dachl", "Rifugio Auronzo") to avoid duplication.
+   *   city     — town / city (e.g. "Innsbruck", "Kaprun").
+   *   postcode — postal code (e.g. "6020", "39015").
+   *   region   — administrative region / country (e.g. "Tirol, Austria").
+   */
+  feature?: string;
+  city?: string;
+  postcode?: string;
+  region?: string;
 }
 
 export interface Leg {
@@ -155,6 +172,18 @@ export interface Day {
   color: string;
   from: string;
   to: string;
+  /**
+   * Default address components used as the map-search query suffix for every
+   * waypoint in this day: `[feature] ${label}, ${city}, ${postcode}, ${region}`.
+   * Each is overridable per-waypoint via the same-named fields on `Waypoint`.
+   * `region` is the most impactful (kills cross-border ambiguity); `city` and
+   * `postcode` sharpen POI resolution inside a region; `feature` is rarely
+   * useful at the day level (mixed POI types) but supported for symmetry.
+   */
+  region?: string;
+  city?: string;
+  postcode?: string;
+  feature?: string;
   overnight: Overnight | null;
   waypoints: Waypoint[];
   legs: Leg[];

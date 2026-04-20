@@ -115,26 +115,21 @@
                 <div class="day-sub day-times">
                   🚗 {{ fmtRounded(driveMinutesFor(d)) }}
                   · ⭐ {{ fmtRounded(activityMinutesFor(d)) }}
-                  @if (d.stress; as st) {
-                    <span
-                      class="stress-mini"
-                      [class]="stressClass(st.level)"
-                      [title]="t('stress.label') + ': ' + stressLevelLabel(st.level) + ' (' + st.level + '/5) — ' + st.summary"
-                      [attr.aria-label]="t('stress.aria') + ': ' + stressLevelLabel(st.level)"
-                    >
-                      <span aria-hidden="true">{{ stressPips(st.level) }}</span>
-                    </span>
-                  }
                 </div>
                 @if (d.theme) {
                   <div class="day-sub day-vibe">{{ d.theme }}</div>
                 }
-                @if (d.overnight; as o) {
-                  <div class="day-sub day-sleep">🛏 {{ o.town }}</div>
-                } @else {
-                  <div class="day-sub day-sleep">🏠 {{ t('overview.day.home') }}</div>
-                }
               </div>
+              @if (d.stress; as st) {
+                <span
+                  class="stress-mini day-corner"
+                  [class]="stressClass(st.level)"
+                  [title]="t('stress.label') + ': ' + stressLevelLabel(st.level) + ' (' + st.level + '/5). ' + st.summary"
+                  [attr.aria-label]="t('stress.aria') + ': ' + stressLevelLabel(st.level)"
+                >
+                  <span aria-hidden="true">{{ stressPips(st.level) }}</span>
+                </span>
+              }
             </li>
           }
         </ul>
@@ -232,7 +227,7 @@
                   type="button"
                   class="photo"
                   [title]="p.credit"
-                  [attr.aria-label]="p.alt + ' — ' + p.credit"
+                  [attr.aria-label]="p.alt + '. ' + p.credit"
                   (click)="openPhoto(p, $event)"
                 >
                   <img [src]="p.src" [alt]="p.alt" loading="lazy" />
@@ -345,7 +340,7 @@
                           type="button"
                           class="photo"
                           [title]="p.credit"
-                          [attr.aria-label]="p.alt + ' — ' + p.credit"
+                          [attr.aria-label]="p.alt + '. ' + p.credit"
                           (click)="openPhoto(p, $event)"
                         >
                           <img [src]="p.src" [alt]="p.alt" loading="lazy" />
@@ -364,7 +359,7 @@
                             (click)="$event.stopPropagation()"
                           >{{ l.label }} ↗</a>
                           @if (l.note) {
-                            <span class="link-note"> — {{ l.note }}</span>
+                            <span class="link-note">&nbsp;({{ l.note }})</span>
                           }
                         </li>
                       }
@@ -430,7 +425,7 @@
                               (click)="$event.stopPropagation()"
                             >{{ l.label }} ↗</a>
                             @if (l.note) {
-                              <span class="link-note"> — {{ l.note }}</span>
+                              <span class="link-note">&nbsp;({{ l.note }})</span>
                             }
                           </li>
                         }

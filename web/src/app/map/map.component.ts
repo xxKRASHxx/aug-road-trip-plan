@@ -187,27 +187,71 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   }
 
   /**
-   * Turn a waypoint label into a clean place name suitable for a maps search query.
-   * Strips trip-context annotations like "(start)", "(overnight)" and collapses whitespace.
+   * Turn a waypoint label into a clean place name suitable for a maps search
+   * query. We aggressively strip trip-context annotations because both Google
+   * and Apple Maps' text search resolves to a real place card only when the
+   * input is an actual name — any trailing clause ("— fuel stop", altitude
+   * notes, etc.) degrades the result to a generic pin.
+   *
+   * Stripped:
+   *   • trip markers:    "(start)", "(overnight)", "(home)"
+   *   • trailing note:   " — …"  or  " - …"   (em-/en-dash with a space around)
+   *   • altitude parens: "(2,504 m)", "(1,494 m)"  — only pure-altitude
+   *                      parentheticals; disambiguators like "(Jaufenpass,
+   *                      2,094 m)" are preserved because the word content
+   *                      helps the search land on the right POI.
    */
   private searchName(label: string): string {
     return label
       .replace(/\s*\((?:start|overnight|home)\)\s*/gi, ' ')
+      // drop any " — trailing note" or " - trailing note" (em/en dash + space)
+      .replace(/\s+[—–-]\s+.+$/u, '')
+      // drop pure altitude parens: (2,504 m) / (1494 m) / (2 094 m)
+      .replace(/\s*\(\s*[\d,.\s]+\s*m\s*\)\s*/gi, ' ')
       .replace(/\s+/g, ' ')
       .trim();
   }
 
+  /**
+   * Compose the maps-app search query from structured address components:
+   *   `[feature] ${name}, ${city}, ${postcode}, ${region}`
+   *
+   * Each component is optional and resolves per-waypoint first, then day-level.
+   * Missing pieces are dropped cleanly (no stray commas). The goal is to hand
+   * Google / Apple an address-like string so the ranker stops resolving
+   * ambiguous proper nouns ("Sölden", "Hochtor", "Edelweiss") to same-named
+   * places elsewhere in the world.
+   */
+  private buildSearchQuery(day: Day, wp: Waypoint): string {
+    const name = this.searchName(wp.label);
+    const feature  = wp.feature  ?? day.feature;
+    const city     = wp.city     ?? day.city;
+    const postcode = wp.postcode ?? day.postcode;
+    const region   = wp.region   ?? day.region;
+
+    const head = feature ? `${feature} ${name}` : name;
+    const tail = [city, postcode, region].filter(Boolean).join(', ');
+    return tail ? `${head}, ${tail}` : head;
+  }
+
   private popupHtml(day: Day, wp: Waypoint): string {
     const [lat, lon] = wp.coords;
-    const name = this.searchName(wp.label);
-    const encName = encodeURIComponent(name);
+    const query = this.buildSearchQuery(day, wp);
+    const encQ = encodeURIComponent(query);
     // Prefer per-waypoint POI shortlinks when provided (they land on the real
-    // place card in each app). Fall back to name + coordinate search URLs
-    // which work for any waypoint but point to a generic pin.
+    // place card in each app). Fall back to a disambiguated NAME search with
+    // a viewport hint — the coordinate is a BIAS, not a pin:
+    //   • Google legacy URL: `q` is a real search, `ll` centers the map.
+    //     We intentionally don't use `/maps/search/?api=1`, which ignores
+    //     bias params.
+    //   • Apple Maps: `q` searches, `sll` is "source location" (bias, not pin);
+    //     `ll=` would force a pin instead of resolving the place card.
+    // Ambiguous markers that no name search will find reliably (fuel stops,
+    // trailheads) should set `googleMapsUrl` / `appleMapsUrl` overrides.
     const gmaps = wp.googleMapsUrl
-      ?? `https://www.google.com/maps/search/?api=1&query=${encName}%20${lat},${lon}`;
+      ?? `https://maps.google.com/?q=${encQ}&ll=${lat},${lon}&z=14`;
     const amaps = wp.appleMapsUrl
-      ?? `https://maps.apple.com/?q=${encName}&ll=${lat},${lon}`;
+      ?? `https://maps.apple.com/?q=${encQ}&sll=${lat},${lon}&z=14`;
     const l = this.lang();
     const dayLabel = UI['map.popup.day'][l];
     const gLabel = UI['map.popup.google'][l];
