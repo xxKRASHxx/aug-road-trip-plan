@@ -12,7 +12,9 @@ waypoints:
   - label: "Heiligenblut — toll gate & church viewpoint"
     coords: [47.0401, 12.8454]
   - label: "Hochtor (2,504 m) — highest point"
-    coords: [47.0830, 12.8530]
+    coords: [47.0812, 12.8426]
+  - label: "Edelweißspitze (2,571 m) — spur panorama"
+    coords: [47.1261, 12.8389]
   - label: "Fuscher Lacke (2,262 m) — main stop"
     coords: [47.1185, 12.8369]
   - label: "Bruck an der Großglocknerstraße — toll exit"

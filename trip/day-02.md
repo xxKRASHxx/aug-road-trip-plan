@@ -9,6 +9,8 @@ distance_km: 166
 waypoints:
   - label: "Kaprun (start)"
     coords: [47.2724, 12.7477]
+  - label: "Zell am See — lakefront (Esplanade)"
+    coords: [47.3250, 12.7959]
   - label: "Innsbruck — Hungerburg / Congress"
     coords: [47.2867, 11.4034]
   - label: "Seegrube (1,905 m) — Nordkette"

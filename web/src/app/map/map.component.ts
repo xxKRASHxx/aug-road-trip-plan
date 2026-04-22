@@ -305,20 +305,16 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     const [lat, lon] = wp.coords;
     const query = this.buildSearchQuery(day, wp);
     const encQ = encodeURIComponent(query);
-    // Prefer per-waypoint POI shortlinks when provided (they land on the real
-    // place card in each app). Fall back to a disambiguated NAME search with
-    // a viewport hint — the coordinate is a BIAS, not a pin:
-    //   • Google legacy URL: `q` is a real search, `ll` centers the map.
-    //     We intentionally don't use `/maps/search/?api=1`, which ignores
-    //     bias params.
-    //   • Apple Maps: `q` searches, `sll` is "source location" (bias, not pin);
-    //     `ll=` would force a pin instead of resolving the place card.
-    // Ambiguous markers that no name search will find reliably (fuel stops,
-    // trailheads) should set `googleMapsUrl` / `appleMapsUrl` overrides.
+    // Prefer per-waypoint Share links (`googleMapsUrl` / `appleMapsUrl`) — they
+    // open the exact POI. Fallbacks are **text search only** (no lat/lon in the
+    // URL): both apps treat `q` / `query` as a maps search toward a place card.
+    // `buildSearchQuery()` must be specific enough (city, postcode, region) to
+    // disambiguate. If a stop still resolves wrong, paste app-specific place
+    // URLs on that waypoint.
     const gmaps = wp.googleMapsUrl
-      ?? `https://maps.google.com/?q=${encQ}&ll=${lat},${lon}&z=14`;
+      ?? `https://www.google.com/maps/search/?api=1&query=${encQ}`;
     const amaps = wp.appleMapsUrl
-      ?? `https://maps.apple.com/?q=${encQ}&sll=${lat},${lon}&z=14`;
+      ?? `https://maps.apple.com/?q=${encQ}`;
     const l = this.lang();
     const dayLabel = UI['map.popup.day'][l];
     const gLabel = UI['map.popup.google'][l];

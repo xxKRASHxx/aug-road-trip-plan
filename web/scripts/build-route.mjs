@@ -99,12 +99,21 @@ const days = [
     waypoints: [
       { id: 'd1-w0', label: 'Klagenfurt (start)',                      coords: [46.6228, 14.3050], type: 'start',     city: 'Klagenfurt am Wörthersee', postcode: '9020', region: 'Carinthia, Austria' },
       { id: 'd1-w1', label: 'Heiligenblut (toll gate & church)',      coords: [47.0401, 12.8454], type: 'viewpoint', city: 'Heiligenblut am Großglockner', postcode: '9844' },
-      { id: 'd1-w2', label: 'Hochtor (2,504 m)',                       coords: [47.0830, 12.8530], type: 'viewpoint' },
+      {
+        id: 'd1-w2',
+        label: 'Hochtor (2,504 m)',
+        // OSM mountain_pass Hochtor (Großglockner); not the Hochtor peak N of Fusch — that
+        // confuses Apple/Google name search if coords/query are ambiguous.
+        coords: [47.0812, 12.8426],
+        type: 'viewpoint',
+        feature: 'Großglockner Hochalpenstraße',
+        city: 'Heiligenblut am Großglockner',
+        postcode: '9844',
+      },
       { id: 'd1-w3', label: 'Edelweißspitze (2,571 m)',                coords: [47.1261, 12.8389], type: 'viewpoint' },
       {
         id: 'd1-w4', label: 'Fuscher Lacke (2,262 m)',
         coords: [47.1185, 12.8369], type: 'activity',
-        appleMapsUrl: 'https://maps.apple.com/p/aN0sfTsmvQwP8s',
       },
       { id: 'd1-w5', label: 'Bruck a.d. Großglocknerstraße',           coords: [47.2862, 12.8218], type: 'via',       city: 'Bruck an der Großglocknerstraße', postcode: '5671', region: 'Salzburg, Austria' },
       { id: 'd1-w6', label: 'Kaprun (overnight)',                      coords: [47.2724, 12.7477], type: 'overnight', city: 'Kaprun', postcode: '5710', region: 'Salzburg, Austria' },
@@ -611,9 +620,9 @@ const days = [
     blurb: {
       summary:
         'Two high Alpine passes and the famous Lago di Braies. Climb Timmelsjoch ' +
-        '(2,509 m) from Sölden, drop south through the Passeier valley, lunch at the ' +
-        'Jaufenhaus at the Jaufenpass summit, then hit Lago di Braies after 16:00 ' +
-        '(no permit needed) before dinner in Cortina.',
+        '(2,509 m) from Sölden, drop south through the Passeier valley, lunch in ' +
+        'Walten / Valtina, cross the Jaufenpass (coffee at the Jaufenhaus optional), ' +
+        'then hit Lago di Braies after 16:00 (no permit needed) before dinner in Cortina.',
       facts: [
         { label: 'Passes',    value: 'Timmelsjoch + Jaufenpass' },
         { label: 'Toll',      value: '~€22 (Timmelsjoch, car)' },
@@ -638,7 +647,14 @@ const days = [
       { id: 'd4-w0', label: 'Längenfeld (start)',                        coords: [47.0731, 10.9736], type: 'start',     city: 'Längenfeld',               postcode: '6444',  region: 'Ötztal, Tirol, Austria' },
       { id: 'd4-w1', label: 'Sölden',                                    coords: [46.9676, 11.0075], type: 'via',       city: 'Sölden',                   postcode: '6450',  region: 'Ötztal, Tirol, Austria' },
       { id: 'd4-w2', label: 'Timmelsjoch / Passo del Rombo (2,509 m)',   coords: [46.9053, 11.0972], type: 'viewpoint' },
-      { id: 'd4-w3', label: 'St. Leonhard in Passeier',                 coords: [46.8100, 11.2450], type: 'via',       city: 'St. Leonhard in Passeier', postcode: '39015' },
+      {
+        id: 'd4-w3',
+        label: 'Walten / Valtina — Passeier valley',
+        coords: [46.8257, 11.2887],
+        type: 'meal',
+        city: 'St. Leonhard in Passeier - San Leonardo in Passiria',
+        postcode: '39015',
+      },
       { id: 'd4-w4', label: 'Jaufenhaus (Jaufenpass, 2,094 m)',         coords: [46.8394, 11.3211], type: 'meal',      city: 'St. Leonhard in Passeier', postcode: '39015', feature: 'Gasthaus' },
       { id: 'd4-w5', label: 'Sterzing / Vipiteno',                      coords: [46.8963, 11.4336], type: 'via',       city: 'Sterzing',                 postcode: '39049' },
       { id: 'd4-w6', label: 'Lago di Braies / Pragser Wildsee (1,494 m)', coords: [46.6946, 12.0858], type: 'viewpoint', city: 'Prags',                    postcode: '39030' },
@@ -648,15 +664,15 @@ const days = [
     // affected legs as manual with realistic estimates so the map is honest.
     manualLegs: [
       { index: 1, duration_min: 35, distance_km: 24 }, // Sölden → Timmelsjoch summit (toll)
-      { index: 2, duration_min: 55, distance_km: 35 }, // Timmelsjoch → St. Leonhard (Italian descent)
+      { index: 2, duration_min: 55, distance_km: 35 }, // Timmelsjoch → Walten / Valtina (Italian descent)
     ],
     timeline: [
       { time: '09:00',        event: 'Wake',                              notes: 'Längenfeld (Ötztal)',                                                                                   waypointRef: 'd4-w0' },
       { time: '10:00',        event: 'Depart',                            notes: 'B186 south through the upper Ötztal',                                                                   waypointRef: 'd4-w0' },
       { time: '~10:20',       event: 'Sölden, fuel + coffee',            notes: 'Last fuel before the Timmelsjoch toll gate',                                                             waypointRef: 'd4-w1' },
       { time: '~11:10',       event: 'Timmelsjoch summit (2,509 m)',      notes: "One of Europe's most spectacular pass roads. Toll ~€22 / car. Architecture pavilions at the border.",   waypointRef: 'd4-w2' },
-      { time: '~12:10',       event: 'St. Leonhard in Passeier',          notes: 'Italian side, short stretch / leg-stretch at the Jaufenpass junction',                                  waypointRef: 'd4-w3' },
-      { time: '13:00–14:00',  event: 'Jaufenhaus summit lunch',           notes: 'Mountain Gasthaus at the Jaufenpass (2,094 m), Knödel, Speckplatte, apple strudel.',                    waypointRef: 'd4-w4' },
+      { time: '12:20–13:15',  event: 'Walten / Valtina — lunch',          notes: 'Passeier-valley hamlet ~1,300 m. Gasthaus / trattoria lunch (see trip/day-04.md).',                      waypointRef: 'd4-w3' },
+      { time: '~13:50',       event: 'Jaufenpass summit / Jaufenhaus',    notes: 'Gasthaus at 2,094 m — coffee / strudel; ~20 switchbacks each side of the pass.',                         waypointRef: 'd4-w4' },
       { time: '~14:30',       event: 'Descend to Sterzing',               notes: 'SS44, ~20 switchbacks on the descent',                                                                  waypointRef: 'd4-w5' },
       { time: '~14:30–14:45', event: 'Sterzing, fuel / coffee',          notes: 'Skip the long old-town stroll to preserve time for Braies',                                              waypointRef: 'd4-w5' },
       { time: '~14:45',       event: 'Depart on A22',                     notes: 'A22 south to Brixen/Bressanone, then SS49 (Val Pusteria) east',                                         waypointRef: 'd4-w5' },
@@ -697,7 +713,7 @@ const days = [
         summary: 'Free public pass (SS44) at 2,094 m connecting Passeier and Sterzing with ~20 switchbacks each side.',
         details: [
           'Open year-round barring heavy snow; simpler and less exposed than Timmelsjoch',
-          'Jaufenhaus Gasthaus at the summit is today\'s lunch stop (see Meals)',
+          'Summit Gasthaus is ideal for coffee / strudel after lunch in Walten (see Meals)',
           "Less-touristed than Timmelsjoch; traffic usually light except on weekends",
           'Good fallback if Timmelsjoch is closed, reroute via Jaufenpass + A22 down to Cortina',
         ],
@@ -765,15 +781,27 @@ const days = [
     ],
     meals: [
       {
-        time: '13:00–14:00',
+        time: '12:20–13:15',
         kind: 'lunch',
-        place: 'Jaufenhaus (Jaufenpass summit, 2,094 m)',
-        waypointRef: 'd4-w4',
-        duration_min: 60,
+        place: 'Walten / Valtina — Passeier valley hamlet (~1,300 m)',
+        waypointRef: 'd4-w3',
+        duration_min: 55,
         travel_min: 0,
         travel_mode: 'included',
-        travel_note: 'Gasthaus is directly at the Jaufenpass summit parking, no transfer.',
-        note: 'Classic mountain Gasthaus at the pass, Kaspressknödel, Speckplatte, Apfelstrudel, Forst beer. Sun terrace with both-sides views.',
+        travel_note: 'Park along SS44 through the hamlet; several trattorias / Gasthöfe.',
+        note: 'Tiny valley stop between Timmelsjoch descent and the Jaufenpass climb — matches trip/day-04.md.',
+        links: [],
+      },
+      {
+        time: '~14:00',
+        kind: 'snack',
+        place: 'Jaufenhaus (Jaufenpass summit, 2,094 m) — optional',
+        waypointRef: 'd4-w4',
+        duration_min: 25,
+        travel_min: 0,
+        travel_mode: 'included',
+        travel_note: 'Gasthaus at the pass parking — coffee, Apfelstrudel, or a light second course if hungry.',
+        note: 'Classic terrace views both sides of the ridge. Skip if Walten lunch ran long.',
         links: [
           { label: 'Jaufenhaus', url: 'https://www.jaufenhaus.it/en/' },
         ],
@@ -792,7 +820,7 @@ const days = [
     ],
     significantStops: [
       { name: 'Sölden (1,368 m)',                 waypointRef: 'd4-w1', duration_min: 15, note: "Ötztal's best-known ski town; last fuel before the pass toll gate" },
-      { name: 'St. Leonhard in Passeier',         waypointRef: 'd4-w3', duration_min: 10, note: 'Stretch stop at the Jaufenpass junction; Andreas Hofer Museum here if history-minded' },
+      { name: 'Walten / Valtina (~1,300 m)',      waypointRef: 'd4-w3', duration_min: 55, note: 'Passeier-valley hamlet; planned lunch stop. Pfarrkirche St. Anton on the roadside.' },
       { name: 'Sterzing / Vipiteno (948 m)',      waypointRef: 'd4-w5', duration_min: 15, note: 'Medieval arcaded town, fuel + coffee. Deep old-town stroll skipped to preserve time for Braies.' },
     ],
     overnight: {

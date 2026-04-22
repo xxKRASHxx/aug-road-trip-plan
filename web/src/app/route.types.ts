@@ -7,11 +7,11 @@ export interface Waypoint {
   type: WaypointType;
   /**
    * Optional shortlinks that resolve to a specific POI in each maps app.
-   * - Apple Maps  : https://maps.apple/p/<shortId>   (Share sheet → Copy link)
+   * - Apple Maps  : https://maps.apple.com/p/<shortId> (Share → Copy Link in Maps)
    * - Google Maps : https://maps.app.goo.gl/<id>     (Share → Copy link)
-   * When present, the map popup uses these instead of coord-based search URLs,
-   * so the link lands on the real place card (reviews, photos, hours) rather
-   * than a generic coordinate pin.
+   * When present, the map popup uses these instead of the built-in search URLs.
+   * Fallback links are query-only (no coordinates); they still rely on search
+   * ranking — use overrides for a guaranteed POI.
    */
   appleMapsUrl?: string;
   googleMapsUrl?: string;

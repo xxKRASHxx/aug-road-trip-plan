@@ -19,6 +19,8 @@ waypoints:
     coords: [46.8394, 11.3211]
   - label: "Sterzing / Vipiteno"
     coords: [46.8963, 11.4336]
+  - label: "Lago di Braies / Pragser Wildsee (1,494 m)"
+    coords: [46.6946, 12.0858]
   - label: "Cortina d'Ampezzo"
     coords: [46.5366, 12.1357]
 ---
