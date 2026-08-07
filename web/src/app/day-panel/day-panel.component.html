@@ -486,7 +486,33 @@
             </ul>
           }
 
-          <!-- ==== OVERNIGHT ==== -->
+          <!-- ==== TIMELINE (collapsed) ==== -->
+          <details class="timeline-wrap">
+            <summary>{{ t('day.timeline.detailed') }}</summary>
+            <ol class="timeline">
+              @for (t of day.timeline; track $index) {
+                <li
+                  class="tl-item"
+                  [class.has-ref]="!!t.waypointRef"
+                  [class.focused]="isFocused('tl-' + day.day + '-' + $index)"
+                  (click)="focusItem('tl-' + day.day + '-' + $index, t.waypointRef)"
+                >
+                  <span class="tl-dot" [style.background]="day.color"></span>
+                  <div class="tl-body">
+                    <div class="tl-head">
+                      <span class="tl-time">{{ t.time }}</span>
+                      <span class="tl-event">{{ t.event }}</span>
+                    </div>
+                    @if (t.notes) {
+                      <div class="tl-notes">{{ t.notes }}</div>
+                    }
+                  </div>
+                </li>
+              }
+            </ol>
+          </details>
+
+          <!-- ==== OVERNIGHT / BOOKING (end of day) ==== -->
           <h3 class="section-heading">{{ t('day.sectionOvernight') }}</h3>
           @if (day.overnight; as o) {
             <article class="card overnight">
@@ -515,32 +541,6 @@
               </div>
             </article>
           }
-
-          <!-- ==== TIMELINE (collapsed) ==== -->
-          <details class="timeline-wrap">
-            <summary>{{ t('day.timeline.detailed') }}</summary>
-            <ol class="timeline">
-              @for (t of day.timeline; track $index) {
-                <li
-                  class="tl-item"
-                  [class.has-ref]="!!t.waypointRef"
-                  [class.focused]="isFocused('tl-' + day.day + '-' + $index)"
-                  (click)="focusItem('tl-' + day.day + '-' + $index, t.waypointRef)"
-                >
-                  <span class="tl-dot" [style.background]="day.color"></span>
-                  <div class="tl-body">
-                    <div class="tl-head">
-                      <span class="tl-time">{{ t.time }}</span>
-                      <span class="tl-event">{{ t.event }}</span>
-                    </div>
-                    @if (t.notes) {
-                      <div class="tl-notes">{{ t.notes }}</div>
-                    }
-                  </div>
-                </li>
-              }
-            </ol>
-          </details>
         </section>
       }
     }

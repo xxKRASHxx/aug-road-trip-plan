@@ -1,9 +1,9 @@
 ---
 day: 2
-title: "Kaprun → Innsbruck Nordkette → Zirl"
+title: "Kaprun → Innsbruck Nordkette → Fulpmes"
 from: "Kaprun"
-to: "Zirl"
-overnight: "Zirl"
+to: "Fulpmes"
+overnight: "Fulpmes"
 osrm_drive_min: 170
 distance_km: 166
 waypoints:
@@ -19,14 +19,14 @@ waypoints:
     coords: [47.3236, 11.3897]
   - label: "Innsbruck old town — Goldenes Dachl"
     coords: [47.2682, 11.3933]
-  - label: "Zirl (overnight)"
-    coords: [47.2677, 11.2395]
+  - label: "Fulpmes (overnight)"
+    coords: [47.1527, 11.3489]
 ---
 
-# Day 2 — Kaprun → Innsbruck Nordkette → Zirl
+# Day 2 — Kaprun → Innsbruck Nordkette → Fulpmes
 
 **Date:** `[ TBD ]`  
-**Drive:** ~2h 32 min to Innsbruck + ~18 min to Zirl  
+**Drive:** ~2h 32 min to Innsbruck + ~25 min to Fulpmes (Stubaital)  
 **Distance:** ~166 km total  
 **Theme:** Alpine city cable car, panorama ridge, old town stroll
 
@@ -45,8 +45,9 @@ waypoints:
 | 14:00–15:30 | **Nordkette hike** ⭐ | Take second gondola to **Hafelekar** (2,256 m), then walk the panorama trail back down to Seegrube (~1h, moderate — some steep rocky sections, solid footwear needed). Views over Innsbruck and the Inn valley. |
 | 15:30 | Ride down | Gondola Seegrube → Hungerburg, funicular down to Congress |
 | 16:00–18:00 | **Innsbruck old town** | Goldenes Dachl, Maria-Theresien-Straße, Triumphpforte. Evening beer at a Biergarten or pavement café |
-| 18:00 | Depart Innsbruck | Drive ~18 min west on A12 |
-| ~18:20 | Arrive **Zirl** | Check in |
+| 18:00 | Depart Innsbruck | Drive ~25 min south into the Stubaital (L12) |
+| ~18:25 | Arrive **Fulpmes** | Check in at **Hotel Garni Hubertus** (Medrazerstraße 10) |
+| Evening | Dinner in Fulpmes | Hotel partner **Pizzeria Pavillon** (~1 min walk) or Stubaital Gasthof |
 
 ---
 
@@ -63,10 +64,10 @@ waypoints:
 
 ## Overnight
 
-**Town:** Zirl  
-**Property:** `[ BOOK: TBD ]`  
-**Notes:** Small Inn valley town, 18 min west of Innsbruck city center. Quieter and cheaper than staying in the city. Strategically placed: saves 13 min on the Day 3 morning drive to Ötztal (Zirl → Umhausen = ~1h 03min vs 1h 16min from Innsbruck center).  
-**Booking:** https://www.booking.com — search "Zirl Tirol"
+**Town:** Fulpmes (Stubaital)  
+**Property:** **Hotel Garni Hubertus** — [booked on Booking.com](https://www.booking.com/Share-E41tuyP)  
+**Address:** Medrazerstraße 10, A-6166 Fulpmes  
+**Notes:** Stubaital village ~25 min south of Innsbruck. Indoor pool & sauna at the hotel. Check-in 15:00–20:00. Hotel prefers **cash or bank transfer** (no credit/EC cards on site). Partner restaurant Pizzeria Pavillon next door.
 
 ---
 
@@ -86,6 +87,6 @@ waypoints:
 | Nordkette timetable | https://www.nordkette.com/en/timetable |
 | Nordkette webcams | https://www.nordkette.com/en/webcams |
 | Innsbruck old town info | https://www.innsbruck.info/en/experience/city/old-town.html |
-| Hungerburg funicular in Maps | Search: `Hungerburgbahn Talstation Innsbruck` · coords `47.2867, 11.4034` |
-| Zirl in Maps | Search: `Zirl, Tyrol` · coords `47.2677, 11.2395` |
-| Zirl accommodation | https://www.booking.com (search "Zirl") |
+| Hotel Garni Hubertus | https://www.hubertus-fulpmes.at/?lang=en |
+| Booking confirmation | https://www.booking.com/Share-E41tuyP |
+| Fulpmes in Maps | Search: `Fulpmes, Stubaital` · coords `47.1527, 11.3489` |

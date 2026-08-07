@@ -1,0 +1,8 @@
+{
+  "terminal.integrated.env.osx": {
+    "NVM_DIR": "${env:HOME}/.nvm"
+  },
+  "terminal.integrated.env.linux": {
+    "NVM_DIR": "${env:HOME}/.nvm"
+  }
+}

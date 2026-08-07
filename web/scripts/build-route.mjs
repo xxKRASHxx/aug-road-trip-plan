@@ -118,14 +118,11 @@ const days = [
       { id: 'd1-w5', label: 'Bruck a.d. Großglocknerstraße',           coords: [47.2862, 12.8218], type: 'via',       city: 'Bruck an der Großglocknerstraße', postcode: '5671', region: 'Salzburg, Austria' },
       { id: 'd1-w6', label: 'Kaprun (overnight)',                      coords: [47.2724, 12.7477], type: 'overnight', city: 'Kaprun', postcode: '5710', region: 'Salzburg, Austria' },
     ],
-    // Großglockner Hochalpenstraße is a toll road, drawn as straight lines
-    // between waypoints (OSRM would re-route around it). Times are estimates.
-    manualLegs: [
-      { index: 1, duration_min: 40, distance_km: 25 },   // Heiligenblut → Hochtor
-      { index: 2, duration_min: 10, distance_km: 5.5 }, // Hochtor → Edelweißspitze (spur via Fuscher Törl)
-      { index: 3, duration_min: 8,  distance_km: 2  },  // Edelweißspitze → Fuscher Lacke (back to Fuscher Törl + on)
-      { index: 4, duration_min: 35, distance_km: 22 },  // Fuscher Lacke → Bruck (descent)
-    ],
+    // Großglockner Hochalpenstraße is in OSM; OSRM routes the toll road (legs 1–4).
+    // B100 → B106 Mölltal (scenic); via Spittal keeps OSRM off the A10 short-cut.
+    osrmVias: {
+      0: [[46.7970, 13.4950]],
+    },
     timeline: [
       { time: '09:00',  event: 'Wake',                                 notes: 'Klagenfurt',                                                                           waypointRef: 'd1-w0' },
       { time: '10:00',  event: 'Depart',                               notes: 'B100 → B106 Mölltal scenic, not A10',                                                 waypointRef: 'd1-w0' },
@@ -249,11 +246,11 @@ const days = [
   },
 
   // =========================================================================
-  // DAY 2, Kaprun -> Innsbruck Nordkette -> Zirl
+  // DAY 2, Kaprun -> Innsbruck Nordkette -> Fulpmes
   // =========================================================================
   {
     day: 2,
-    title: 'Kaprun → Nordkette → Zirl',
+    title: 'Kaprun → Nordkette → Fulpmes',
     theme: 'Motorway sprint, then the cable car straight from Innsbruck old town to a 2,256 m ridge',
     // Day starts in Salzburg (Kaprun / Zell am See) then runs west into Tirol.
     // Default to Tirol since 5 of 7 waypoints are there; Salzburg waypoints
@@ -263,13 +260,13 @@ const days = [
       summary:
         'A fast motorway transfer west, then a classic Innsbruck half-day: a funicular ' +
         'plus two cable cars straight from the city centre to 2,256 m. Panoramic lunch ' +
-        'above the Inn valley, an old-town stroll at golden hour, and a quiet night in Zirl.',
+        'above the Inn valley, an old-town stroll at golden hour, and a night in Fulpmes (Stubaital).',
       facts: [
         { label: 'Cable car',  value: 'Nordkettenbahnen (~€47 pp return)' },
         { label: 'Top',        value: 'Hafelekar · 2,256 m' },
         { label: 'Old town',   value: 'Goldenes Dachl, Hofgarten' },
         { label: 'Driving',    value: 'A10 → A12 motorway' },
-        { label: 'Sleep',      value: 'Zirl, quieter & cheaper than Innsbruck' },
+        { label: 'Sleep',      value: 'Hotel Garni Hubertus · Fulpmes' },
       ],
       hint: 'Click any marker on the map, or a row below, to focus that location.',
     },
@@ -279,7 +276,7 @@ const days = [
     },
     color: '#f4a261',
     from: 'Kaprun',
-    to: 'Zirl',
+    to: 'Fulpmes',
     // Zell am See lakefront stretch-break added on departure, the lake is
     // 10 min from Kaprun and is the "missing" sight of the Salzburg leg.
     waypoints: [
@@ -289,14 +286,28 @@ const days = [
       { id: 'd2-w3', label: 'Seegrube Nordkette (1,905 m)',            coords: [47.3167, 11.3833], type: 'viewpoint', city: 'Innsbruck',   postcode: '6020' },
       { id: 'd2-w4', label: 'Hafelekar Nordkette (2,256 m)',           coords: [47.3236, 11.3897], type: 'viewpoint', city: 'Innsbruck',   postcode: '6020' },
       { id: 'd2-w5', label: 'Goldenes Dachl, Innsbruck',               coords: [47.2682, 11.3933], type: 'activity',  city: 'Innsbruck',   postcode: '6020' },
-      { id: 'd2-w6', label: 'Zirl (overnight)',                         coords: [47.2677, 11.2395], type: 'overnight', city: 'Zirl',        postcode: '6170' },
+      { id: 'd2-w6', label: 'Fulpmes (overnight)',                      coords: [47.1527, 11.3489], type: 'overnight', city: 'Fulpmes',     postcode: '6166', region: 'Stubaital, Tirol, Austria', feature: 'Hotel' },
     ],
-    // Cable car segments, funicular + gondola, not road.
+    // Cable car segments (funicular + gondola): not on the drivable network, so manual.
+    // Hafelekar → old town is OSRM-routed (drive down via Nordkette service road).
     manualLegs: [
       { index: 2, duration_min: 8,  distance_km: 2.5 }, // Hungerburg → Seegrube (gondola up)
       { index: 3, duration_min: 5,  distance_km: 1   }, // Seegrube → Hafelekar (gondola up)
-      { index: 4, duration_min: 20, distance_km: 3.5 }, // Hafelekar → Old town (full ride down + short walk)
     ],
+    manualPaths: {
+      2: [
+        [47.2867, 11.4034], [47.2895, 11.4015], [47.2930, 11.3995], [47.2970, 11.3975],
+        [47.3010, 11.3955], [47.3050, 11.3935], [47.3090, 11.3915], [47.3130, 11.3895],
+        [47.3167, 11.3833],
+      ],
+      3: [
+        [47.3167, 11.3833], [47.3185, 11.3850], [47.3205, 11.3870], [47.3236, 11.3897],
+      ],
+    },
+    // Force A12 Inn valley motorway via Wörgl (OSRM otherwise prefers B164 Hochkönig).
+    osrmVias: {
+      1: [[47.4886, 12.0683]],
+    },
     timeline: [
       { time: '09:00',  event: 'Wake',                                 notes: 'Kaprun',                                                                               waypointRef: 'd2-w0' },
       { time: '10:00',  event: 'Depart',                               notes: 'B311 → B178 → A12 Inn valley motorway',                                                waypointRef: 'd2-w0' },
@@ -308,8 +319,9 @@ const days = [
       { time: '14:45–16:15', event: 'Nordkette hike',                  notes: 'Gondola to Hafelekar; walk panorama trail back to Seegrube (~1 h, moderate)',         waypointRef: 'd2-w4' },
       { time: '16:15',  event: 'Ride down',                            notes: 'Seegrube → Hungerburg → Congress',                                                    waypointRef: 'd2-w3' },
       { time: '16:45–18:00', event: 'Innsbruck old town',              notes: 'Goldenes Dachl, Maria-Theresien-Str., Triumphpforte',                                 waypointRef: 'd2-w5' },
-      { time: '18:00',  event: 'Depart Innsbruck',                     notes: '~18 min west on A12',                                                                 waypointRef: 'd2-w5' },
-      { time: '~18:20', event: 'Arrive Zirl',                          notes: 'Check in; dinner at a village Gasthof',                                               waypointRef: 'd2-w6' },
+      { time: '18:00',  event: 'Depart Innsbruck',                     notes: '~25 min south into the Stubaital (L12)',                                              waypointRef: 'd2-w5' },
+      { time: '~18:25', event: 'Arrive Fulpmes',                       notes: 'Check in at Hotel Garni Hubertus (Medrazerstraße 10)',                                waypointRef: 'd2-w6' },
+      { time: 'Evening', event: 'Dinner in Fulpmes',                   notes: 'Hotel partner Pizzeria Pavillon (~1 min walk) or Stubaital Gasthof',                  waypointRef: 'd2-w6' },
     ],
     activities: [
       {
@@ -394,6 +406,20 @@ const days = [
           { label: 'Innsbruck dining guide', url: 'https://www.innsbruck.info/en/eat-and-drink/', note: 'Tourism office restaurant list' },
         ],
       },
+      {
+        time: 'Evening',
+        kind: 'dinner',
+        place: 'Pizzeria Pavillon or Fulpmes Gasthof',
+        waypointRef: 'd2-w6',
+        duration_min: 90,
+        travel_min: 0,
+        travel_mode: 'walk',
+        travel_note: 'Pizzeria Pavillon is ~1 min from Hotel Garni Hubertus (hotel partner; half-board menu available).',
+        note: 'Tiroler classics or pizza after the Innsbruck day. Hotel settles bills in cash or bank transfer — no credit/EC cards on site.',
+        links: [
+          { label: 'Hotel Garni Hubertus', url: 'https://www.hubertus-fulpmes.at/?lang=en' },
+        ],
+      },
     ],
     // Stops covered by the activities above, no extra dwell time to count.
     significantStops: [
@@ -403,10 +429,10 @@ const days = [
       { name: 'Goldenes Dachl',                  waypointRef: 'd2-w5', duration_min: 0,  note: 'Iconic Innsbruck golden roof (included in old-town stroll)' },
     ],
     overnight: {
-      town: 'Zirl',
-      property: null,
-      note: 'Small Inn valley town 18 min west of Innsbruck. Quieter and cheaper than the city. Saves 13 min on Day 3 morning drive to Ötztal.',
-      bookingUrl: 'https://www.booking.com/searchresults.html?ss=Zirl+Tirol',
+      town: 'Fulpmes',
+      property: 'Hotel Garni Hubertus',
+      note: 'Booked — Stubaital village ~25 min south of Innsbruck. Indoor pool & sauna at the hotel. Check-in 15:00–20:00; hotel prefers cash or bank transfer (no credit/EC cards).',
+      bookingUrl: 'https://www.booking.com/Share-E41tuyP',
     },
     photos: [
       wmPhoto('Airport Innsbruck (LOWI) Panorama - Nordkette.jpg',
@@ -422,11 +448,11 @@ const days = [
   },
 
   // =========================================================================
-  // DAY 3, Zirl -> Stuibenfall Klettersteig -> Ötztal
+  // DAY 3, Fulpmes -> Stuibenfall Klettersteig -> Ötztal
   // =========================================================================
   {
     day: 3,
-    title: 'Zirl → Stuibenfall Klettersteig → Ötztal',
+    title: 'Fulpmes → Stuibenfall Klettersteig → Ötztal',
     theme: "The adrenaline day, 3 h of iron rungs beside Austria's 159 m waterfall, thermal baths at night",
     // Entire day is inside the Ötztal valley.
     region: 'Ötztal, Tirol, Austria',
@@ -449,20 +475,20 @@ const days = [
       summary: 'Most physically demanding day, 3 h on a B/C-grade via ferrata with significant exposure. Weather-dependent; no room to improvise.',
     },
     color: '#2a9d8f',
-    from: 'Zirl',
+    from: 'Fulpmes',
     to: 'Umhausen / Längenfeld',
     // Route is strictly southward down the Ötztal valley, no backtracking.
     // Stuibenfall waterfall and ferrata approach are on foot from the Umhausen
     // gear rental + parking area, so there is no separate drive leg out to the
     // trailhead.
     waypoints: [
-      { id: 'd3-w0', label: 'Zirl (start)',                               coords: [47.2677, 11.2395], type: 'start',     city: 'Zirl',       postcode: '6170', region: 'Tirol, Austria' },
+      { id: 'd3-w0', label: 'Fulpmes (start)',                            coords: [47.1527, 11.3489], type: 'start',     city: 'Fulpmes',    postcode: '6166', region: 'Stubaital, Tirol, Austria', feature: 'Hotel' },
       { id: 'd3-w1', label: 'Stuibenfall trailhead, Umhausen',            coords: [47.1289, 10.9349], type: 'activity',  city: 'Umhausen',   postcode: '6441' },
       { id: 'd3-w2', label: 'Längenfeld (overnight)',                     coords: [47.0731, 10.9736], type: 'overnight', city: 'Längenfeld', postcode: '6444' },
     ],
     manualLegs: [],
     timeline: [
-      { time: '09:00',       event: 'Wake',                          notes: 'Zirl, check weather (mountain-forecast + ZAMG Tirol)',                                  waypointRef: 'd3-w0' },
+      { time: '09:00',       event: 'Wake',                          notes: 'Fulpmes, check weather (mountain-forecast + ZAMG Tirol)',                               waypointRef: 'd3-w0' },
       { time: '10:00',       event: 'Depart',                        notes: 'B171 → B186 into Ötztal',                                                               waypointRef: 'd3-w0' },
       { time: '~11:03',      event: 'Arrive Umhausen',               notes: 'Park at / near the gear shop, you walk from here, no further driving',                 waypointRef: 'd3-w1' },
       { time: '11:05–11:30', event: 'Gear pickup',                   notes: 'Helmet, harness, via ferrata Y-lanyard, reserve ahead',                                waypointRef: 'd3-w1' },
@@ -660,12 +686,7 @@ const days = [
       { id: 'd4-w6', label: 'Lago di Braies / Pragser Wildsee (1,494 m)', coords: [46.6946, 12.0858], type: 'viewpoint', city: 'Prags',                    postcode: '39030' },
       { id: 'd4-w7', label: "Cortina d'Ampezzo (overnight)",             coords: [46.5366, 12.1357], type: 'overnight', city: "Cortina d'Ampezzo",        postcode: '32043', region: 'Dolomites, Veneto, Italy' },
     ],
-    // Timmelsjoch is a private toll road, OSRM won't route it. Declare the
-    // affected legs as manual with realistic estimates so the map is honest.
-    manualLegs: [
-      { index: 1, duration_min: 35, distance_km: 24 }, // Sölden → Timmelsjoch summit (toll)
-      { index: 2, duration_min: 55, distance_km: 35 }, // Timmelsjoch → Walten / Valtina (Italian descent)
-    ],
+    // Timmelsjoch toll road is in OSM; OSRM routes legs 1–2.
     timeline: [
       { time: '09:00',        event: 'Wake',                              notes: 'Längenfeld (Ötztal)',                                                                                   waypointRef: 'd4-w0' },
       { time: '10:00',        event: 'Depart',                            notes: 'B186 south through the upper Ötztal',                                                                   waypointRef: 'd4-w0' },
@@ -824,10 +845,10 @@ const days = [
       { name: 'Sterzing / Vipiteno (948 m)',      waypointRef: 'd4-w5', duration_min: 15, note: 'Medieval arcaded town, fuel + coffee. Deep old-town stroll skipped to preserve time for Braies.' },
     ],
     overnight: {
-      town: "Cortina d'Ampezzo",
-      property: null,
-      note: 'Upscale mountain resort; July–August tightens fast. Cheaper alternatives within 15 min: San Vito di Cadore, Pocol. (Arrival ~17:00 with the scenic route, book ahead.)',
-      bookingUrl: "https://www.booking.com/searchresults.html?ss=Cortina+d%27Ampezzo",
+      town: 'Longarone',
+      property: 'Antico Borgo',
+      note: 'Booked 13–14 Aug 2026 (8 guests). ~40 min south of Cortina on SS51 toward Belluno — check in after Cortina dinner. Day 5: allow extra drive time to Misurina vs staying in Cortina.',
+      bookingUrl: 'https://www.booking.com/hotel/it/antico-borgo-longarone.html?checkin=2026-08-13&checkout=2026-08-14&group_adults=8&no_rooms=1',
     },
     photos: [
       wmPhoto('Passo del Rombo 06.JPG',
@@ -887,10 +908,7 @@ const days = [
       { id: 'd5-w2', label: 'Rifugio Auronzo / Tre Cime (2,333 m)', coords: [46.6128, 12.2967], type: 'viewpoint', city: 'Auronzo di Cadore',       postcode: '32041' },
       { id: 'd5-w3', label: 'Klagenfurt (home)',                    coords: [46.6228, 14.3050], type: 'end',      city: 'Klagenfurt am Wörthersee', postcode: '9020', region: 'Carinthia, Austria' },
     ],
-    // Tre Cime toll road (Misurina -> Rifugio Auronzo) is private and not routed by OSRM.
-    manualLegs: [
-      { index: 1, duration_min: 15, distance_km: 8 }, // Misurina → Rifugio Auronzo (toll road uphill)
-    ],
+    // Tre Cime toll road (Misurina → Rifugio Auronzo) is in OSM; OSRM routes leg 1.
     // Early start so we hit the Tre Cime toll road parking before it fills
     // (sunny weekends: full by 09:30–10:00).
     timeline: [
@@ -1060,10 +1078,10 @@ const days = [
 
 // -----------------------------------------------------------------------------
 
-async function fetchLeg(fromCoords, toCoords) {
-  const [flat, flon] = fromCoords;
-  const [tlat, tlon] = toCoords;
-  const url = `http://router.project-osrm.org/route/v1/driving/${flon},${flat};${tlon},${tlat}?geometries=geojson&overview=full`;
+async function fetchLeg(fromCoords, toCoords, viaCoords = []) {
+  const all = [fromCoords, ...viaCoords, toCoords];
+  const pts = all.map(([lat, lon]) => `${lon},${lat}`).join(';');
+  const url = `http://router.project-osrm.org/route/v1/driving/${pts}?geometries=geojson&overview=full`;
   const res = await fetch(url);
   if (!res.ok) throw new Error(`OSRM HTTP ${res.status} for ${url}`);
   const data = await res.json();
@@ -1083,6 +1101,19 @@ function straightLeg(fromCoords, toCoords, meta = {}) {
     duration_s: meta.duration_min != null ? meta.duration_min * 60 : null,
     distance_m: meta.distance_km != null ? meta.distance_km * 1000 : null,
     geometry: { type: 'LineString', coordinates: [[flon, flat], [tlon, tlat]] },
+    manual: true,
+  };
+}
+
+/** Manual leg with intermediate [lat, lon] points (toll roads, cable cars, etc.). */
+function pathLeg(latLonPoints, meta = {}) {
+  return {
+    duration_s: meta.duration_min != null ? meta.duration_min * 60 : null,
+    distance_m: meta.distance_km != null ? meta.distance_km * 1000 : null,
+    geometry: {
+      type: 'LineString',
+      coordinates: latLonPoints.map(([lat, lon]) => [lon, lat]),
+    },
     manual: true,
   };
 }
@@ -1224,21 +1255,24 @@ async function main() {
   for (const d of days) {
     const legs = [];
     const manual = manualLegsMap(d.manualLegs);
+    const paths = d.manualPaths ?? {};
+    const vias  = d.osrmVias ?? {};
     for (let i = 0; i < d.waypoints.length - 1; i++) {
       const from = d.waypoints[i].coords;
       const to   = d.waypoints[i + 1].coords;
       if (manual.has(i)) {
-        legs.push(straightLeg(from, to, manual.get(i)));
-      } else {
-        process.stdout.write(`  day ${d.day} leg ${i}: ${d.waypoints[i].label} → ${d.waypoints[i + 1].label} ... `);
-        try {
-          const leg = await fetchLeg(from, to);
-          console.log(`${(leg.duration_s / 60).toFixed(1)} min, ${(leg.distance_m / 1000).toFixed(1)} km`);
-          legs.push(leg);
-        } catch (e) {
-          console.log(`OSRM failed (${e.message}), falling back to straight line`);
-          legs.push(straightLeg(from, to));
+        const meta = manual.get(i);
+        if (paths[i]) {
+          legs.push(pathLeg(paths[i], meta));
+        } else {
+          legs.push(straightLeg(from, to, meta));
         }
+      } else {
+        const via = vias[i] ?? [];
+        process.stdout.write(`  day ${d.day} leg ${i}: ${d.waypoints[i].label} → ${d.waypoints[i + 1].label} ... `);
+        const leg = await fetchLeg(from, to, via);
+        console.log(`${(leg.duration_s / 60).toFixed(1)} min, ${(leg.distance_m / 1000).toFixed(1)} km`);
+        legs.push(leg);
         await new Promise(r => setTimeout(r, 400));
       }
     }

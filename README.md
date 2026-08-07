@@ -27,11 +27,24 @@ Angular 21 + Leaflet 1.9, hitting public OpenStreetMap tiles. No API keys needed
 
 ### Run locally
 
+Requires **Node 22** (via [nvm](https://github.com/nvm-sh/nvm)) and **npm ≥ 10.9.4** (Angular 21).
+
 ```bash
 cd web
+nvm install    # reads .nvmrc
 npm install
 npm start
 ```
+
+Or use the wrapper (installs/activates nvm Node automatically):
+
+```bash
+cd web
+./scripts/with-node.sh npm install
+./scripts/with-node.sh npm start
+```
+
+In VS Code / Cursor, use **Run and Debug → ng serve** — the launch task runs through `with-node.sh`.
 
 Then open <http://localhost:4200>.
 

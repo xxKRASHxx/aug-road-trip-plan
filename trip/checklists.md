@@ -7,9 +7,9 @@
 | Item | Day | Deadline | Status |
 |------|-----|----------|--------|
 | Accommodation — **Kaprun** (Night 1) | 1 | ASAP (July–Aug peak) | `[ TBD ]` |
-| Accommodation — **Zirl** (Night 2) | 2 | ASAP | `[ TBD ]` |
+| Accommodation — **Fulpmes / Hotel Garni Hubertus** (Night 2) | 2 | **Booked** | [Booking confirmation ↗](https://www.booking.com/Share-E41tuyP) |
 | Accommodation — **Umhausen / Längenfeld** (Night 3) | 3 | ASAP | `[ TBD ]` |
-| Accommodation — **Cortina d'Ampezzo** (Night 4) | 4 | ASAP (expensive — book first) | `[ TBD ]` |
+| Accommodation — **Longarone / Antico Borgo** (Night 4) | 4 | **Booked** 13–14 Aug | [Antico Borgo ↗](https://www.booking.com/hotel/it/antico-borgo-longarone.html?checkin=2026-08-13&checkout=2026-08-14&group_adults=8&no_rooms=1) |
 | **Nordkette** tickets online (skip queue) | 2 | 1–2 weeks ahead | `[ TBD ]` |
 | **Stuibenfall guide** (Ötztal Mountain Guides) | 3 | 4–6 weeks ahead | `[ TBD ]` |
 | **Ferrata gear rental** (if self, no guide) | 3 | 1–2 weeks ahead | `[ TBD ]` |

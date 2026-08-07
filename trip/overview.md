@@ -18,7 +18,7 @@ Kaprun  [Night 1]
     ↓  Inn valley / A12
 Innsbruck  →  Nordkette cable car
     ↓
-Zirl  [Night 2]
+Fulpmes  [Night 2]
     ↓  Ötztal (B186)
 Umhausen  →  Stuibenfall Klettersteig
     ↓
@@ -40,8 +40,8 @@ Klagenfurt  (home)
 | Day | From → To | Drive (OSRM) | Main activity | Sleep |
 |-----|-----------|--------------|---------------|-------|
 | 1 | Klagenfurt → Kaprun | ~4h 04min + 45 min lake stop | Großglockner road + **Fuscher Lacke** (2,262 m) | **Kaprun** |
-| 2 | Kaprun → Zirl | ~2h 32min | **Nordkette** cable car + Innsbruck old town | **Zirl** |
-| 3 | Zirl → Ötztal | ~1h 03min | **Stuibenfall Klettersteig** (B/C via ferrata, full day) | **Umhausen / Längenfeld** |
+| 2 | Kaprun → Fulpmes | ~2h 32min + ~25min | **Nordkette** cable car + Innsbruck old town | **Fulpmes** (Hotel Garni Hubertus) |
+| 3 | Fulpmes → Ötztal | ~1h 03min | **Stuibenfall Klettersteig** (B/C via ferrata, full day) | **Umhausen / Längenfeld** |
 | 4 | Ötztal → Cortina (via Timmelsjoch + Jaufenpass) | ~3h 25min + pass stops | **Timmelsjoch (2,509 m)** + **Jaufenpass (2,094 m)** scenic-drive day | **Cortina d'Ampezzo** |
 | 5 | Cortina → Klagenfurt | ~3h 18min home leg | **Lago di Misurina** + **Tre Cime** viewpoint (Rifugio Auronzo) | — home — |
 
@@ -54,9 +54,9 @@ Klagenfurt  (home)
 | Night | Town | Property | Booking note |
 |-------|------|----------|--------------|
 | 1 | **Kaprun** | `[ BOOK: TBD ]` | 20–40 % cheaper than Zell am See; book early for July–Aug |
-| 2 | **Zirl** | `[ BOOK: TBD ]` | Small Inn valley town; easy availability |
+| 2 | **Fulpmes** (Hotel Garni Hubertus) | **Booked** — [Share link](https://www.booking.com/Share-E41tuyP) | Stubaital, ~25 min south of Innsbruck |
 | 3 | **Umhausen or Längenfeld** (Ötztal) | `[ BOOK: TBD ]` | Valley guesthouses; reserve ahead |
-| 4 | **Cortina d'Ampezzo** | `[ BOOK: TBD ]` | Peak-season resort prices; alt: San Vito di Cadore (15 min) |
+| 4 | **Longarone** (Antico Borgo) | **Booked** — [Antico Borgo](https://www.booking.com/hotel/it/antico-borgo-longarone.html?checkin=2026-08-13&checkout=2026-08-14&group_adults=8&no_rooms=1) · 13–14 Aug | ~40 min south of Cortina; dinner still in Cortina |
 
 ---
 
@@ -68,8 +68,8 @@ Klagenfurt  (home)
 | Heiligenblut → Bruck (Großglockner road, toll) | ~1h 30min est. | not OSRM-routable |
 | Bruck an der Großglocknerstraße → Kaprun | ~17 min | 12 km |
 | Kaprun → Innsbruck (Hungerburg area) | ~2h 32min | 150 km |
-| Innsbruck → Zirl | ~18 min | 15.5 km |
-| Zirl → Umhausen | ~42 min | 53 km |
+| Innsbruck → Fulpmes | ~19 min | 18.5 km |
+| Fulpmes → Umhausen | ~64 min | 79 km |
 | Längenfeld → Sölden → Timmelsjoch | ~36 min | 37 km |
 | Timmelsjoch → Walten → Jaufenpass → Sterzing | ~65 min | 69 km |
 | Sterzing → Cortina (A22 + SS49 + SR51) | ~1h 44min | 111 km |

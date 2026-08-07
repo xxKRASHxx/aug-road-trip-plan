@@ -1,21 +1,21 @@
 ---
 day: 3
-title: "Zirl → Stuibenfall Klettersteig → Ötztal"
-from: "Zirl"
+title: "Fulpmes → Stuibenfall Klettersteig → Ötztal"
+from: "Fulpmes"
 to: "Umhausen / Längenfeld (Ötztal)"
 overnight: "Umhausen or Längenfeld"
 osrm_drive_min: 63
 distance_km: 56
 waypoints:
-  - label: "Zirl (start)"
-    coords: [47.2677, 11.2395]
+  - label: "Fulpmes (start)"
+    coords: [47.1527, 11.3489]
   - label: "Umhausen — gear rental, parking & Stuibenfall trailhead"
     coords: [47.1289, 10.9349]
   - label: "Längenfeld (overnight option)"
     coords: [47.0731, 10.9736]
 ---
 
-# Day 3 — Zirl → Stuibenfall Klettersteig → Ötztal
+# Day 3 — Fulpmes → Stuibenfall Klettersteig → Ötztal
 
 **Date:** `[ TBD ]`  
 **Drive:** ~1h 03 min  
@@ -39,7 +39,7 @@ Check **both** of these the morning of Day 3:
 
 | Time | Event | Notes |
 |------|-------|-------|
-| 09:00 | Wake | Zirl |
+| 09:00 | Wake | Fulpmes |
 | 10:00 | Depart | B171 Inntalstraße → B186 into Ötztal |
 | ~11:03 | Arrive **Umhausen** | Park at / near the gear shop — you walk from here. **No further driving until after the ferrata.** |
 | 11:00–11:30 | **Gear pickup** | Rent helmet, harness, via ferrata Y-lanyard set at local outdoor shop (see links below). **Must be reserved in advance.** |
@@ -88,7 +88,7 @@ Check **both** of these the morning of Day 3:
 ## Practical notes
 
 - **Parking:** Park once in Umhausen at / near the gear shop (coords `47.1108, 10.9241`). Everything else is walkable — no drive-and-return detour to a separate trailhead.
-- **Day 3 driving is light (~1h30 total):** Zirl → Umhausen in the morning, Umhausen → Längenfeld at the end of the day. The entire middle of the day goes to the ferrata on foot. Do not rush the descent; fatigue accidents happen on the way down.
+- **Day 3 driving is light (~1h15 total):** Fulpmes → Umhausen in the morning, Umhausen → Längenfeld at the end of the day. The entire middle of the day goes to the ferrata on foot. Do not rush the descent; fatigue accidents happen on the way down.
 - **Day swap contingency:** If weather is bad on Day 3, drive to Cortina (Day 4's route) instead, and attempt ferrata on Day 4 morning if the forecast is better. Both days are structurally flexible.
 
 ---

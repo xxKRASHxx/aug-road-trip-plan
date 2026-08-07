@@ -88,10 +88,10 @@ This is the **scenic alternative to the Brenner motorway** — slower (about the
 
 ## Overnight
 
-**Town:** Cortina d'Ampezzo  
-**Property:** `[ BOOK: TBD ]`  
-**Notes:** Cortina is an upscale mountain resort — July–August prices are high and availability tightens weeks in advance. With the scenic route, arrival is ~17:00 so book ahead. Cheaper alternatives within 15 min: **San Vito di Cadore** (15 min east), **Pocol** (5 min, small hamlet above Cortina).  
-**Booking:** https://www.booking.com — search "Cortina d'Ampezzo"
+**Town:** Longarone (sleep) — Cortina d'Ampezzo (dinner & stroll)  
+**Property:** **Antico Borgo** — [booked on Booking.com](https://www.booking.com/hotel/it/antico-borgo-longarone.html?checkin=2026-08-13&checkout=2026-08-14&group_adults=8&no_rooms=1)  
+**Dates:** Check-in **13 Aug 2026**, check-out **14 Aug 2026** (8 guests)  
+**Notes:** Longarone is ~40 min south of Cortina on SS51 toward Belluno. After Braies and dinner in Cortina, drive south to check in. Day 5 adds extra morning drive to reach Misurina / Tre Cime — leave early.
 
 ---
 
